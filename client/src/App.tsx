@@ -3,6 +3,10 @@ import { BrowserRouter, Routes, Route, useNavigate, useParams } from "react-rout
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
+import AddAnimal from "./pages/AddAnimal";
+import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
+import AnimalDetails from "./pages/AnimalDetails";
 
 const App = () => {
 
@@ -11,8 +15,12 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/Profile" element={<Profile />} />
+          <Route path="/EditProfile" element={<EditProfile />} /> 
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/SignIn" element={<SignIn />} />
+          <Route path="/AddAnimal" element={<AddAnimal />} />
+          <Route path="/AnimalDetails/:id" element={<AnimalDetails />} />
         </Routes>
       </BrowserRouter>
     </div>

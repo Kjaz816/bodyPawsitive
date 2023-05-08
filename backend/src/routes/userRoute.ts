@@ -7,6 +7,12 @@ router.post("/signup", UserController.signUp);
 
 router.post("/signin", UserController.signIn);
 
-router.get("/getProfile/:profileId", UserController.getProfile)
+router.post("/addAnimal/:username", UserController.addAnimal);
+
+router.get("/getProfile/:username", UserController.getProfile)
+
+router.post("/updateProfile/:username", UserController.updateProfile)
+
+router.get("/getAnimalDetails/:username/animals/:animalId", UserController.getAnimalDetails)
 
 export default router;

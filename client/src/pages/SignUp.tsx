@@ -11,19 +11,11 @@ interface SignUpBody {
 }
 
 const SignUp = () => {
-    const [message, setMessage] = useState("");
     const [signUpError, setSignUpError] = useState("");
 
-    const checkConn = () => {
-        fetch("https://bodypositive.onrender.com/")
-        //fetch("http://localhost:4000/")
-            .then((res) => res.json())
-            .then((data) => setMessage(data.message));
-    };
-
     const addUser = () => {
-        fetch("https://bodypositive.onrender.com/api/users/signUp", {
-        //fetch("http://localhost:4000/api/users/signUp", {
+        //fetch("https://bodypositive.onrender.com/api/users/signUp", {
+        fetch("/api/users/signUp", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -61,13 +53,11 @@ const SignUp = () => {
 
 
     useEffect(() => {
-        checkConn();
     }, []);
 
     return (
         <div>
             <a href="/">Home</a>
-            <p> {message} </p>
             <p>Sign Up</p>
             <div id="signUpFields">
                 <TextField

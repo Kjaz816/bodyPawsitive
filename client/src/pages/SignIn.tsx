@@ -9,18 +9,13 @@ interface SignInBody {
 
 const SignIn = () => {
     const [message, setMessage] = useState("");
-
     const checkConn = () => {
-        fetch("https://bodypositive.onrender.com/")
-        //fetch("http://localhost:4000/")
+        fetch("/")
             .then((res) => res.json())
             .then((data) => setMessage(data.message));
     };
-    
     const addUser = () => {
-    
-        fetch("https://bodypositive.onrender.com/api/users/signIn", {
-        //fetch("http://localhost:4000/api/users/signIn", {
+        fetch("/api/users/signIn", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -29,6 +24,7 @@ const SignIn = () => {
         })
             .then((res) => {
                 if (res.status === 400) {
+                    setLoginFailed("Username or password is incorrect");
                     return Promise.reject("Username or password is incorrect");
                 }
                 return res.json()
@@ -38,21 +34,16 @@ const SignIn = () => {
                 window.location.href = "/";
             })
             .catch((error) => console.error(error));
-
-
     };
-
     const [profileDetails, setProfileDetails] = useState<SignInBody>({
         username: "",
         password: "",
     });
-
+    const [loginFailed, setLoginFailed] = useState("");
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setProfileDetails((prevState) => ({ ...prevState, [name]: value }));
     };
-
-
     useEffect(() => {
         checkConn();
     }, []);
@@ -83,6 +74,7 @@ const SignIn = () => {
             />
             <button onClick={addUser}>Sign In</button>
             </div>
+            <p> {loginFailed} </p>
         </div>
 
     );
