@@ -10,6 +10,9 @@
     "build-client": "cd client && npm run build",
     "start-client": "cd client && npm run start"
   },
+  "dependencies": {
+    "nodemon": "^2.0.22"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
