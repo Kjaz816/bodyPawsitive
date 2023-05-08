@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function App() {
+const App = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
