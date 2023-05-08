@@ -32,7 +32,7 @@ export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = asy
             animals: []
         }).catch(error => {
             console.error(error);
-            return res.status(500).json({ message: "Could not create new user." });
+            return res.status(500).json({ message: error });
         });
         res.status(201).json({ newUser });
     }
