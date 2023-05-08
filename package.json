@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "install-server": "cd backend && npm install",
-    "start-server": "cd backend && npm install && nodemon index.ts",
+    "start-server": "npm install nodemon && cd backend && nodemon index.ts",
     "install-client": "cd client && npm install",
     "build-client": "cd client && npm run build",
     "start-client": "cd client && npm run start"
