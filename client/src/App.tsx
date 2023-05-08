@@ -11,20 +11,26 @@ const App = () => {
   };
 
   const addUser = () => {
+
+    const body = {
+      username: "johndoe",
+      firstName: "John",
+      lastName: "Doe",
+      password: "password",
+      permLevel: "user",
+      email: "",
+    };
+
+    console.log(body)
+
+    
+
     fetch("https://bodypositive.onrender.com/api/users/signUp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        username: "johndoe", 
-        firstName: "John",
-        lastName: "Doe",
-        password: "password",
-        permLevel: "user",
-        email: "",
-        animals: [],
-      }),
+      body: JSON.stringify(body),
     })
       .then((res) => res.json())
       .then((data) => setReqRes(data));
