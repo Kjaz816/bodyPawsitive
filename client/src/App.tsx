@@ -1,52 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route, useNavigate, useParams } from "react-router-dom";
+import SignUp from "./pages/SignUp";
+import Home from "./pages/Home";
+import SignIn from "./pages/SignIn";
 
 const App = () => {
-  const [message, setMessage] = useState("");
-  const [reqRes, setReqRes] = useState("");
-
-  const checkConn = () => {
-    fetch("https://bodypositive.onrender.com/")
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message));
-  };
-
-  const addUser = () => {
-
-    const body = {
-      username: "johndoe",
-      firstName: "John",
-      lastName: "Doe",
-      password: "password",
-      permLevel: "user",
-      email: "",
-    };
-
-    console.log(body)
-
-
-
-    fetch("https://bodypositive.onrender.com/api/users/signUp", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    })
-      .then((res) => res.json())
-      .then((data) => setReqRes(data))
-      .catch((error) => console.error(error));
-  };
-
-
-  useEffect(() => {
-    checkConn();
-  }, []);
 
   return (
     <div className="App">
-      <h1>{message}</h1>
-      <button onClick={addUser}>Add User</button>
-      <h1>{reqRes}</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/SignIn" element={<SignIn />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

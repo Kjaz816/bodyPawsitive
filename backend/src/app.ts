@@ -9,16 +9,17 @@ import "dotenv/config"
 const app = express();
 // middleware
 const corsOptions = {
-    origin: "https://bodypositiveclient.onrender.com" // frontend URI (ReactJS)
+    origin: ["https://bodypositiveclient.onrender.com", "http://localhost:3000"] // frontend URI (ReactJS)
 }
 app.use(express.json());
 app.use(cors(corsOptions));
 
 // route
-app.use("/api/users", userRoute); 
+app.use("/api/users", userRoute);
 
 app.get("/", (req, res) => {
-    res.status(201).json({message: "Connected to Backend!"});
+    res.status(201).json({ message: "Connected to Backend!" });
 });
+
 
 export default app;
