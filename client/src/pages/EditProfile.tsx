@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 
 
@@ -53,7 +53,7 @@ const EditProfile = () => {
 
     const getProfile = () => {
         const username = sessionStorage.getItem("loggedInUser");
-        fetch(`/api/users/getProfile/${username}`, {
+        fetch(`https://bodypositive.onrender.com/api/users/getProfile/${username}`, {
             method: "GET",
         })
             .then((res) => res.json())
@@ -80,7 +80,7 @@ const EditProfile = () => {
 
     const updateProfile = () => {
         const username = sessionStorage.getItem("loggedInUser");
-        const url = `/api/users/updateProfile/${username}`;
+        const url = `https://bodypositive.onrender.com/api/users/updateProfile/${username}`;
         fetch(url, {
             method: "POST",
             headers: {

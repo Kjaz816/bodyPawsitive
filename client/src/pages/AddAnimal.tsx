@@ -24,7 +24,7 @@ const AddAnimal = () => {
 
     const addAnimal = () => {
         const username = sessionStorage.getItem("loggedInUser"); 
-        fetch(`/api/users/addAnimal/${username}`, {
+        fetch(`https://bodypositive.onrender.com/api/users/addAnimal/${username}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

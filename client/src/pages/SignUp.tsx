@@ -15,7 +15,7 @@ const SignUp = () => {
 
     const addUser = () => {
         //fetch("https://bodypositive.onrender.com/api/users/signUp", {
-        fetch("/api/users/signUp", {
+        fetch("https://bodypositive.onrender.com/api/users/signUp", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

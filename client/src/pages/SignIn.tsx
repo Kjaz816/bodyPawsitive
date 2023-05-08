@@ -15,7 +15,7 @@ const SignIn = () => {
             .then((data) => setMessage(data.message));
     };
     const addUser = () => {
-        fetch("/api/users/signIn", {
+        fetch("https://bodypositive.onrender.com/api/users/signIn", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
