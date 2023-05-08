@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import UserModel from "../models/userModel";
 import { RequestHandler } from "express";
 
-interface SignUpBody {
+interface UserDetails {
     username: string;
     firstName: string;
     lastName: string;
@@ -26,7 +26,7 @@ interface AddAnimalBody {
     details: string;
 }
 
-export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = async (req, res) => {
+export const signUp: RequestHandler<unknown, unknown, UserDetails, unknown> = async (req, res) => {
     const { username, firstName, lastName, password, permLevel, email } = req.body;
     try {
         const existingUser = await UserModel.findOne({ username }).exec();
@@ -105,6 +105,24 @@ export const getProfile: RequestHandler< {username: string}, unknown, unknown, u
             return res.status(400).json({ message: "User does not exist!" });
         }
         res.status(200).json( User );
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
+    }
+}
+
+export const updateProfile: RequestHandler< {username: string}, unknown, UserDetails, unknown> = async (req, res) => {
+    const oldUsername = req.params.username;
+    const { username, firstName, lastName, permLevel, email } = req.body;
+    try {
+        const User = await UserModel.findOne({ username: oldUsername }).exec();
+        if (!User) {
+            return res.status(400).json({ message: "User does not exist!" });
+        }
+        const Update = await UserModel.findOneAndUpdate({ username: oldUsername }, { username, firstName, lastName, permLevel, email }, { new: true }).exec()
+        res.status(200).json({
+			message: "Profile updated successfully",
+			data: Update
+		});
     } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }

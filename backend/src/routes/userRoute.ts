@@ -11,4 +11,6 @@ router.post("/addAnimal/:username", UserController.addAnimal);
 
 router.get("/getProfile/:username", UserController.getProfile)
 
+router.post("/updateProfile/:username", UserController.updateProfile)
+
 export default router;
