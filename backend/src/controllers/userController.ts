@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import UserModel from "../models/userModel";
 import { RequestHandler } from "express";
+import { ObjectId } from "mongodb";
 
 interface UserDetails {
     username: string;
@@ -46,14 +47,14 @@ export const signUp: RequestHandler<unknown, unknown, UserDetails, unknown> = as
             console.error(error);
             return res.status(500).json({ message: error });
         });
-        res.status(201).json({ newUser }); 
+        res.status(201).json({ newUser });
     }
     catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }
 }
 
-export const signIn: RequestHandler<unknown, unknown, SignInBody, unknown>  = async (req, res) => {
+export const signIn: RequestHandler<unknown, unknown, SignInBody, unknown> = async (req, res) => {
     const { username, password } = req.body;
     try {
         const User = await UserModel.findOne({ username }).exec();
@@ -70,7 +71,7 @@ export const signIn: RequestHandler<unknown, unknown, SignInBody, unknown>  = as
     }
 }
 
-export const addAnimal: RequestHandler< { username: string }, unknown, AddAnimalBody, unknown> = async (req, res) => {
+export const addAnimal: RequestHandler<{ username: string }, unknown, AddAnimalBody, unknown> = async (req, res) => {
     const username = req.params.username;
     const { name, species, breed, weight, age, photo, details } = req.body;
     try {
@@ -95,22 +96,22 @@ export const addAnimal: RequestHandler< { username: string }, unknown, AddAnimal
     } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }
-}   
+}
 
-export const getProfile: RequestHandler< {username: string}, unknown, unknown, unknown> = async (req, res) => {
+export const getProfile: RequestHandler<{ username: string }, unknown, unknown, unknown> = async (req, res) => {
     const username = req.params.username;
     try {
-        const User = await UserModel.findOne({ username }).select({password: 0}).exec();
+        const User = await UserModel.findOne({ username }).select({ password: 0 }).exec();
         if (!User) {
             return res.status(400).json({ message: "User does not exist!" });
         }
-        res.status(200).json( User );
+        res.status(200).json(User);
     } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }
 }
 
-export const updateProfile: RequestHandler< {username: string}, unknown, UserDetails, unknown> = async (req, res) => {
+export const updateProfile: RequestHandler<{ username: string }, unknown, UserDetails, unknown> = async (req, res) => {
     const oldUsername = req.params.username;
     const { username, firstName, lastName, permLevel, email } = req.body;
     try {
@@ -120,9 +121,28 @@ export const updateProfile: RequestHandler< {username: string}, unknown, UserDet
         }
         const Update = await UserModel.findOneAndUpdate({ username: oldUsername }, { username, firstName, lastName, permLevel, email }, { new: true }).exec()
         res.status(200).json({
-			message: "Profile updated successfully",
-			data: Update
-		});
+            message: "Profile updated successfully",
+            data: Update
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
+    }
+}
+
+export const getAnimalDetails: RequestHandler<{ username: string, animalId: string }, unknown, unknown, unknown> = async (req, res) => {
+    const { username, animalId } = req.params;
+    const formatId = new ObjectId(animalId)
+    try {
+        const user = await UserModel.findOne({ username }).exec();
+        if (!user) {
+            return res.status(400).json({ message: "User does not exist!" });
+        }
+        
+        const animal = user.animals.id(formatId);
+        if (!animal) {
+            return res.status(400).json({ message: "Animal does not exist!" });
+        }
+        res.status(200).json(animal);
     } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }

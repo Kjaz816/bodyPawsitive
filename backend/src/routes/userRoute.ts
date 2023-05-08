@@ -13,4 +13,6 @@ router.get("/getProfile/:username", UserController.getProfile)
 
 router.post("/updateProfile/:username", UserController.updateProfile)
 
+router.get("/getAnimalDetails/:username/animals/:animalId", UserController.getAnimalDetails)
+
 export default router;

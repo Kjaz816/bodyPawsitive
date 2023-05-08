@@ -24,7 +24,7 @@ const AddAnimal = () => {
 
     const addAnimal = () => {
         const username = sessionStorage.getItem("loggedInUser"); 
-        fetch(`http://localhost:4000/api/users/addAnimal/${username}`, {
+        fetch(`/api/users/addAnimal/${username}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

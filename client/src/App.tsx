@@ -6,6 +6,7 @@ import SignIn from "./pages/SignIn";
 import AddAnimal from "./pages/AddAnimal";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import AnimalDetails from "./pages/AnimalDetails";
 
 const App = () => {
 
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/AddAnimal" element={<AddAnimal />} />
+          <Route path="/AnimalDetails/:id" element={<AnimalDetails />} />
         </Routes>
       </BrowserRouter>
     </div>

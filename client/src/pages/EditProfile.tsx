@@ -53,7 +53,7 @@ const EditProfile = () => {
 
     const getProfile = () => {
         const username = sessionStorage.getItem("loggedInUser");
-        fetch(`http://localhost:4000/api/users/getProfile/${username}`, {
+        fetch(`/api/users/getProfile/${username}`, {
             method: "GET",
         })
             .then((res) => res.json())
@@ -80,7 +80,7 @@ const EditProfile = () => {
 
     const updateProfile = () => {
         const username = sessionStorage.getItem("loggedInUser");
-        const url = `http://localhost:4000/api/users/updateProfile/${username}`;
+        const url = `/api/users/updateProfile/${username}`;
         fetch(url, {
             method: "POST",
             headers: {

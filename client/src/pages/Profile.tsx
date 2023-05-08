@@ -54,7 +54,7 @@ const Profile = () => {
 
     const getProfile = () => {
         const username = sessionStorage.getItem("loggedInUser");
-        fetch(`http://localhost:4000/api/users/getProfile/${username}`, {
+        fetch(`/api/users/getProfile/${username}`, {
             method: "GET",
         })
             .then((res) => res.json())
@@ -101,9 +101,11 @@ const Profile = () => {
                     {profileDetails.animals.map((animal) => (
                         <div key={animal._id}>
                             <p>{animal.name}</p>
+                            <a href={`/AnimalDetails/${animal._id}`}>Animal Details</a>
+                            <br />
+                            <br />
                         </div>
                     ))}
-
                 </div>
             )
             }
