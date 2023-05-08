@@ -24,7 +24,13 @@ const Home = () => {
             )}
 
             {loggedInUser && (
-                <button onClick={logOut}>Logout</button>
+                <div>
+                    <button onClick={logOut}>Logout</button>
+                    <br />
+                    <a href="/Profile">Profile</a>
+                    <br />
+                    <a href="/AddAnimal">Add Animal</a>
+                </div>
             )}
         </div>
     )

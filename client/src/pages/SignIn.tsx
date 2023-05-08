@@ -11,16 +11,16 @@ const SignIn = () => {
     const [message, setMessage] = useState("");
 
     const checkConn = () => {
-        fetch("https://bodypositive.onrender.com/")
-        //fetch("http://localhost:4000/")
+        //fetch("https://bodypositive.onrender.com/")
+        fetch("http://localhost:4000/")
             .then((res) => res.json())
             .then((data) => setMessage(data.message));
     };
     
     const addUser = () => {
     
-        fetch("https://bodypositive.onrender.com/api/users/signIn", {
-        //fetch("http://localhost:4000/api/users/signIn", {
+        //fetch("https://bodypositive.onrender.com/api/users/signIn", {
+        fetch("http://localhost:4000/api/users/signIn", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

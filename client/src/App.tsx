@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, useNavigate, useParams } from "react-rout
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
+import AddAnimal from "./pages/AddAnimal";
+import Profile from "./pages/Profile";
 
 const App = () => {
 
@@ -11,8 +13,10 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/Profile" element={<Profile />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/SignIn" element={<SignIn />} />
+          <Route path="/AddAnimal" element={<AddAnimal />} />
         </Routes>
       </BrowserRouter>
     </div>
