@@ -14,27 +14,30 @@ interface SignUpBody {
 
 
 
-export const signUp:  RequestHandler<unknown, unknown, SignUpBody, unknown> = async (req, res) => {
+export const signUp: RequestHandler<unknown, unknown, SignUpBody, unknown> = async (req, res) => {
     const { username, firstName, lastName, password, permLevel, email } = req.body;
     try {
-        const existingUser = UserModel.findOne({ email }).exec();
-        if (await existingUser) {
+        const existingUser = await UserModel.findOne({ username }).exec();
+        if (existingUser) {
             return res.status(400).json({ message: "User already exists!" });
         }
         const hashedPassword = await bcrypt.hash(password, 12);
         const newUser = await UserModel.create({
-			username: username,
-			firstName: firstName,
-			lastName: lastName,
+            username: username,
+            firstName: firstName,
+            lastName: lastName,
             password: hashedPassword,
-			permLevel: permLevel,
+            permLevel: permLevel,
             email: email,
             animals: []
-		});
+        }).catch(error => {
+            console.error(error);
+            return res.status(500).json({ message: "Could not create new user." });
+        });
         res.status(201).json({ newUser });
     }
     catch (error) {
-        res.status(500).json({ message: "Something went wrong!" }); 
+        res.status(500).json({ message: "Something went wrong!" });
     }
 }
 
