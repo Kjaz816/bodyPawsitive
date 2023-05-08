@@ -36,7 +36,7 @@ const AnimalDetails = () => {
         const currentUrl = window.location.href;
         const animalId = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
         const username = sessionStorage.getItem("loggedInUser");
-        const url = `/api/users/getAnimalDetails/${username}/animals/${animalId}`
+        const url = `https://bodypositive.onrender.com/api/users/getAnimalDetails/${username}/animals/${animalId}`
         console.log(url);
         fetch(url, {
             method: "GET",

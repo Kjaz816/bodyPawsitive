@@ -54,7 +54,7 @@ const Profile = () => {
 
     const getProfile = () => {
         const username = sessionStorage.getItem("loggedInUser");
-        fetch(`/api/users/getProfile/${username}`, {
+        fetch(`https://bodypositive.onrender.com/api/users/getProfile/${username}`, {
             method: "GET",
         })
             .then((res) => res.json())
