@@ -94,6 +94,7 @@ const AnimalDetails = () => {
                     </div>
                 )
             })}
+            <button onClick={() => { window.location.href = `/EditAnimal/${animalDetails._id}` }}>Edit Animal</button>
         </div>
     );
 }

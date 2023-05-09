@@ -91,7 +91,6 @@ const EditProfile = () => {
             .then((res) => res.json())
             .then((data) => {
                 sessionStorage.setItem("loggedInUser", profileDetails.username);
-                console.log(data)
                 setUpdateResponse(data.message)
             })
             .catch((error) => {
