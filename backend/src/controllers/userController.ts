@@ -151,6 +151,7 @@ export const getAnimalDetails: RequestHandler<{ username: string, animalId: stri
 export const updateAnimal: RequestHandler<{ username: string, animalId: string }, unknown, AddAnimalBody, unknown> = async (req, res) => {
     const { username, animalId } = req.params;
     const { name, species, breed, weight, age, photo, details } = req.body;
+    console.log(weight)
     const formatId = new ObjectId(animalId);
     try {
         const updatedAnimal = await UserModel.findOneAndUpdate(
@@ -161,6 +162,7 @@ export const updateAnimal: RequestHandler<{ username: string, animalId: string }
                     "animals.$.species": species,
                     "animals.$.breed": breed,
                     "animals.$.age": age,
+                    "animals.$.weightData": weight,
                     "animals.$.photo": photo,
                     "animals.$.details": details,
                 },
@@ -176,6 +178,32 @@ export const updateAnimal: RequestHandler<{ username: string, animalId: string }
     } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }
+}
 
+export const addAnimalWeight: RequestHandler<{ username: string, animalId: string }, unknown, { weight: number }, unknown> = async (req, res) => {
+    const { username, animalId } = req.params;
+    const { weight } = req.body;
+    const formatId = new ObjectId(animalId);
+    try {
+        const updatedAnimal = await UserModel.findOneAndUpdate(
+            { username: username, "animals._id": formatId },
+            {
+                $push: {
+                    "animals.$.weightData": {
+                        weight: weight,
+                        date: new Date()
+                    }
+                }
+            },
+            { new: true }
+        ).exec();
 
+        if (!updatedAnimal) {
+            return res.status(400).json({ message: "Animal does not exist!" });
+        }
+
+        res.status(200).json(updatedAnimal);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
+    }
 }

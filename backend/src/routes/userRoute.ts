@@ -17,4 +17,6 @@ router.get("/getAnimalDetails/:username/animals/:animalId", UserController.getAn
 
 router.post("/updateAnimal/:username/animals/:animalId", UserController.updateAnimal)
 
+router.post("/addAnimalWeight/:username/animals/:animalId", UserController.addAnimalWeight)
+
 export default router;

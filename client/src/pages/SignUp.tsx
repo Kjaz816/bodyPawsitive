@@ -48,7 +48,6 @@ const SignUp = () => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setProfileDetails((prevState) => ({ ...prevState, [name]: value }));
-        console.log(profileDetails);
     };
 
 

@@ -9,7 +9,7 @@ const EditAnimal = () => {
         species: string;
         breed: string;
         weightData: [{
-            _id: string;
+            id: string;
             weight: number;
             date: Date;
         }];
@@ -25,7 +25,7 @@ const EditAnimal = () => {
         breed: "",
         weightData: [
             {
-                _id: "",
+                id: "",
                 weight: 0,
                 date: new Date()
             }
@@ -150,7 +150,7 @@ const EditAnimal = () => {
                 {viewWeights && (
                     <div>
                         {animalDetails.weightData.map((weight) => (
-                            <div key={weight._id}>
+                            <div key={weight.id}>
                                 <p>Weight: {weight.weight}</p>
                                 <p>Date: {
                                     new Date(weight.date).toLocaleDateString("en-NZ", {
