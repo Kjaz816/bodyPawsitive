@@ -9,7 +9,7 @@ import "dotenv/config"
 const app = express();
 // middleware
 const corsOptions = {
-    origin: ["https://bodypositiveclient.onrender.com", "http://localhost:3000", "https://www.bodypawsitive.org/" ] // frontend URI (ReactJS)
+    origin: ["https://bodypositiveclient.onrender.com", "http://localhost:3000", "https://www.bodypawsitive.org" ] // frontend URI (ReactJS)
 }
 app.use(express.json());
 app.use(cors(corsOptions));
