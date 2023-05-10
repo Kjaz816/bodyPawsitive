@@ -9,6 +9,9 @@ import EditProfile from "./pages/EditProfile";
 import AnimalDetails from "./pages/AnimalDetails";
 import EditAnimal from "./pages/EditAnimal";
 import ViewWeight from "./pages/ViewWeight";
+import Users from "./pages/Users";
+import UserProfile from "./pages/UserProfile";
+import UserAnimal from "./pages/UserAnimal";
 
 const App = () => {
 
@@ -25,6 +28,9 @@ const App = () => {
           <Route path="/AnimalDetails/:id" element={<AnimalDetails />} />
           <Route path='/EditAnimal/:id' element={<EditAnimal />} />
           <Route path='/ViewWeight/:id' element={<ViewWeight />} />
+          <Route path='/Users' element={<Users />} />
+          <Route path='/Users/:username' element={<UserProfile />} />
+          <Route path='/Users/:username/animals/:id' element={<UserAnimal />} />
         </Routes>
       </BrowserRouter>
     </div>

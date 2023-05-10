@@ -30,6 +30,8 @@ const Home = () => {
                     <a href="/Profile">Profile</a>
                     <br />
                     <a href="/AddAnimal">Add Animal</a>
+                    <br />
+                    <a href='/Users'>Users</a>
                 </div>
             )}
         </div>

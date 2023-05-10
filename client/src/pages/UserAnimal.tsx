@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const AnimalDetails = () => {
+const UserAnimal = () => {
 
     interface AnimalDetailsBody {
         _id: string;
@@ -32,10 +32,11 @@ const AnimalDetails = () => {
         details: ""
     });
 
+
     const getAnimalDetails = () => {
         const currentUrl = window.location.href;
         const animalId = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
-        const username = sessionStorage.getItem("loggedInUser");
+        const username = currentUrl.substring(currentUrl.lastIndexOf('/Users/') + 7, currentUrl.indexOf('/animals'));
         const url = `/api/users/getAnimalDetails/${username}/animals/${animalId}`
         fetch(url, {
             method: "GET",
@@ -55,6 +56,7 @@ const AnimalDetails = () => {
                     }
                 );
             })
+
             .catch((error) => console.error(error));
     }
     useEffect(() => {
@@ -93,9 +95,8 @@ const AnimalDetails = () => {
                     </div>
                 )
             })}
-            <button onClick={() => { window.location.href = `/EditAnimal/${animalDetails._id}` }}>Edit Animal</button>
         </div>
     );
 }
 
-export default AnimalDetails;
+export default UserAnimal;

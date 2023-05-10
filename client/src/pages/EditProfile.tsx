@@ -139,7 +139,7 @@ const EditProfile = () => {
                     id="changeEmail"
                     label="Email"
                     variant="outlined"
-                    name="Email"
+                    name="email"
                     value={profileDetails.email || ''}
                     onChange={handleChange}
                 />
