@@ -39,7 +39,7 @@ const OtherUserAnimalDetails = () => {
 
     const getAnimalDetails = () => {
 
-        const url = `https://bodypositive.onrender.com//api/users/getAnimalDetails/${username}/animals/${animalId}`
+        const url = `https://bodypositive.onrender.com/api/users/getAnimalDetails/${username}/animals/${animalId}`
         fetch(url, {
             method: "GET",
         })

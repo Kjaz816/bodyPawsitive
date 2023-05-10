@@ -27,7 +27,7 @@ const Chat = () => {
     const [chatMessages, setChatMessages] = useState<ConversationBody>();
 
     const sendMessage = () => {
-        fetch(`https://bodypositive.onrender.com//api/conversations/sendMessage/`, {
+        fetch(`https://bodypositive.onrender.com/api/conversations/sendMessage/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -46,7 +46,7 @@ const Chat = () => {
     }
 
     const getMessages = () => {
-        fetch(`https://bodypositive.onrender.com//api/conversations/getConversation/${username}/${chattingWith}`, {
+        fetch(`https://bodypositive.onrender.com/api/conversations/getConversation/${username}/${chattingWith}`, {
             method: "GET",
         })
             .then((res) => res.json())
