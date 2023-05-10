@@ -46,7 +46,7 @@ const Chat = () => {
     }
 
     const getMessages = () => {
-        fetch(`/api/conversations/${username}/${chattingWith}`, {
+        fetch(`/api/conversations/getConversation/${username}/${chattingWith}`, {
             method: "GET",
         })
             .then((res) => res.json())
@@ -70,6 +70,8 @@ const Chat = () => {
             <a href="/">Home</a>
             <br />
             <a href="/Users">To Users</a>
+            <br />
+            <a href="/Chat">To Chats</a>
             <br />
             <a href={`/Users/${chattingWith}`}>To {chattingWith}'s Profile</a>
             <h1>Send A Message</h1>

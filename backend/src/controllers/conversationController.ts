@@ -85,3 +85,17 @@ export const getConversation: RequestHandler<{ sender: string, receiver: string 
         res.status(500).json({ message: "Something went wrong!" });
     }
 }
+
+export const getAllConversations: RequestHandler<{ username: string }, unknown, unknown, unknown> = async (req, res, next) => {
+    const username = req.params.username;  
+    try {
+        const conversations = await ConversationModel.find({ participants: { $in: [username] } }).exec();
+        if (!conversations) {
+            return res.status(400).json({ message: "No conversations found!" });
+        }
+        return res.status(200).json( conversations );
+    }
+    catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
+    }
+}
