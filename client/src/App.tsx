@@ -13,6 +13,7 @@ import UserList from "./pages/UserList";
 import OtherUserProfile from "./pages/OtherUserProfile";
 import OtherUserAnimalDetails from "./pages/OtherUserAnimalDetails";
 import Chat from "./pages/Chat";
+import ChatList from "./pages/ChatList";
 
 const App = () => {
 
@@ -32,6 +33,7 @@ const App = () => {
           <Route path='/Users' element={<UserList />} />
           <Route path='/Users/:username' element={<OtherUserProfile />} />
           <Route path='/Users/:username/animals/:id' element={<OtherUserAnimalDetails />} />
+          <Route path='/Chat' element={<ChatList />} />
           <Route path='/Chat/:username' element={<Chat />} />
         </Routes>
       </BrowserRouter>

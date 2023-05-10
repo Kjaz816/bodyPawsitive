@@ -2,12 +2,12 @@ import { InferSchemaType, model, Schema } from "mongoose";
 
 const conversationSchema = new Schema({
     participants: [{
-        type: Schema.Types.ObjectId,
+        type: String,
         required: true,
     }],
     messages: [{
         sender: {
-            type: Schema.Types.ObjectId,
+            type: String,
             required: true,
         },
         content: {
@@ -21,7 +21,7 @@ const conversationSchema = new Schema({
     }],
     lastMessage: {
         sentBy: {
-            type: Schema.Types.ObjectId,
+            type: String,
             required: true,
         },
         content: {

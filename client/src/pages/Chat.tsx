@@ -1,21 +1,42 @@
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const chat = () => {
+interface ConversationBody {
+    participants: string[];
+    messages: {
+        _id: string;
+        sender: string;
+        content: string;
+        date: Date;
+    }[];
+    lastMessage: {
+        sentBy: string;
+        content: string;
+        date: Date;
+        seen: boolean;
+    };
+}
+
+
+const Chat = () => {
     const url = window.location.href;
     const chattingWith = url.substring(url.lastIndexOf('/') + 1);
+    const username = sessionStorage.getItem("loggedInUser");
 
     const [chatMessage, setChatMessage] = useState<string>("");
-    const [chatMessages, setChatMessages] = useState<string[]>([]);
+    const [chatMessages, setChatMessages] = useState<ConversationBody>();
 
     const sendMessage = () => {
-        const username = sessionStorage.getItem("loggedInUser");
-        fetch(`/api/users/sendMessage/${username}`, {
+        fetch(`/api/conversations/sendMessage/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(chatMessage),
+            body: JSON.stringify({
+                sender: username,
+                receiver: chattingWith,
+                message: chatMessage
+            }),
         })
             .then((res) => res.json())
             .then((data) => {
@@ -24,18 +45,45 @@ const chat = () => {
             .catch((error) => console.error(error));
     }
 
+    const getMessages = () => {
+        fetch(`/api/conversations/${username}/${chattingWith}`, {
+            method: "GET",
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setChatMessages(data);
+            }).catch((error) => console.error(error));
+    }
+
+    useEffect(() => {
+        getMessages();
+    }, []);
+    
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         setChatMessage(() => (value));
-        console.log(chatMessage)
     };
+
 
     return (
         <div>
-            <a href="/Users">Back to Users</a>
+            <a href="/">Home</a>
             <br />
-            <a href={`/Users/${chattingWith}`}>Back to {chattingWith}'s Profile</a>
+            <a href="/Users">To Users</a>
+            <br />
+            <a href={`/Users/${chattingWith}`}>To {chattingWith}'s Profile</a>
             <h1>Send A Message</h1>
+            <div>
+                {chatMessages?.messages?.map((message) => (
+                    <div key={message._id}>
+                        <p><b>Message Sender:</b> {message.sender}</p>
+                        <p>{message.content}</p>
+                        <p>{new Date(message.date).toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' })}</p>
+                        <br />
+                    </div>
+                ))}
+            </div>
+
             <TextField
                 id="chatBox"
                 label="Message"
@@ -44,10 +92,10 @@ const chat = () => {
                 variant="outlined"
                 onChange={handleChange}
             />
-            <button >Send</button>
+            <button onClick={sendMessage}>Send</button>
 
         </div>
     )
 }
 
-export default chat
+export default Chat
