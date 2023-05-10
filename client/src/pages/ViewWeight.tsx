@@ -54,7 +54,7 @@ const ViewWeight = () => {
     }
 
     const getAnimalDetails = () => {
-        fetch(`/api/users/getAnimalDetails/${username}/animals/${animalId}`, {
+        fetch(`https://bodypositive.onrender.com/api/users/getAnimalDetails/${username}/animals/${animalId}`, {
             method: "GET",
         })
             .then((res) => res.json())
@@ -77,7 +77,7 @@ const ViewWeight = () => {
 
     const AddWeight = () => {
         console.log(updatedAnimalDetails);
-        fetch(`/api/users/addAnimalWeight/${username}/animals/${animalId}`, {
+        fetch(`https://bodypositive.onrender.com/api/users/addAnimalWeight/${username}/animals/${animalId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
