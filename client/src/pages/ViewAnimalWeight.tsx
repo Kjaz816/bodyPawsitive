@@ -18,7 +18,7 @@ interface AnimalDetailsBody {
 
 
 
-const ViewWeight = () => {
+const ViewAnimalWeight = () => {
 
     const username = sessionStorage.getItem("loggedInUser");
     const url = window.location.href;
@@ -157,4 +157,4 @@ const ViewWeight = () => {
     );
 }
 
-export default ViewWeight;
+export default ViewAnimalWeight;

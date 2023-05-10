@@ -1,6 +1,6 @@
 import express from "express";
-import mongoose from "mongoose";
 import userRoute from "./routes/userRoute";
+import conversationRoute from "./routes/conversationRoute"
 
 import cors from "cors";
 import "dotenv/config"
@@ -14,8 +14,9 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 
-// route
+// routes
 app.use("/api/users", userRoute);
+app.use("/api/conversations", conversationRoute);
 
 app.get("/", (req, res) => {
     res.status(201).json({ message: "Connected to Backend!" });

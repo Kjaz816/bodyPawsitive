@@ -11,6 +11,8 @@ router.post("/addAnimal/:username", UserController.addAnimal);
 
 router.get("/getProfile/:username", UserController.getProfile)
 
+router.get("/getAllProfiles", UserController.getAllProfiles)
+
 router.post("/updateProfile/:username", UserController.updateProfile)
 
 router.get("/getAnimalDetails/:username/animals/:animalId", UserController.getAnimalDetails)
