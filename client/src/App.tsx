@@ -8,10 +8,11 @@ import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import AnimalDetails from "./pages/AnimalDetails";
 import EditAnimal from "./pages/EditAnimal";
-import ViewWeight from "./pages/ViewWeight";
-import Users from "./pages/Users";
-import UserProfile from "./pages/UserProfile";
-import UserAnimal from "./pages/UserAnimal";
+import ViewAnimalWeight from "./pages/ViewAnimalWeight";
+import UserList from "./pages/UserList";
+import OtherUserProfile from "./pages/OtherUserProfile";
+import OtherUserAnimalDetails from "./pages/OtherUserAnimalDetails";
+import Chat from "./pages/Chat";
 
 const App = () => {
 
@@ -27,10 +28,11 @@ const App = () => {
           <Route path="/AddAnimal" element={<AddAnimal />} />
           <Route path="/AnimalDetails/:id" element={<AnimalDetails />} />
           <Route path='/EditAnimal/:id' element={<EditAnimal />} />
-          <Route path='/ViewWeight/:id' element={<ViewWeight />} />
-          <Route path='/Users' element={<Users />} />
-          <Route path='/Users/:username' element={<UserProfile />} />
-          <Route path='/Users/:username/animals/:id' element={<UserAnimal />} />
+          <Route path='/ViewWeight/:id' element={<ViewAnimalWeight />} />
+          <Route path='/Users' element={<UserList />} />
+          <Route path='/Users/:username' element={<OtherUserProfile />} />
+          <Route path='/Users/:username/animals/:id' element={<OtherUserAnimalDetails />} />
+          <Route path='/Chat/:username' element={<Chat />} />
         </Routes>
       </BrowserRouter>
     </div>

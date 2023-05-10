@@ -31,7 +31,7 @@ const Home = () => {
                     <br />
                     <a href="/AddAnimal">Add Animal</a>
                     <br />
-                    <a href='/Users'>Users</a>
+                    <a href='/Users'>Users</a> 
                 </div>
             )}
         </div>

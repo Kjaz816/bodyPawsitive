@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const UserAnimal = () => {
+const OtherUserAnimalDetails = () => {
 
     interface AnimalDetailsBody {
         _id: string;
@@ -32,11 +32,13 @@ const UserAnimal = () => {
         details: ""
     });
 
+    const currentUrl = window.location.href;
+    const animalId = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
+    const username = currentUrl.substring(currentUrl.lastIndexOf('/Users/') + 7, currentUrl.indexOf('/animals'));
+
 
     const getAnimalDetails = () => {
-        const currentUrl = window.location.href;
-        const animalId = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
-        const username = currentUrl.substring(currentUrl.lastIndexOf('/Users/') + 7, currentUrl.indexOf('/animals'));
+
         const url = `/api/users/getAnimalDetails/${username}/animals/${animalId}`
         fetch(url, {
             method: "GET",
@@ -63,11 +65,9 @@ const UserAnimal = () => {
         getAnimalDetails();
     }, []);
 
-
-
     return (
         <div>
-            <a href="/Profile">Back to Profile</a>
+            <a href={`/Users/${username}`}>Back to {username}'s Profile</a>
             <h1>Animal Details</h1>
             <p>Name: {animalDetails.name}</p>
             <p>Species: {animalDetails.species}</p>
@@ -99,4 +99,4 @@ const UserAnimal = () => {
     );
 }
 
-export default UserAnimal;
+export default OtherUserAnimalDetails;

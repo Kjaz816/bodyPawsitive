@@ -21,7 +21,7 @@ interface SignUpBody {
     }[];
 }
 
-const UserProfile = () => {
+const OtherUserProfile = () => {
 
     const url = window.location.href;
     const username = url.substring(url.lastIndexOf('/') + 1);
@@ -87,7 +87,7 @@ const UserProfile = () => {
     return (
 
         <div>
-            <a href="/">Home</a>
+            <a href="/Users">Back to Users</a>
             <div id="profileInfo">
                 <h1>Profile</h1>
                 <b>Username: </b> <p>{profileDetails.username}</p>
@@ -97,6 +97,7 @@ const UserProfile = () => {
                 <b>Email: </b> <p>{profileDetails.email}</p>
             </div>
             <button onClick={() => { toggleViewPets() }}>View Pets</button>
+            <button onClick={() => { window.location.href = `/Chat/${profileDetails.username}` }}>Send a Message</button>
             {viewPets && (
                 <div>
                     <h1>Pets</h1>
@@ -112,4 +113,4 @@ const UserProfile = () => {
         </div>
     )
 }
-export default UserProfile;
+export default OtherUserProfile;
