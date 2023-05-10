@@ -56,7 +56,7 @@ const OtherUserProfile = () => {
 
 
     const getProfile = () => {
-        fetch(`/api/users/getProfile/${username}`, {
+        fetch(`https://bodypositive.onrender.com//api/users/getProfile/${username}`, {
             method: "GET",
         })
             .then((res) => res.json())

@@ -22,7 +22,7 @@ const ChatList = () => {
     const username = sessionStorage.getItem("loggedInUser");
 
     const getAllConversations = () => {
-        fetch(`/api/conversations/getConversations/${username}`, {
+        fetch(`https://bodypositive.onrender.com//api/conversations/getConversations/${username}`, {
             method: "GET",
         })
             .then((res) => res.json())

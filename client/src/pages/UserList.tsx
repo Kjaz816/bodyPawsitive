@@ -15,7 +15,7 @@ const UserList = () => {
     const [users, setUsers] = useState<UserBody[]>([]);
 
     const getAllProfiles = () => {
-        fetch(`/api/users/getAllProfiles`, {
+        fetch(`https://bodypositive.onrender.com/api/users/getAllProfiles`, {
             method: "GET",
         })
             .then((res) => res.json())
