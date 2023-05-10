@@ -8,7 +8,12 @@ import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import AnimalDetails from "./pages/AnimalDetails";
 import EditAnimal from "./pages/EditAnimal";
-import ViewWeight from "./pages/ViewWeight";
+import ViewAnimalWeight from "./pages/ViewAnimalWeight";
+import UserList from "./pages/UserList";
+import OtherUserProfile from "./pages/OtherUserProfile";
+import OtherUserAnimalDetails from "./pages/OtherUserAnimalDetails";
+import Chat from "./pages/Chat";
+import ChatList from "./pages/ChatList";
 
 const App = () => {
 
@@ -24,7 +29,12 @@ const App = () => {
           <Route path="/AddAnimal" element={<AddAnimal />} />
           <Route path="/AnimalDetails/:id" element={<AnimalDetails />} />
           <Route path='/EditAnimal/:id' element={<EditAnimal />} />
-          <Route path='/ViewWeight/:id' element={<ViewWeight />} />
+          <Route path='/ViewWeight/:id' element={<ViewAnimalWeight />} />
+          <Route path='/Users' element={<UserList />} />
+          <Route path='/Users/:username' element={<OtherUserProfile />} />
+          <Route path='/Users/:username/animals/:id' element={<OtherUserAnimalDetails />} />
+          <Route path='/Chat' element={<ChatList />} />
+          <Route path='/Chat/:username' element={<Chat />} />
         </Routes>
       </BrowserRouter>
     </div>

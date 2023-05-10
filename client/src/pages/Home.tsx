@@ -25,11 +25,15 @@ const Home = () => {
 
             {loggedInUser && (
                 <div>
-                    <button onClick={logOut}>Logout</button>
-                    <br />
                     <a href="/Profile">Profile</a>
                     <br />
                     <a href="/AddAnimal">Add Animal</a>
+                    <br />
+                    <a href='/Users'>All Users</a> 
+                    <br />
+                    <a href='/Chat'>Chat</a>
+                    <br />
+                    <button onClick={logOut}>Logout</button>
                 </div>
             )}
         </div>

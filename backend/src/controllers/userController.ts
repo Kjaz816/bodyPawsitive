@@ -111,6 +111,18 @@ export const getProfile: RequestHandler<{ username: string }, unknown, unknown, 
     }
 }
 
+export const getAllProfiles: RequestHandler<unknown, unknown, unknown, unknown> = async (req, res) => {
+    try {
+        const Users = await UserModel.find().select({ password: 0 }).exec();
+        if (!Users) {
+            return res.status(400).json({ message: "No users exist!" });
+        }
+        res.status(200).json(Users);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
+    }
+}
+
 export const updateProfile: RequestHandler<{ username: string }, unknown, UserDetails, unknown> = async (req, res) => {
     const oldUsername = req.params.username;
     const { username, firstName, lastName, permLevel, email } = req.body;
