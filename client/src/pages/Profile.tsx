@@ -103,12 +103,14 @@ const Profile = () => {
                             <p>{animal.name}</p>
                             <a href={`/AnimalDetails/${animal._id}`}>Animal Details</a>
                             <br />
+                            <a href={'/ViewWeight/' + animal._id}>View Weight</a>
+                            <br />
+                            <a href={`/EditAnimal/${animal._id}`}>Edit Animal</a>
                             <br />
                         </div>
                     ))}
                 </div>
-            )
-            }
+            )}
         </div>
     )
 }

@@ -83,6 +83,7 @@ const AddAnimal = () => {
                 <TextField
                     name="weight"
                     id="weight"
+                    type="number"
                     label="weight"
                     variant="outlined"
                     margin="normal"
@@ -92,6 +93,7 @@ const AddAnimal = () => {
                 <TextField
                     name="age"
                     id="age"
+                    type="number"
                     label="Age"
                     variant="outlined"
                     margin="normal"
