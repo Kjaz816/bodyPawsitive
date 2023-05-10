@@ -7,6 +7,8 @@ import AddAnimal from "./pages/AddAnimal";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import AnimalDetails from "./pages/AnimalDetails";
+import EditAnimal from "./pages/EditAnimal";
+import ViewWeight from "./pages/ViewWeight";
 
 const App = () => {
 
@@ -21,6 +23,8 @@ const App = () => {
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/AddAnimal" element={<AddAnimal />} />
           <Route path="/AnimalDetails/:id" element={<AnimalDetails />} />
+          <Route path='/EditAnimal/:id' element={<EditAnimal />} />
+          <Route path='/ViewWeight/:id' element={<ViewWeight />} />
         </Routes>
       </BrowserRouter>
     </div>
