@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import UserModel from "../models/userModel";
+import WeightModel from "../models/weightModel";
 import { RequestHandler } from "express";
 import { ObjectId } from "mongodb";
 
@@ -215,6 +216,16 @@ export const addAnimalWeight: RequestHandler<{ username: string, animalId: strin
         }
 
         res.status(200).json(updatedAnimal);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
+    }
+}
+
+export const addWeight: RequestHandler<unknown, unknown, { weight: number }, unknown> = async (req, res) => {
+    const { weight } = req.body;
+    try {
+        const updatedWeight = await WeightModel.create({ weight: weight, date: new Date() });
+        res.status(200).json(updatedWeight);
     } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }
