@@ -97,6 +97,9 @@ const OtherUserProfile = () => {
             </div>
             <button onClick={() => { toggleViewPets() }}>View Pets</button>
             <button onClick={() => { window.location.href = `/Chat/${profileDetails.username}` }}>Send a Message</button>
+            {sessionStorage.getItem("loggedInUserPermLevel") === "admin" || sessionStorage.getItem("loggedInUserPermLevel") === "vet" && profileDetails.permLevel !== "admin" && (
+                <button onClick={() => { window.location.href = `/EditProfile/${username}` }}>Edit Profile</button>
+            )}
             {viewPets && (
                 <div>
                     <h1>Pets</h1>

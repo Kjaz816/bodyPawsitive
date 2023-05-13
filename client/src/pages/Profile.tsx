@@ -88,7 +88,7 @@ const Profile = () => {
                 <b>Role: </b> <p>{profileDetails.permLevel}</p>
                 <b>Email: </b> <p>{profileDetails.email}</p>
             </div>
-            <button onClick={() => { window.location.href = "/EditProfile" }}>Edit Profile</button>
+            <button onClick={() => { window.location.href = `/EditProfile/${profileDetails.username}` }}>Edit Profile</button>
 
             {profileDetails.permLevel === "admin" || profileDetails.permLevel === "vet" && ( // Only show the Add Animal button if the user is an admin
                 <button onClick={() => { window.location.href = "/AddAnimal" }}>Add Animal</button>

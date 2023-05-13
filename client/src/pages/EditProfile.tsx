@@ -6,6 +6,8 @@ import { User } from "../models/userModel";
 
 
 const EditProfile = () => {
+    const url = window.location.href;
+    const username = url.substring(url.lastIndexOf('/') + 1);
 
     const [profileDetails, setProfileDetails] = useState<User>({
         username: "",
@@ -33,7 +35,7 @@ const EditProfile = () => {
     });
 
     const getProfile = () => {
-        const username = sessionStorage.getItem("loggedInUser");
+
         if (username) {
             api.getProfile(username)
                 .then((data) => {
@@ -62,13 +64,12 @@ const EditProfile = () => {
     const [updateResponse, setUpdateResponse] = useState<string>()
 
     const updateProfile = () => {
-        const username = sessionStorage.getItem("loggedInUser");
         if (username) {
             api.updateProfile(username, profileDetails)
                 .then((data) => {
                     setUpdateResponse(data.message);
                     sessionStorage.setItem("loggedInUser", profileDetails.username);
-                    
+
                 })
                 .catch((error) => console.error(error));
         } else {
