@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import * as api from "../apiControllers/userController";
 
 interface SignUpBody {
     username: string;
@@ -54,22 +55,16 @@ const Profile = () => {
 
     const getProfile = () => {
         const username = sessionStorage.getItem("loggedInUser");
-        fetch(`/api/users/getProfile/${username}`, {
-            method: "GET",
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setProfileDetails(
-                    {
-                        username: data.username,
-                        firstName: data.firstName,
-                        lastName: data.lastName,
-                        permLevel: data.permLevel,
-                        email: data.email,
-                        animals: data.animals,
-                    }
-                );
-            }).catch((error) => console.error(error));
+        if (username) {
+            api.getProfile(username)
+                .then((data) => {
+                    setProfileDetails(data);
+                }
+                )
+                .catch((error) => console.error(error));
+        } else {
+            window.location.href = "/Login";
+        }
     };
 
 
@@ -94,6 +89,7 @@ const Profile = () => {
                 <b>Email: </b> <p>{profileDetails.email}</p>
             </div>
             <button onClick={() => { window.location.href = "/EditProfile" }}>Edit Profile</button>
+            <button onClick={() => { window.location.href = "/AddAnimal" }}>Add Animal</button>
             <button onClick={() => { toggleViewPets() }}>View Pets</button>
             {viewPets && (
                 <div>

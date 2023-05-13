@@ -1,5 +1,7 @@
 import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
+import * as api from "../apiControllers/conversationController";
+import { Message } from "../models/messageModel";
 
 interface ConversationBody {
     participants: string[];
@@ -27,38 +29,37 @@ const Chat = () => {
     const [chatMessages, setChatMessages] = useState<ConversationBody>();
 
     const sendMessage = () => {
-        fetch(`/api/conversations/sendMessage/`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
+        if (username) {
+            const message: Message = {
                 sender: username,
                 receiver: chattingWith,
                 message: chatMessage
-            }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                window.location.reload();
-            })
-            .catch((error) => console.error(error));
+            }
+            api.sendMessage(message)
+                .then(() => {
+                    window.location.reload();
+                })
+                .catch((error) => console.error(error));
+        }
     }
 
+
     const getMessages = () => {
-        fetch(`/api/conversations/getConversation/${username}/${chattingWith}`, {
-            method: "GET",
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setChatMessages(data);
-            }).catch((error) => console.error(error));
+        if (username) {
+            api.getConversation(username, chattingWith)
+                .then((data) => {
+                    setChatMessages(data);
+                }
+                )
+        } else {
+            window.location.href = "/Login";
+        }
     }
 
     useEffect(() => {
         getMessages();
     }, []);
-    
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         setChatMessage(() => (value));

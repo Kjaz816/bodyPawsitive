@@ -1,28 +1,22 @@
 import { useEffect, useState } from "react";
-
-interface UserBody {
-    username: string;
-    firstName: string;
-    lastName: string;
-    permLevel: string;
-    email: string;
-}
+import { User } from "../models/userModel";
+import * as api from "../apiControllers/userController";
 
 const UserList = () => {
 
     const currentUser = sessionStorage.getItem("loggedInUser");
 
-    const [users, setUsers] = useState<UserBody[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
 
     const getAllProfiles = () => {
-        fetch(`/api/users/getAllProfiles`, {
-            method: "GET",
-        })
-            .then((res) => res.json())
+        api.getAllProfiles()
             .then((data) => {
+                console.log(data);
                 setUsers(data);
             })
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
 
