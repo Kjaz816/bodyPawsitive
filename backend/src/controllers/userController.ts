@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import UserModel from "../models/userModel";
+import WeightModel from "../models/weightModel";
 import { RequestHandler } from "express";
 import { ObjectId } from "mongodb";
 
@@ -65,7 +66,7 @@ export const signIn: RequestHandler<unknown, unknown, SignInBody, unknown> = asy
         if (!isPasswordCorrect) {
             return res.status(400).json({ message: "Invalid credentials!" });
         }
-        res.status(200).json({ User });
+        res.status(200).json( User );
     } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }
@@ -92,7 +93,7 @@ export const addAnimal: RequestHandler<{ username: string }, unknown, AddAnimalB
             details: details
         }
         const Update = await UserModel.findOneAndUpdate({ username }, { $push: { animals: newAnimal } }, { new: true }).exec();
-        res.status(200).json({ Update });
+        res.status(200).json( Update );
     } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }
@@ -163,7 +164,6 @@ export const getAnimalDetails: RequestHandler<{ username: string, animalId: stri
 export const updateAnimal: RequestHandler<{ username: string, animalId: string }, unknown, AddAnimalBody, unknown> = async (req, res) => {
     const { username, animalId } = req.params;
     const { name, species, breed, weight, age, photo, details } = req.body;
-    console.log(weight)
     const formatId = new ObjectId(animalId);
     try {
         const updatedAnimal = await UserModel.findOneAndUpdate(
@@ -215,6 +215,16 @@ export const addAnimalWeight: RequestHandler<{ username: string, animalId: strin
         }
 
         res.status(200).json(updatedAnimal);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
+    }
+}
+
+export const addWeight: RequestHandler<unknown, unknown, { weight: number }, unknown> = async (req, res) => {
+    const { weight } = req.body;
+    try {
+        const updatedWeight = await WeightModel.create({ weight: weight, date: new Date() });
+        res.status(200).json(updatedWeight);
     } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }

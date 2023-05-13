@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import * as api from "../apiControllers/userController";
 
 const AnimalDetails = () => {
 
@@ -36,27 +37,26 @@ const AnimalDetails = () => {
         const currentUrl = window.location.href;
         const animalId = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
         const username = sessionStorage.getItem("loggedInUser");
-        const url = `https://bodypositive.onrender.com/api/users/getAnimalDetails/${username}/animals/${animalId}`
-        console.log(url);
-        fetch(url, {
-            method: "GET",
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setAnimalDetails(
-                    {
-                        _id: data._id,
-                        name: data.name,
-                        species: data.species,
-                        breed: data.breed,
-                        weightData: data.weightData,
-                        age: data.age,
-                        photo: data.photo,
-                        details: data.details
-                    }
-                );
-            })
-            .catch((error) => console.error(error));
+        if (username) {
+            api.getAnimalDetails(username, animalId)
+                .then((data) => {
+                    setAnimalDetails(
+                        {
+                            _id: data._id,
+                            name: data.name,
+                            species: data.species,
+                            breed: data.breed,
+                            weightData: data.weightData,
+                            age: data.age,
+                            photo: data.photo,
+                            details: data.details
+                        }
+                    );
+                }
+                )
+        } else {
+            window.location.href = "/Login";
+        }
     }
     useEffect(() => {
         getAnimalDetails();

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import * as api from "../apiControllers/userController";
 
 const OtherUserAnimalDetails = () => {
 
@@ -38,12 +39,7 @@ const OtherUserAnimalDetails = () => {
 
 
     const getAnimalDetails = () => {
-
-        const url = `https://bodypositive.onrender.com//api/users/getAnimalDetails/${username}/animals/${animalId}`
-        fetch(url, {
-            method: "GET",
-        })
-            .then((res) => res.json())
+        api.getAnimalDetails(username, animalId)
             .then((data) => {
                 setAnimalDetails(
                     {
@@ -57,9 +53,8 @@ const OtherUserAnimalDetails = () => {
                         details: data.details
                     }
                 );
-            })
-
-            .catch((error) => console.error(error));
+            }
+            )
     }
     useEffect(() => {
         getAnimalDetails();

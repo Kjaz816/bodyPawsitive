@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import * as api from "../apiControllers/userController";
 
 interface SignUpBody {
     username: string;
@@ -56,10 +57,7 @@ const OtherUserProfile = () => {
 
 
     const getProfile = () => {
-        fetch(`https://bodypositive.onrender.com//api/users/getProfile/${username}`, {
-            method: "GET",
-        })
-            .then((res) => res.json())
+        api.getProfile(username)
             .then((data) => {
                 setProfileDetails(
                     {
@@ -68,10 +66,11 @@ const OtherUserProfile = () => {
                         lastName: data.lastName,
                         permLevel: data.permLevel,
                         email: data.email,
-                        animals: data.animals,
+                        animals: data.animals
                     }
                 );
-            }).catch((error) => console.error(error));
+            })
+            .catch((error) => console.error(error));
     };
 
 
@@ -82,7 +81,7 @@ const OtherUserProfile = () => {
     const toggleViewPets = () => {
         setViewPets(!viewPets);
     }
-    
+
 
     return (
 

@@ -1,39 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TextField } from "@mui/material";
+import * as api from "../apiControllers/userController";
+import { User } from "../models/userModel";
 
 
-interface SignUpBody {
-    username: string;
-    firstName: string;
-    lastName: string;
-    permLevel: string;
-    email: string;
-    animals: {
-        _id: string;
-        name: string;
-        species: string;
-        breed: string;
-        weightData: {
-            weight: number;
-            date: Date;
-        }[];
-        age: number;
-        photo: string;
-        details: string;
-    }[];
-}
 
 const EditProfile = () => {
 
-    const [profileDetails, setProfileDetails] = useState<SignUpBody>({
+    const [profileDetails, setProfileDetails] = useState<User>({
         username: "",
         firstName: "",
         lastName: "",
-        permLevel: "",
+        permLevel: "volunteer",
         email: "",
         animals: [
             {
-                _id: "",
                 name: "",
                 species: "",
                 breed: "",
@@ -53,22 +34,24 @@ const EditProfile = () => {
 
     const getProfile = () => {
         const username = sessionStorage.getItem("loggedInUser");
-        fetch(`https://bodypositive.onrender.com/api/users/getProfile/${username}`, {
-            method: "GET",
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setProfileDetails(
-                    {
-                        username: data.username,
-                        firstName: data.firstName,
-                        lastName: data.lastName,
-                        permLevel: data.permLevel,
-                        email: data.email,
-                        animals: data.animals,
-                    }
-                );
-            }).catch((error) => console.error(error));
+        if (username) {
+            api.getProfile(username)
+                .then((data) => {
+                    setProfileDetails(
+                        {
+                            username: data.username,
+                            firstName: data.firstName,
+                            lastName: data.lastName,
+                            permLevel: data.permLevel,
+                            email: data.email,
+                            animals: data.animals
+                        }
+                    );
+                }
+                )
+        } else {
+            window.location.href = "/Login";
+        }
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,22 +63,17 @@ const EditProfile = () => {
 
     const updateProfile = () => {
         const username = sessionStorage.getItem("loggedInUser");
-        const url = `https://bodypositive.onrender.com/api/users/updateProfile/${username}`;
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(profileDetails),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                sessionStorage.setItem("loggedInUser", profileDetails.username);
-                setUpdateResponse(data.message)
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        if (username) {
+            api.updateProfile(username, profileDetails)
+                .then((data) => {
+                    setUpdateResponse(data.message);
+                    sessionStorage.setItem("loggedInUser", profileDetails.username);
+                    
+                })
+                .catch((error) => console.error(error));
+        } else {
+            window.location.href = "/Login";
+        }
     }
 
     useEffect(() => {
