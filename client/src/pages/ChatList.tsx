@@ -1,34 +1,22 @@
 import { useEffect, useState } from "react";
-
-interface ConversationBody {
-    participants: string[];
-    messages: {
-        _id: string;
-        sender: string;
-        content: string;
-        date: Date;
-    }[];
-    lastMessage: {
-        sentBy: string;
-        content: string;
-        date: Date;
-        seen: boolean;
-    };
-}
+import * as api from "../apiControllers/conversationController";
+import { Conversation } from "../models/conversationModel";
 
 const ChatList = () => {
 
-    const [conversations, setConversations] = useState<ConversationBody[]>([]);
+    const [conversations, setConversations] = useState<Conversation[]>([]);
     const username = sessionStorage.getItem("loggedInUser");
 
     const getAllConversations = () => {
-        fetch(`https://bodypositive.onrender.com/api/conversations/getConversations/${username}`, {
-            method: "GET",
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setConversations(data);
-            }).catch((error) => console.error(error));
+        if (username) {
+            api.getConversations(username)
+                .then((data) => {
+                    setConversations(data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
     }
 
     useEffect(() => {

@@ -1,47 +1,32 @@
 import { useState, useEffect } from "react";
 import { TextField } from '@mui/material';
+import * as api from "../apiControllers/userController";
+import { User } from "../models/userModel"
 
-interface SignUpBody {
-    username: string;
-    firstName: string;
-    lastName: string;
-    password: string;
-    permLevel: string;
-    email: string;
-}
 
 const SignUp = () => {
     const [signUpError, setSignUpError] = useState("");
 
     const addUser = () => {
-        //fetch("https://bodypositive.onrender.com/api/users/signUp", {
-        fetch("https://bodypositive.onrender.com/api/users/signUp", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(profileDetails),
-        })
-            .then((res) => {
-                if (res.status === 400) {
-                    setSignUpError("Username already exists");
-                    return Promise.reject("Username already exists");
-                }
-                return res.json();
-            })
-            .then(() => {
+        api.createUser(profileDetails)
+            .then((data) => {
+                console.log(data);
                 sessionStorage.setItem("loggedInUser", profileDetails.username);
+                sessionStorage.setItem("loggedInUserPermLevel", profileDetails.permLevel);
                 window.location.href = "/";
             })
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                setSignUpError("Username already exists");
+                console.error(error);
+            });
     };
 
-    const [profileDetails, setProfileDetails] = useState<SignUpBody>({
+    const [profileDetails, setProfileDetails] = useState<User>({
         username: "",
         firstName: "",
         lastName: "",
         password: "",
-        permLevel: "user",
+        permLevel: "volunteer",
         email: "",
     });
 

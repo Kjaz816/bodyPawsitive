@@ -2,12 +2,15 @@ const Home = () => {
 
     let currentUser = "Not logged In";
     const loggedInUser = sessionStorage.getItem('loggedInUser');
+    const loggedInUserPermLevel = sessionStorage.getItem('loggedInUserPermLevel');
     if (loggedInUser) {
         currentUser = "Welcome, " + loggedInUser;
+        console.log(loggedInUserPermLevel)
     }
 
     const logOut = () => {
         sessionStorage.removeItem('loggedInUser');
+        sessionStorage.removeItem('loggedInUserPermLevel');
         window.location.href = "/";
     }
 
@@ -25,15 +28,20 @@ const Home = () => {
 
             {loggedInUser && (
                 <div>
-                    <a href="/Profile">Profile</a>
-                    <br />
-                    <a href="/AddAnimal">Add Animal</a>
-                    <br />
-                    <a href='/Users'>All Users</a> 
-                    <br />
-                    <a href='/Chat'>Chat</a>
-                    <br />
-                    <button onClick={logOut}>Logout</button>
+                    <div>
+                        <a href="/Profile">Profile</a>
+                        <br />
+                        <a href='/Users'>All Users</a>
+                        <br />
+                        <a href='/Chat'>Chat</a>
+                        <br />
+                        <button onClick={logOut}>Logout</button>
+                    </div>
+                    
+                    {loggedInUserPermLevel === "admin" && (
+                        <div>
+                            <a href="/AddAnimal">Add Animal</a>
+                        </div>)}
                 </div>
             )}
         </div>

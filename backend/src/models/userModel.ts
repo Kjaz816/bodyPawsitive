@@ -34,7 +34,7 @@ const userSchema = new Schema({
     permLevel: {
         type: String,
         required: true,
-        enum: ["user", "vet", "admin"],
+        enum: ["volunteer", "vet", "admin"],
     },
     email: {
         type: String,

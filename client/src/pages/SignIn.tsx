@@ -1,57 +1,38 @@
 import { useState, useEffect } from "react";
 import { TextField } from '@mui/material';
+import * as api from "../apiControllers/userController";
+import { SignInBody } from "../models/signInModel"
 
-interface SignInBody {
-    username: string;
-    password: string;
-
-}
 
 const SignIn = () => {
-    const [message, setMessage] = useState("");
-    const checkConn = () => {
-        fetch("/")
-            .then((res) => res.json())
-            .then((data) => setMessage(data.message));
-    };
-    const addUser = () => {
-        fetch("https://bodypositive.onrender.com/api/users/signIn", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(profileDetails),
-        })
-            .then((res) => {
-                if (res.status === 400) {
-                    setLoginFailed("Username or password is incorrect");
-                    return Promise.reject("Username or password is incorrect");
-                }
-                return res.json()
-            })
-            .then(() => {
-                sessionStorage.setItem("loggedInUser", profileDetails.username);
+    const signIn = () => {
+        api.signIn(profileDetails)
+            .then((data) => {
+                console.log(data);
+                sessionStorage.setItem("loggedInUser", data.username);
+                sessionStorage.setItem("loggedInUserPermLevel", data.permLevel);
                 window.location.href = "/";
             })
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                setLoginFailedMessage("Username or password is incorrect");
+                console.error(error);
+            });
     };
+
     const [profileDetails, setProfileDetails] = useState<SignInBody>({
         username: "",
         password: "",
     });
-    const [loginFailed, setLoginFailed] = useState("");
+
+    const [loginFailedMessage, setLoginFailedMessage] = useState("");
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setProfileDetails((prevState) => ({ ...prevState, [name]: value }));
     };
-    useEffect(() => {
-        checkConn();
-    }, []);
 
     return (
         <div>
             <a href="/">Home</a>
-            <p> {message} </p>
             <p>Sign In</p>
             <div id="signUpFields"> 
             <TextField  
@@ -72,9 +53,9 @@ const SignIn = () => {
                 required
                 onChange={handleChange}
             />
-            <button onClick={addUser}>Sign In</button>
+            <button onClick={signIn}>Sign In</button>
             </div>
-            <p> {loginFailed} </p>
+            <p> {loginFailedMessage} </p>
         </div>
 
     );
