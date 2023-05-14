@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/userController";
+import TopNavigation from "../components/TopNavigation";
 
 const EditAnimal = () => {
 
@@ -77,6 +78,8 @@ const EditAnimal = () => {
 
     return (
         <div>
+            <TopNavigation/>
+            
             <a href="/Profile">Back to Profile</a>
             <p>Edit Animal</p>
             <div id="editAnimalFields">

@@ -2,8 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import * as api from "../apiControllers/userController";
 import { User } from "../models/userModel";
-
-
+import TopNavigation from "../components/TopNavigation";
 
 const EditProfile = () => {
     const url = window.location.href;
@@ -85,6 +84,8 @@ const EditProfile = () => {
 
     return (
         <div >
+            <TopNavigation/>
+            
             <br />
             <a href="/Profile">Back to Profile</a>
             <br />

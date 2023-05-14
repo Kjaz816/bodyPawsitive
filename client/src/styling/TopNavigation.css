@@ -2,12 +2,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 0;
-  height: 10vh; /* Set the desired height of the container */
+  position: sticky;
+  top: 0%;
+  background-color: white;
+  height: 12vh; /* Set the desired height of the container */
 }
 
 .top-title {
-  height: 45%;
+  height: 35%;
+  /* Additional styles for the top title image */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-65%);
   /* Additional styles for the top title image */
 }
 
@@ -51,8 +57,7 @@
 .profile-bar {
   display: flex;
   align-items: center;
-  margin-left: auto;
-  margin-right: 2%;
+  margin-right: auto; /* Move the profile bar to the left side */
 }
 
 @font-face {

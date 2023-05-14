@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import * as api from "../apiControllers/userController";
+import TopNavigation from "../components/TopNavigation";
 
 const AnimalDetails = () => {
+
 
     interface AnimalDetailsBody {
         _id: string;
@@ -66,6 +68,8 @@ const AnimalDetails = () => {
 
     return (
         <div>
+            <TopNavigation/>
+            
             <a href="/Profile">Back to Profile</a>
             <h1>Animal Details</h1>
             <p>Name: {animalDetails.name}</p>

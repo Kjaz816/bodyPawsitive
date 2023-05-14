@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/userController";
+import TopNavigation from "../components/TopNavigation";
 
 interface AnimalDetailsBody {
     _id: string;
@@ -87,6 +88,9 @@ const ViewAnimalWeight = () => {
     //
     return (
         <div>
+
+            <TopNavigation/>
+            
             <a href="/Profile">Back to Profile</a>
             <p>Weight History of </p> {animalDetails.name}
             <h3>Weight Data: </h3>

@@ -83,6 +83,7 @@ const Profile = () => {
 
         <div>
             <TopNavigation /> 
+
             <a href="/">Home</a>
             <div id="profileInfo">
                 <h1>Profile</h1>

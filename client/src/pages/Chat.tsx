@@ -2,6 +2,7 @@ import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
 import * as api from "../apiControllers/conversationController";
 import { Message } from "../models/messageModel";
+import TopNavigation from "../components/TopNavigation";
 
 interface ConversationBody {
     participants: string[];
@@ -68,6 +69,8 @@ const Chat = () => {
 
     return (
         <div>
+            <TopNavigation/>
+            
             <a href="/">Home</a>
             <br />
             <a href="/Users">To Users</a>
