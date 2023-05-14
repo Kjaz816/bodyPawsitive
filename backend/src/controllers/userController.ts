@@ -208,7 +208,7 @@ export const updateAnimal: RequestHandler<{ username: string, animalId: string }
                     "animals.$.breed": breed,
                     "animals.$.age": age,
                     "animals.$.weightData": weight,
-                    "animals.$.photo": photo,
+                    "animals.$.photo": await uploadToImgur(photo),
                     "animals.$.details": details,
                 },
             },
@@ -221,7 +221,7 @@ export const updateAnimal: RequestHandler<{ username: string, animalId: string }
 
         res.status(200).json(updatedAnimal);
     } catch (error) {
-        res.status(500).json({ message: "Something went wrong!" });
+        res.status(500).json(error);
     }
 }
 

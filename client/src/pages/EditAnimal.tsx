@@ -38,12 +38,34 @@ const EditAnimal = () => {
 
     const url = window.location.href;
     const animalId = url.substring(url.lastIndexOf('/') + 1);
-    const username = sessionStorage.getItem("loggedInUser");
+    const username = url.substring(url.lastIndexOf('/EditAnimal/') + 12, url.indexOf('/', url.lastIndexOf('/EditAnimal/') + 13));
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setAnimalDetails((prevState) => ({ ...prevState, [name]: value }));
-    };
+        if (name === "photo") {
+            if (name === "photo") {
+                const file = event.target.files![0];
+                const photoBase64 = await fileToBase64(file);
+                const photoString = (photoBase64 as string).toString().replace(/^data:image\/[a-z]+;base64,/, "");   // remove the file type prefix
+                setAnimalDetails((prevState) => ({ ...prevState, [name]: photoString }));
+                return;
+            }
+            setAnimalDetails((prevState) => ({ ...prevState, [name]: value }));
+        };
+    }
+
+    function fileToBase64(file: any) {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+            fileReader.onerror = (e) => {
+                reject(e);
+            };
+        });
+    }
 
     const getAnimalDetails = () => {
         if (username) {
@@ -63,7 +85,9 @@ const EditAnimal = () => {
         if (username) {
             api.updateAnimal(username, animalId, animalDetails)
                 .then(() => {
-                    window.location.reload();
+                    //window.location.reload();
+                }).catch((err) => {
+                    console.error(err);
                 })
         } else {
             window.location.href = "/Login";
@@ -77,7 +101,9 @@ const EditAnimal = () => {
 
     return (
         <div>
-            <a href="/Profile">Back to Profile</a>
+            <a href={`/Users/${username}`}>Back to {username}'s Profile</a>
+            <br />
+            <a href={`/Users/${username}/animals/${animalId}`}>Back to Animal</a>
             <p>Edit Animal</p>
             <div id="editAnimalFields">
                 <TextField
@@ -113,14 +139,6 @@ const EditAnimal = () => {
                     onChange={handleChange}
                 />
                 <TextField
-                    name="photo"
-                    id="photo"
-                    label="Photo"
-                    variant="outlined"
-                    value={animalDetails.photo}
-                    onChange={handleChange}
-                />
-                <TextField
                     name="details"
                     id="details"
                     label="Details"
@@ -128,6 +146,9 @@ const EditAnimal = () => {
                     value={animalDetails.details}
                     onChange={handleChange}
                 />
+
+                <input type="file" id="photo" name="photo" accept="image/*" onChange={handleChange} />
+
                 <button onClick={updateAnimal}>Edit Animal</button>
                 <button onClick={() => setViewWeights(!viewWeights)}>View Weights</button>
                 {viewWeights && (
@@ -153,5 +174,6 @@ const EditAnimal = () => {
 
 
     )
+
 }
 export default EditAnimal;

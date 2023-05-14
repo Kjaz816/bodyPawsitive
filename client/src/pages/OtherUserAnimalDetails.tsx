@@ -60,21 +60,27 @@ const OtherUserAnimalDetails = () => {
         getAnimalDetails();
     }, []);
 
+    const loggedInUserPermLevel = sessionStorage.getItem("loggedInUserPermLevel");
+
     return (
         <div>
             <a href={`/Users/${username}`}>Back to {username}'s Profile</a>
             <h1>Animal Details</h1>
+            <img src={`${animalDetails.photo}`} alt="Animal" />
             <p>Name: {animalDetails.name}</p>
             <p>Species: {animalDetails.species}</p>
             <p>Breed: {animalDetails.breed}</p>
             <p>Age: {animalDetails.age}</p>
             <p>Details: {animalDetails.details}</p>
+            {(loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet") &&
+                <a href={`/EditAnimal/${username}/${animalDetails._id}`}>Edit Animal</a>
+            }
             <h3>Weight Data: </h3> {animalDetails.weightData.map((weightData) => {
                 const date = new Date(weightData.date);
                 const formattedDate = date.toLocaleDateString("en-NZ", {
                     timeZone: "Pacific/Auckland",
                     year: 'numeric',
-                    month: 'numeric',
+                    month: 'numeric',   
                     day: 'numeric',
                 });
                 const formattedTime = date.toLocaleTimeString("en-NZ", {

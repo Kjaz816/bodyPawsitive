@@ -5,7 +5,6 @@ const Home = () => {
     const loggedInUserPermLevel = sessionStorage.getItem('loggedInUserPermLevel');
     if (loggedInUser) {
         currentUser = "Welcome, " + loggedInUser;
-        console.log(loggedInUserPermLevel)
     }
 
     const logOut = () => {

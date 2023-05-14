@@ -10,7 +10,6 @@ const SignUp = () => {
     const addUser = () => {
         api.createUser(profileDetails)
             .then((data) => {
-                console.log(data);
                 sessionStorage.setItem("loggedInUser", profileDetails.username);
                 sessionStorage.setItem("loggedInUserPermLevel", profileDetails.permLevel);
                 window.location.href = "/";
@@ -41,7 +40,6 @@ const SignUp = () => {
         } else {
             setProfileDetails((prevState) => ({ ...prevState, [name]: value }));
         }
-        console.log(profileDetails)
     };
 
     function fileToBase64(file: any) {
