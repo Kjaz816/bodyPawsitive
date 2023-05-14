@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import "../styling/TopNavigation.css" 
 import TopTitle from "../lib/icons/TitleLogo.svg"
 import NavigationBar from "../lib/icons/NavigationBar.svg"
-import ProfileExample from "../lib/icons/ProfileExample.svg"
 
 const TopNavigation = () => {
 
@@ -14,6 +13,7 @@ const TopNavigation = () => {
         lastName: string;
         permLevel: string;
         email: string;
+        photo: string;
         animals: {
             _id: string;
             name: string;
@@ -28,60 +28,60 @@ const TopNavigation = () => {
             details: string;
         }[];
     }
+        
+        const [profileDetails, setProfileDetails] = useState<SignUpBody>({
+            username: "",
+            firstName: "",
+            lastName: "",
+            permLevel: "",
+            email: "",
+            photo: "",
+            animals: [
+                {
+                    _id: "",
+                    name: "",
+                    species: "",
+                    breed: "",
+                    weightData: [
+                        {
+                            weight: 0,
+                            date: new Date()
+                        }
     
-    const [profileDetails, setProfileDetails] = useState<SignUpBody>({
-        username: "",
-        firstName: "",
-        lastName: "",
-        permLevel: "",
-        email: "",
-        animals: [
-            {
-                _id: "",
-                name: "",
-                species: "",
-                breed: "",
-                weightData: [
-                    {
-                        weight: 0,
-                        date: new Date()
-                    }
-
-                ],
-                age: 0,
-                photo: "",
-                details: ""
-            }
-        ],
-    });
-
-    const [viewPets, setViewPets] = useState<boolean>(false);
-
-
-    const getProfile = () => {
-        const username = sessionStorage.getItem("loggedInUser");
-        if (username) {
-            api.getProfile(username)
-                .then((data) => {
-                    setProfileDetails(data);
+                    ],
+                    age: 0,
+                    photo: "",
+                    details: ""
                 }
-                )
-                .catch((error) => console.error(error));
-        } else {
-            window.location.href = "/Login";
-        }
-    };
-
+            ],
+        });
+        
+    
+        const getProfile = () => {
+            const username = sessionStorage.getItem("loggedInUser");
+            if (username) {
+                api.getProfile(username)
+                    .then((data) => {
+                        setProfileDetails(data);
+                    }
+                    )
+                    .catch((error) => console.error(error));
+            } else {
+                window.location.href = "/Login";
+            }
+        };
+    
+    
+        useEffect(() => {
+            getProfile();
+        }, []);
+    
+    
     const logOut = () => {
         sessionStorage.removeItem('loggedInUser');
         sessionStorage.removeItem('loggedInUserPermLevel');
         window.location.href = "/";
     }
-
-
-    useEffect(() => {
-        getProfile();
-    }, []);
 
     return (
         <div className="top-navigation-container"> 
@@ -90,7 +90,7 @@ const TopNavigation = () => {
             </button>
 
             <button onClick={logOut} className="profile-bar">
-                <img src={ProfileExample} className="profile-picture-img"></img>
+                <img src={profileDetails.photo} className="profile-picture-img"></img>
                 <p className="profile-name">{profileDetails.firstName} {profileDetails.lastName}</p>
             </button>
 
