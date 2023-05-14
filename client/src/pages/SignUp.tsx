@@ -28,12 +28,36 @@ const SignUp = () => {
         password: "",
         permLevel: "volunteer",
         email: "",
+        photo: "",
     });
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setProfileDetails((prevState) => ({ ...prevState, [name]: value }));
+        if (name === "photo") {
+            const file = event.target.files![0];
+            const photoBase64 = await fileToBase64(file);
+            const photoString = (photoBase64 as string).toString().replace(/^data:image\/[a-z]+;base64,/, "");   // remove the file type prefix
+            setProfileDetails((prevState) => ({ ...prevState, [name]: photoString }));
+        } else {
+            setProfileDetails((prevState) => ({ ...prevState, [name]: value }));
+        }
+        console.log(profileDetails)
     };
+
+    function fileToBase64(file: any) {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+            fileReader.onerror = (e) => {
+                reject(e);
+            };
+        });
+    }
+
+    const [previewPicture, setPreviewPicture] = useState<string>("");
 
 
     useEffect(() => {
@@ -89,11 +113,29 @@ const SignUp = () => {
                     required
                     onChange={handleChange}
                 />
+                <input
+                    type="file"
+                    id="profile"
+                    name="photo"
+                    accept="image/png, image/jpeg"
+                    onChange={(event) => {
+                        if (!event.target.files) return;
+                        const file = event.target.files[0];
+                        setPreviewPicture(URL.createObjectURL(file));
+                        handleChange(event);
+                    }}
+                />
 
-                <button onClick={addUser}>Add User</button>
-                {signUpError && <p> {signUpError} </p>}
+                <br />
+                <div id="preview"></div>
             </div>
+
+
+            <button onClick={addUser}>Add User</button>
+            {previewPicture && <img src={previewPicture} alt="Profile Image" className="previewImage" style={{ maxWidth: "500px", maxHeight: "500px" }} />}
+            {signUpError && <p> {signUpError} </p>}
         </div>
+
 
     );
 }
