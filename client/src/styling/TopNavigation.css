@@ -1,0 +1,78 @@
+.top-navigation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0; 
+    height: 10vh; /* Set the desired height of the container */
+  }
+  
+.top-title {
+    height: 5%; 
+    /* Additional styles for the top title image */
+}
+  
+
+.chat, .logout, .navigation-bar, .profile-bar, .profile-picture, .top-title{
+    position: fixed;
+    background-color: transparent;
+    border-color: transparent;
+    cursor: pointer;
+    font-family: 'Nunito-Bold';
+    color: #1D7AC4;
+    font-size: 20px;
+  }
+
+.chat {
+    right: 15%; 
+}
+
+.logout {
+    right:5%; 
+}
+
+.navigation-bar {
+    left:2%; 
+    height: 40px; 
+}
+
+.navigation-bar-img {
+    height: 30px; 
+}
+
+.profile-picture-img{
+    position: relative;
+    right: 15%; 
+    border-radius: 50%;
+    height: 40px;
+}
+
+.profile-bar{
+    display: flex; 
+    left: 10%;
+    align-items: center;
+}
+
+@font-face {
+    font-family: 'Nunito-Bold';
+    src: url('../lib/fonts/Nunito-Bold.ttf')
+  }
+
+@font-face {
+    font-family: 'Nunito-Light';
+    src: url('../lib/fonts/Nunito-Light.ttf')
+  }
+
+@font-face {
+    font-family: 'Nunito-Regular';
+    src: url('../lib/fonts/Nunito-Regular.ttf')
+  }
+
+@font-face {
+    font-family: 'Roboto-Bold';
+    src: url('../lib/fonts/Roboto-Bold.ttf')
+  }
+
+  
+
+  
+  

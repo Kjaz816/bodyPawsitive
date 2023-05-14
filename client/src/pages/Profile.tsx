@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/userController";
+import TopNavigation from "../components/TopNavigation";
 
 interface SignUpBody {
     username: string;
@@ -79,6 +80,7 @@ const Profile = () => {
     return (
 
         <div>
+            <TopNavigation /> 
             <a href="/">Home</a>
             <div id="profileInfo">
                 <h1>Profile</h1>
