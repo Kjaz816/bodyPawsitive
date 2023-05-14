@@ -8,6 +8,7 @@ interface SignUpBody {
     lastName: string;
     permLevel: string;
     email: string;
+    photo: string;
     animals: {
         _id: string;
         name: string;
@@ -31,6 +32,7 @@ const Profile = () => {
         lastName: "",
         permLevel: "",
         email: "",
+        photo: "",
         animals: [
             {
                 _id: "",
@@ -84,6 +86,7 @@ const Profile = () => {
             <a href="/">Home</a>
             <div id="profileInfo">
                 <h1>Profile</h1>
+                <img src={profileDetails.photo} alt="Profile Picture" />
                 <b>Username: </b> <p>{profileDetails.username}</p>
                 <b>First Name: </b> <p>{profileDetails.firstName}</p>
                 <b>Last Name: </b> <p>{profileDetails.lastName}</p>

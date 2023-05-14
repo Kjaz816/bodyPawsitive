@@ -11,6 +11,7 @@ interface UserDetails {
     password: string;
     permLevel: string;
     email: string;
+    photo: string;
 }
 
 interface SignInBody {
@@ -28,8 +29,32 @@ interface AddAnimalBody {
     details: string;
 }
 
+const uploadToImgur = async (photo: string) => {
+    const base64 = photo;
+    try {
+        const formData = new FormData();
+        formData.append("image", base64);
+        const response = await fetch("https://api.imgur.com/3/image", {
+            method: "POST",
+            headers: {
+                Authorization: 'Client-ID fb2fd5b710efd8c'
+            },
+            body: formData
+        });
+        if (!response.ok) {
+            throw new Error(await response.text());
+        }
+        const data = await response.json();
+        return data.data.link;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
+
 export const signUp: RequestHandler<unknown, unknown, UserDetails, unknown> = async (req, res) => {
-    const { username, firstName, lastName, password, permLevel, email } = req.body;
+    const { username, firstName, lastName, password, permLevel, email, photo } = req.body;
     try {
         const existingUser = await UserModel.findOne({ username }).exec();
         if (existingUser) {
@@ -43,6 +68,7 @@ export const signUp: RequestHandler<unknown, unknown, UserDetails, unknown> = as
             password: hashedPassword,
             permLevel: permLevel,
             email: email,
+            photo: await uploadToImgur(photo),
             animals: []
         }).catch(error => {
             console.error(error);
@@ -66,7 +92,7 @@ export const signIn: RequestHandler<unknown, unknown, SignInBody, unknown> = asy
         if (!isPasswordCorrect) {
             return res.status(400).json({ message: "Invalid credentials!" });
         }
-        res.status(200).json( User );
+        res.status(200).json(User);
     } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }
@@ -93,7 +119,7 @@ export const addAnimal: RequestHandler<{ username: string }, unknown, AddAnimalB
             details: details
         }
         const Update = await UserModel.findOneAndUpdate({ username }, { $push: { animals: newAnimal } }, { new: true }).exec();
-        res.status(200).json( Update );
+        res.status(200).json(Update);
     } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }

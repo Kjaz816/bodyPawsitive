@@ -19,5 +19,6 @@ export interface User {
     password?: string;
     permLevel: "volunteer" | "vet" | "admin";
     email: string;
+    photo?: string;
     animals?: Animal[];
 }
