@@ -38,7 +38,7 @@ const Home = () => {
                         <button onClick={logOut}>Logout</button>
                     </div>
                     
-                    {loggedInUserPermLevel === "admin" && (
+                    {loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet" && (
                         <div>
                             <a href="/AddAnimal">Add Animal</a>
                         </div>)}

@@ -85,11 +85,15 @@ const Profile = () => {
                 <b>Username: </b> <p>{profileDetails.username}</p>
                 <b>First Name: </b> <p>{profileDetails.firstName}</p>
                 <b>Last Name: </b> <p>{profileDetails.lastName}</p>
-                <b>Permission Level: </b> <p>{profileDetails.permLevel}</p>
+                <b>Role: </b> <p>{profileDetails.permLevel}</p>
                 <b>Email: </b> <p>{profileDetails.email}</p>
             </div>
-            <button onClick={() => { window.location.href = "/EditProfile" }}>Edit Profile</button>
-            <button onClick={() => { window.location.href = "/AddAnimal" }}>Add Animal</button>
+            <button onClick={() => { window.location.href = `/EditProfile/${profileDetails.username}` }}>Edit Profile</button>
+
+            {profileDetails.permLevel === "admin" || profileDetails.permLevel === "vet" && ( // Only show the Add Animal button if the user is an admin
+                <button onClick={() => { window.location.href = "/AddAnimal" }}>Add Animal</button>
+            )}
+
             <button onClick={() => { toggleViewPets() }}>View Pets</button>
             {viewPets && (
                 <div>
@@ -99,9 +103,11 @@ const Profile = () => {
                             <p>{animal.name}</p>
                             <a href={`/AnimalDetails/${animal._id}`}>Animal Details</a>
                             <br />
-                            <a href={'/ViewWeight/' + animal._id}>View Weight</a>
+                            <a href={'/ViewWeight/' + animal._id}>View and add Weight</a>
                             <br />
-                            <a href={`/EditAnimal/${animal._id}`}>Edit Animal</a>
+                            {profileDetails.permLevel === "admin" || profileDetails.permLevel === "vet" && ( // Only show the Edit Animal button if the user is an admin}
+                                <a href={`/EditAnimal/${animal._id}`}>Edit Animal</a>
+                            )}
                             <br />
                         </div>
                     ))}

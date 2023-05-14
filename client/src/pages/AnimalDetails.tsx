@@ -94,7 +94,10 @@ const AnimalDetails = () => {
                     </div>
                 )
             })}
-            <button onClick={() => { window.location.href = `/EditAnimal/${animalDetails._id}` }}>Edit Animal</button>
+            {sessionStorage.getItem("loggedInUserPermLevel") === "admin" || sessionStorage.getItem("loggedInUserPermLevel") === "vet"  && ( // Only show the Edit Animal button if the user is an admin}
+                <button onClick={() => { window.location.href = `/EditAnimal/${animalDetails._id}` }}>Edit Animal</button>
+            )}
+
         </div>
     );
 }
