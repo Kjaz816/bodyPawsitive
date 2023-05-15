@@ -21,6 +21,6 @@ router.post("/updateAnimal/:username/animals/:animalId", UserController.updateAn
 
 router.post("/addAnimalWeight/:username/animals/:animalId", UserController.addAnimalWeight)
 
-router.post("/postWeight/", UserController.addWeight)
+router.post("/postWeight/", UserController.uploadWeight)
 
 export default router;
