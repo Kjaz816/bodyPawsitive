@@ -78,7 +78,10 @@ const OtherUserAnimalDetails = () => {
             <p>Age: {animalDetails.age}</p>
             <p>Details: {animalDetails.details}</p>
             {(loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet") &&
-                <a href={`/EditAnimal/${username}/${animalDetails._id}`}>Edit Animal</a>
+                <div>
+                    <a href={`/EditAnimal/${username}/${animalDetails._id}`}>Edit Animal</a>
+                    <a href={`/ViewWeight/${username}/${animalDetails._id}`}>Add Weight Data</a>
+                </div>
             }
             <h3>Weight Data: </h3> {animalDetails.weightData.map((weightData) => {
                 const date = new Date(weightData.date);

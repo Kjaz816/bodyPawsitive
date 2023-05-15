@@ -58,9 +58,10 @@ export const getProfile = async (username: string) => {
 
     const data = await response.json();
     return data;
-}
+}   
 
 export const getAnimalDetails = async (username: string, animalId: string) => {
+    console.log(username, animalId)
     const response = getProfile(username);
     const data = await response;
     const animal = data.animals.find((animal: { _id: string; }) => animal._id === animalId);
