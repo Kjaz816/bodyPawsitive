@@ -65,8 +65,8 @@ const OtherUserAnimalDetails = () => {
 
     return (
         <div>
-            <TopNavigation/>
-            
+            <TopNavigation />
+
             <a href={`/Users/${username}`}>Back to {username}'s Profile</a>
             <h1>Animal Details</h1>
             <img src={`${animalDetails.photo}`} alt="Animal" />
@@ -76,14 +76,17 @@ const OtherUserAnimalDetails = () => {
             <p>Age: {animalDetails.age}</p>
             <p>Details: {animalDetails.details}</p>
             {(loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet") &&
-                <a href={`/EditAnimal/${username}/${animalDetails._id}`}>Edit Animal</a>
+                <div>
+                    <a href={`/EditAnimal/${username}/${animalDetails._id}`}>Edit Animal</a>
+                    <a href={'/AddWeightData/' + username + '/' + animalDetails._id}>Add Weight Data</a>
+                </div>
             }
             <h3>Weight Data: </h3> {animalDetails.weightData.map((weightData) => {
                 const date = new Date(weightData.date);
                 const formattedDate = date.toLocaleDateString("en-NZ", {
                     timeZone: "Pacific/Auckland",
                     year: 'numeric',
-                    month: 'numeric',   
+                    month: 'numeric',
                     day: 'numeric',
                 });
                 const formattedTime = date.toLocaleTimeString("en-NZ", {
