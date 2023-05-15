@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run start-server\" \"npm run start-client\"",  
+    "installAll": "concurrently \"npm run install-server\" \"npm run install-client\" \"npm install\"",
     "install-server": "cd backend && npm install",
     "start-server": "cd backend && npm start",
     "install-client": "cd client && npm install",
