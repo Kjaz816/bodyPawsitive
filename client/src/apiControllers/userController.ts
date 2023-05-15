@@ -117,7 +117,6 @@ export const updateAnimal = async (
         }[];
     }
 ) => {
-    console.log(animal)
     const response = await fetch(url + "/api/users/updateAnimal/" + username + "/animals/" + animalId, {
         method: "POST",
         headers: {
