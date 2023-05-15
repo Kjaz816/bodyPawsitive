@@ -1,0 +1,91 @@
+.animal-details-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0%; 
+    justify-content: center;
+  }
+
+  .page-container-animal-details{
+    height: 100vh; 
+    overflow: hidden; 
+  }
+  
+
+.animal-detials-photo-container{
+    margin-top: 0%; 
+    align-items: flex-start;
+    margin-left:2%; 
+    height: 80vh; 
+    margin-right: 2%; 
+}
+.animal-details-photo{
+    width: 35vw; /* or any custom size */
+    object-fit:cover;
+    border-radius: 4%;
+    height: 80vh; 
+}
+
+.animal-details-info{
+    align-self: flex-start; /* Move to the top of the container */
+    width:100%; 
+    margin-right:5%; 
+}       
+
+.left-indication{
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border-color: transparent;
+    cursor:pointer; 
+    margin-left:0%; 
+    margin-top: 0%; 
+}
+
+.navigation-button{
+    height: 10px;
+    margin-left: 60%;   
+    margin-right: 10%; 
+
+}
+
+.navigation-text{
+    font-family: 'Nunito-regular';
+    color: #1D7AC4;
+    display: flex;
+    white-space: nowrap; /* Ensure the text stays on one line */    
+}
+
+.animal-details-name{
+    font-family: 'Roboto-bold';
+    color: #1D7AC4;
+    font-size: 50px;
+    margin-top: 0%; 
+    margin-bottom: 2%;
+    border-bottom: 0.5px solid #1D7AC4;
+}
+
+.caption-bold {
+    font-family: 'Nunito-bold';
+    color: #1D7AC4;
+    display: inline-block;
+    width: 450px; /* Adjust the width as needed */
+}
+
+.details-text {
+    font-family: 'Nunito-regular';
+    color: #1D7AC4;
+    text-align: right;
+    float: right;
+}
+
+.right-indication{
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border-color: transparent;
+    cursor:pointer; 
+    margin-left:0%; 
+    margin-top: 0%; 
+    margin-right: 5.8%; 
+    float: right; 
+}

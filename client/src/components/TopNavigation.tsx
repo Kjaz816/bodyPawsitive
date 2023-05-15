@@ -96,8 +96,8 @@ const TopNavigation = () => {
 
             <img src={TopTitle} className="top-title"></img>
 
-            <button onClick={logOut} className="chat">CHAT</button>
-            <button onClick={logOut} className="logout">LOGOUT</button>
+            <button onClick={logOut} className="chat">Chat</button>
+            <button onClick={logOut} className="logout">Logout</button>
         </div>
 
     );

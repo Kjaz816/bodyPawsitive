@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import * as api from "../apiControllers/userController";
 import TopNavigation from "../components/TopNavigation";
+import "../styling/AnimalDetails.css";
+import BackButton from "../lib/icons/LeftIndicator.svg"
+import NextButton from "../lib/icons/RightIndicator.svg"
 import Chart from "chart.js/auto";
-import { CategoryScale } from "chart.js";
+import { Line } from "react-chartjs-2";
 
 const OtherUserAnimalDetails = () => {
 
@@ -65,45 +68,67 @@ const OtherUserAnimalDetails = () => {
 
     const loggedInUserPermLevel = sessionStorage.getItem("loggedInUserPermLevel");
 
+
     return (
-        <div>
+        <div className="page-container-animal-details">
             <TopNavigation/>
             
-            <a href={`/Users/${username}`}>Back to {username}'s Profile</a>
-            <h1>Animal Details</h1>
-            <img src={`${animalDetails.photo}`} alt="Animal" />
-            <p>Name: {animalDetails.name}</p>
-            <p>Species: {animalDetails.species}</p>
-            <p>Breed: {animalDetails.breed}</p>
-            <p>Age: {animalDetails.age}</p>
-            <p>Details: {animalDetails.details}</p>
-            {(loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet") &&
-                <div>
-                    <a href={`/EditAnimal/${username}/${animalDetails._id}`}>Edit Animal</a>
-                    <a href={`/ViewWeight/${username}/${animalDetails._id}`}>Add Weight Data</a>
+            <button onClick={() => { window.location.href = `/Users/${username}` }} className="left-indication">
+                <img src={BackButton} className="navigation-button"></img>
+                <p className="navigation-text">Back</p>         
+            </button>
+
+            <div className="animal-details-container">
+                
+                <div className="animal-detials-photo-container">
+                    <img className="animal-details-photo" src={`${animalDetails.photo}`} alt="Animal" />
                 </div>
-            }
-            <h3>Weight Data: </h3> {animalDetails.weightData.map((weightData) => {
-                const date = new Date(weightData.date);
-                const formattedDate = date.toLocaleDateString("en-NZ", {
-                    timeZone: "Pacific/Auckland",
-                    year: 'numeric',
-                    month: 'numeric',   
-                    day: 'numeric',
-                });
-                const formattedTime = date.toLocaleTimeString("en-NZ", {
-                    timeZone: "Pacific/Auckland",
-                    hour12: true,
-                    hour: 'numeric',
-                    minute: 'numeric',
-                });
-                return (
-                    <div key={weightData.date.toString()}>
-                        <p>Weight: {weightData.weight}</p>
-                        <p>Date: {formattedDate} at {formattedTime}</p>
-                    </div>
-                )
-            })}
+
+                <div className="animal-details-info">
+                    <p className="animal-details-name">{animalDetails.name}</p>   
+                    <p><span className="caption-bold">Breed:</span> <span className="details-text">{animalDetails.breed}</span></p>
+                    <p><span className="caption-bold">Age:</span> <span className="details-text">{animalDetails.age}</span></p>
+                    <p><span className="caption-bold">Details:</span> <span className="details-text">{animalDetails.details}</span></p>
+                    {animalDetails.weightData.map((weightData) => {
+                            const date = new Date(weightData.date);
+                            const formattedDate = date.toLocaleDateString("en-NZ", {
+                                timeZone: "Pacific/Auckland",
+                                year: 'numeric',
+                                month: 'numeric',   
+                                day: 'numeric',
+                            });
+                            const formattedTime = date.toLocaleTimeString("en-NZ", {
+                                timeZone: "Pacific/Auckland",
+                                hour12: true,   
+                                hour: 'numeric',
+                                minute: 'numeric',
+                            });
+                        
+                            return (
+                                <div key={weightData.date.toString()}>
+                                    <p><span className="caption-bold">Weight:</span> <span className="details-text"> {weightData.weight} Kg</span></p>
+                                    <p><span className="caption-bold">Last Weighed:</span> <span className="details-text"> {formattedDate} at {formattedTime}</span></p>
+                                </div>
+                            )
+                        })}
+
+                    {(loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet") &&
+                                    <div>
+                                        <button onClick={() => { `/EditAnimal/${username}/${animalDetails._id}` }} className="right-indication">
+                                            <img src={NextButton} className="navigation-button"></img>
+                                            <p className="navigation-text">Edit Animal</p>
+                                        </button>
+
+                                        <button onClick={() => {`/ViewWeight/${username}/${animalDetails._id}` }} className="right-indication">
+                                            <img src={NextButton} className="navigation-button"></img>
+                                            <p className="navigation-text">Add Weight Data</p>
+                                        </button>
+                                    </div>  
+                                }
+
+                </div>
+
+            </div>
         </div>
     );
 }
