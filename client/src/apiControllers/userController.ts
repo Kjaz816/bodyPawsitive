@@ -1,7 +1,7 @@
 import { User } from "../models/userModel";
 import { SignInBody } from "../models/signInModel";
 
-const deployed = false;
+const deployed = true;
 
 const url = deployed ? "https://bodypositive.onrender.com" : "";
 
