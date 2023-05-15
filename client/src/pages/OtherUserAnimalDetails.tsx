@@ -78,7 +78,7 @@ const OtherUserAnimalDetails = () => {
             {(loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet") &&
                 <div>
                     <a href={`/EditAnimal/${username}/${animalDetails._id}`}>Edit Animal</a>
-                    <a href={'/AddWeightData/' + username + '/' + animalDetails._id}>Add Weight Data</a>
+                    <a href={`/ViewWeight/${username}/${animalDetails._id}`}>Add Weight Data</a>
                 </div>
             }
             <h3>Weight Data: </h3> {animalDetails.weightData.map((weightData) => {

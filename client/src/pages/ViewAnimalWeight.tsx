@@ -20,10 +20,11 @@ interface AnimalDetailsBody {
 
 const ViewAnimalWeight = () => {
 
-    const username = sessionStorage.getItem("loggedInUser");
     const url = window.location.href;
+    console.log(url);
+    const username = url.substring(url.indexOf("ViewWeight/") + 11, url.indexOf("/", url.indexOf("ViewWeight/") + 11));  
     const animalId = url.substring(url.lastIndexOf('/') + 1);
-
+    console.log(username);
     const [animalDetails, setAnimalDetails] = useState<AnimalDetailsBody>({
         _id: "",
         name: "",
@@ -91,7 +92,7 @@ const ViewAnimalWeight = () => {
 
             <TopNavigation/>
             
-            <a href="/Profile">Back to Profile</a>
+            <a href = {"/Users/" + username + "/animals/" + animalId}>Back to Animal Details</a>
             <p>Weight History of </p> {animalDetails.name}
             <h3>Weight Data: </h3>
             <hr></hr> {animalDetails.weightData.map((weightData) => {
