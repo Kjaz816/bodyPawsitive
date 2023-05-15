@@ -1,0 +1,86 @@
+.top-navigation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  top: 0%;
+  background-color: white;
+  height: 12vh; /* Set the desired height of the container */
+}
+
+.top-title {
+  height: 35%;
+  /* Additional styles for the top title image */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-58%);
+  /* Additional styles for the top title image */
+}
+
+.chat,
+.logout,
+.navigation-bar,
+.profile-bar,
+.profile-picture,
+.top-title {
+  background-color: transparent;
+  border-color: transparent;
+  cursor: pointer;
+  font-family: 'Nunito-Bold';
+  color: #1D7AC4;
+  font-size: 20px;
+}
+
+.chat {
+  margin-left: auto;
+  margin-right: 2%;
+}
+
+.logout {
+  margin-right: 2%;
+}
+
+.navigation-bar {
+  margin-left: 2%;
+  height: 40px;
+}
+
+.navigation-bar-img {
+  height: 30px;
+}
+
+.profile-picture-img {
+  border-radius: 50%;
+  height: 40px;
+}
+
+.profile-bar {
+  display: flex;
+  align-items: center;
+  margin-right: auto; /* Move the profile bar to the left side */
+}
+
+@font-face {
+    font-family: 'Nunito-Bold';
+    src: url('../lib/fonts/Nunito-Bold.ttf')
+  }
+
+@font-face {
+    font-family: 'Nunito-Light';
+    src: url('../lib/fonts/Nunito-Light.ttf')
+  }
+
+@font-face {
+    font-family: 'Nunito-Regular';
+    src: url('../lib/fonts/Nunito-Regular.ttf')
+  }
+
+@font-face {
+    font-family: 'Roboto-Bold';
+    src: url('../lib/fonts/Roboto-Bold.ttf')
+  }
+
+  
+
+  
+  

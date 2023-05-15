@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import * as api from "../apiControllers/userController";
+import TopNavigation from "../components/TopNavigation";
 
 const OtherUserAnimalDetails = () => {
 
@@ -64,6 +65,8 @@ const OtherUserAnimalDetails = () => {
 
     return (
         <div>
+            <TopNavigation/>
+            
             <a href={`/Users/${username}`}>Back to {username}'s Profile</a>
             <h1>Animal Details</h1>
             <img src={`${animalDetails.photo}`} alt="Animal" />

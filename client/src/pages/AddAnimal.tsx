@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material";
 import { useState } from "react";
 import * as api from "../apiControllers/userController";
+import TopNavigation from "../components/TopNavigation";
 
 interface AddAnimalBody {
     name: string;
@@ -76,6 +77,9 @@ const AddAnimal = () => {
 
     return (
         <div>
+
+            <TopNavigation/>
+
             <a href="/">Home</a>
             <p>Add Animal</p>
             <div id="signUpFields">

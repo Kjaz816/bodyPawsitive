@@ -9,7 +9,7 @@ const url = deployed ? "https://bodypositive.onrender.com" : "";
 
 export const createUser = async (user: User) => {
     const response = await fetch(url + "/api/users/signUp", {
-        method: "POST",
+        method: "POST", 
         headers: {
             "Content-Type": "application/json"
         },

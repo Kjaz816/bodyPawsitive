@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/userController";
+import TopNavigation from "../components/TopNavigation";
 
 const EditAnimal = () => {
 
@@ -101,6 +102,8 @@ const EditAnimal = () => {
 
     return (
         <div>
+            <TopNavigation/>
+            
             <a href={`/Users/${username}`}>Back to {username}'s Profile</a>
             <br />
             <a href={`/Users/${username}/animals/${animalId}`}>Back to Animal</a>

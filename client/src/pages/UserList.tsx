@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { User } from "../models/userModel";
 import * as api from "../apiControllers/userController";
+import TopNavigation from "../components/TopNavigation";
 
 const UserList = () => {
 
@@ -25,6 +26,8 @@ const UserList = () => {
 
     return (
         <div>
+            <TopNavigation/>
+            
             <a href="/">Back to Home</a>
             <p>Users</p>
             {users.map((user) => (

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/conversationController";
 import { Conversation } from "../models/conversationModel";
+import TopNavigation from "../components/TopNavigation";
 
 const ChatList = () => {
 
@@ -25,6 +26,8 @@ const ChatList = () => {
 
     return (
         <div>
+            <TopNavigation/>
+
             <p>Chat List</p>
             <a href="/">Home</a>
             <br></br>

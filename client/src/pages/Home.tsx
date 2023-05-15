@@ -1,10 +1,12 @@
+import TopNavigation from "../components/TopNavigation";
+
 const Home = () => {
 
     let currentUser = "Not logged In";
     const loggedInUser = sessionStorage.getItem('loggedInUser');
     const loggedInUserPermLevel = sessionStorage.getItem('loggedInUserPermLevel');
     if (loggedInUser) {
-        currentUser = "Welcome, " + loggedInUser;
+        console.log(loggedInUserPermLevel)
     }
 
     const logOut = () => {
@@ -15,8 +17,8 @@ const Home = () => {
 
     return (
         <div>
-            <p>Home</p>
-            <p> {currentUser} </p>
+            
+
             {!loggedInUser && (
                 <div>
                     <a href="/SignIn">Sign In</a>
@@ -27,6 +29,9 @@ const Home = () => {
 
             {loggedInUser && (
                 <div>
+                    <TopNavigation/>
+                    <p>Home</p>
+                    <p> Hi, {loggedInUser} </p>
                     <div>
                         <a href="/Profile">Profile</a>
                         <br />
