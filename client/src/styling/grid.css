@@ -2,6 +2,7 @@
     width: 100vw;
     height: 100vh; 
     overflow-x: hidden; 
+    padding-bottom: 20px; /* Adjust the desired padding value */
 }
 .grid-container{
     display: flex;
