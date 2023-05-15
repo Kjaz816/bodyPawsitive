@@ -253,7 +253,7 @@ export const addAnimalWeight: RequestHandler<{ username: string, animalId: strin
     }
 }
 
-export const addWeight: RequestHandler<unknown, unknown, { weight: number }, unknown> = async (req, res) => {
+export const uploadWeight: RequestHandler<unknown, unknown, { weight: number }, unknown> = async (req, res) => {
     const { weight } = req.body;
     try {
         const updatedWeight = await WeightModel.create({ weight: weight, date: new Date() });
