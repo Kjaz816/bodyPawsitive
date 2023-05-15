@@ -115,7 +115,7 @@ export const addAnimal: RequestHandler<{ username: string }, unknown, AddAnimalB
                 date: new Date()
             }],
             age: age,
-            photo: photo,
+            photo: await uploadToImgur(photo),
             details: details
         }
         const Update = await UserModel.findOneAndUpdate({ username }, { $push: { animals: newAnimal } }, { new: true }).exec();
@@ -152,13 +152,20 @@ export const getAllProfiles: RequestHandler<unknown, unknown, unknown, unknown> 
 
 export const updateProfile: RequestHandler<{ username: string }, unknown, UserDetails, unknown> = async (req, res) => {
     const oldUsername = req.params.username;
-    const { username, firstName, lastName, permLevel, email } = req.body;
+    const { username, firstName, lastName, permLevel, email, photo } = req.body;
     try {
         const User = await UserModel.findOne({ username: oldUsername }).exec();
         if (!User) {
             return res.status(400).json({ message: "User does not exist!" });
         }
-        const Update = await UserModel.findOneAndUpdate({ username: oldUsername }, { username, firstName, lastName, permLevel, email }, { new: true }).exec()
+        const Update = await UserModel.findOneAndUpdate({ username: oldUsername }, {
+            username: username,
+            firstName: firstName,
+            lastName: lastName,
+            permLevel: permLevel,
+            email: email,
+            photo: await uploadToImgur(photo)
+        }, { new: true }).exec()
         res.status(200).json({
             message: "Profile updated successfully",
             data: Update
@@ -201,7 +208,7 @@ export const updateAnimal: RequestHandler<{ username: string, animalId: string }
                     "animals.$.breed": breed,
                     "animals.$.age": age,
                     "animals.$.weightData": weight,
-                    "animals.$.photo": photo,
+                    "animals.$.photo": await uploadToImgur(photo),
                     "animals.$.details": details,
                 },
             },
@@ -214,7 +221,7 @@ export const updateAnimal: RequestHandler<{ username: string, animalId: string }
 
         res.status(200).json(updatedAnimal);
     } catch (error) {
-        res.status(500).json({ message: "Something went wrong!" });
+        res.status(500).json(error);
     }
 }
 

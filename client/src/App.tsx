@@ -28,7 +28,7 @@ const App = () => {
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/AddAnimal" element={<AddAnimal />} />
           <Route path="/AnimalDetails/:id" element={<AnimalDetails />} />
-          <Route path='/EditAnimal/:id' element={<EditAnimal />} />
+          <Route path='/EditAnimal/:owner/:id' element={<EditAnimal />} />
           <Route path='/ViewWeight/:id' element={<ViewAnimalWeight />} />
           <Route path='/Users' element={<UserList />} />
           <Route path='/Users/:username' element={<OtherUserProfile />} />

@@ -27,6 +27,12 @@ export const signIn = async (signIn: SignInBody) => {
         },
         body: JSON.stringify(signIn)
     });
+
+    if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error);
+    }
+
     const data = await response.json();
     return data;
 }
@@ -49,6 +55,7 @@ export const getProfile = async (username: string) => {
             "Content-Type": "application/json"
         }
     });
+
     const data = await response.json();
     return data;
 }
@@ -78,6 +85,7 @@ export const addAnimal = async (username: string, animal: {
     breed: string;
     age: number;
     weight: number;
+    photo: string;
 }) => {
     const response = await fetch(url + "/api/users/addAnimal/" + username, {
         method: "POST",
@@ -86,9 +94,8 @@ export const addAnimal = async (username: string, animal: {
         },
         body: JSON.stringify(animal)
     });
-    
+
     const data = await response.json();
-    console.log(data)
     const animalObj = data.animals[data.animals.length - 1];
     return animalObj;
 }
@@ -101,6 +108,7 @@ export const updateAnimal = async (
         species: string;
         breed: string;
         age: number;
+        photo: string;
         weightData: {
             id: string;
             weight: number;
@@ -108,6 +116,7 @@ export const updateAnimal = async (
         }[];
     }
 ) => {
+    console.log(animal)
     const response = await fetch(url + "/api/users/updateAnimal/" + username + "/animals/" + animalId, {
         method: "POST",
         headers: {
@@ -115,8 +124,13 @@ export const updateAnimal = async (
         },
         body: JSON.stringify(animal)
     });
+
+    if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error);
+    }
+
     const data = await response.json();
-    console.log(data.animals);
     return data;
 }
 

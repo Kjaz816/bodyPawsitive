@@ -12,7 +12,6 @@ const UserList = () => {
     const getAllProfiles = () => {
         api.getAllProfiles()
             .then((data) => {
-                console.log(data);
                 setUsers(data);
             })
             .catch((error) => {

@@ -8,7 +8,6 @@ const SignIn = () => {
     const signIn = () => {
         api.signIn(profileDetails)
             .then((data) => {
-                console.log(data);
                 sessionStorage.setItem("loggedInUser", data.username);
                 sessionStorage.setItem("loggedInUserPermLevel", data.permLevel);
                 window.location.href = "/";

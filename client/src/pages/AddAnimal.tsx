@@ -10,6 +10,7 @@ interface AddAnimalBody {
     weight: number;
     age: number;
     details: string;
+    photo: string;
 }
 
 
@@ -22,6 +23,7 @@ const AddAnimal = () => {
         weight: 0,
         age: 0,
         details: "",
+        photo: ""
     });
 
     const [userToAssign, setUserToAssign] = useState<string>("");
@@ -30,28 +32,48 @@ const AddAnimal = () => {
         const username = userToAssign
         api.addAnimal(username, animalDetails)
             .then((data) => {
-                console.log(data)
                 window.location.href = `/Users/${username}/animals/${data._id}`;
             }
             )
 
     }
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-
         if (name === "weight" || name === "age") {
             setAnimalDetails((prevState) => ({ ...prevState, [name]: parseInt(value) }));
             return;
         }
-        console.log (name, value)
+
         if (name === "user") {
             setUserToAssign(value);
             return;
         }
 
+        if (name === "photo") {
+            const file = event.target.files![0];
+            const photoBase64 = await fileToBase64(file);
+            const photoString = (photoBase64 as string).toString().replace(/^data:image\/[a-z]+;base64,/, "");   // remove the file type prefix
+            setAnimalDetails((prevState) => ({ ...prevState, [name]: photoString }));
+            return;
+        } 
+            
+
         setAnimalDetails((prevState) => ({ ...prevState, [name]: value }));
     };
+
+    function fileToBase64(file: any) {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+            fileReader.onerror = (e) => {
+                reject(e);
+            };
+        });
+    }
 
     return (
         <div>
@@ -117,6 +139,8 @@ const AddAnimal = () => {
                     required
                     onChange={handleChange}
                 />
+
+                <input type="file" id="photo" name="photo" accept="image/*" onChange={handleChange} />
             </div>
             <TextField
                 name="user"

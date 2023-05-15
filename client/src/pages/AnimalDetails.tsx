@@ -72,6 +72,7 @@ const AnimalDetails = () => {
             
             <a href="/Profile">Back to Profile</a>
             <h1>Animal Details</h1>
+            <img src={animalDetails.photo} alt="Animal" />
             <p>Name: {animalDetails.name}</p>
             <p>Species: {animalDetails.species}</p>
             <p>Breed: {animalDetails.breed}</p>
