@@ -4,6 +4,8 @@
     margin-bottom: 0%; 
     justify-content: center;
     overflow: hidden; 
+    animation: fadeInAnimation 2s ease forwards;
+
   }
 
   .page-container-animal-details{
@@ -58,16 +60,28 @@
     white-space: nowrap; /* Ensure the text stays on one line */    
 }
 
-.animal-details-name{
+.animal-details-name {
     font-family: 'Roboto-bold';
     color: #1D7AC4;
     font-size: 35px;
-    margin-top: 0%; 
-    margin-bottom:0%; 
+    margin-top: 0%;
+    margin-bottom: 0%;
     padding-bottom: 12px;
-    border-bottom: 0.5px solid #1D7AC4;
-}
-
+    position: relative;
+  }
+  
+  .animal-details-name::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0.5px;
+    background-color: #1D7AC4;
+    animation: borderAnimation 2s ease forwards;
+  }
+    
+      
 .caption-bold {
     font-family: 'Nunito-bold';
     color: #1D7AC4;
@@ -107,8 +121,38 @@
     margin-bottom:0%;  
 }
 
-.last-info{
-    margin-bottom: 0%; 
-    border-bottom: 0.5px solid #1D7AC4;
+.last-info {
+    margin-bottom: 0%;
     padding-bottom: 15px;
-}
+    position: relative;
+  }
+  
+  .last-info::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0.5px;
+    background-color: #1D7AC4;
+    animation: borderAnimation 2s ease forwards;
+  }
+  
+  @keyframes borderAnimation {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
+  @keyframes fadeInAnimation {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  

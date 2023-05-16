@@ -145,7 +145,7 @@ const OtherUserAnimalDetails = () => {
     });
     }
 
-
+      
     return (
         <div className="page-container-animal-details">
             <TopNavigation/>
