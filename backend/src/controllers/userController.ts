@@ -194,7 +194,7 @@ export const getAnimalDetails: RequestHandler<{ username: string, animalId: stri
     }
 }
 
-export const getAnimalWeight: RequestHandler<{ username: string, animalId: string }, unknown, unknown, unknown> = async (req, res) => {
+export const getAnimalWeights: RequestHandler<{ username: string, animalId: string }, unknown, unknown, unknown> = async (req, res) => {
     const { username, animalId } = req.params;
     const formatId = new ObjectId(animalId)
     try {
@@ -214,71 +214,71 @@ export const getAnimalWeight: RequestHandler<{ username: string, animalId: strin
 }
 
 
-    export const updateAnimal: RequestHandler<{ username: string, animalId: string }, unknown, AddAnimalBody, unknown> = async (req, res) => {
-        const { username, animalId } = req.params;
-        const { name, species, breed, weight, age, photo, details } = req.body;
-        const formatId = new ObjectId(animalId);
-        try {
-            const updatedAnimal = await UserModel.findOneAndUpdate(
-                { username: username, "animals._id": formatId },
-                {
-                    $set: {
-                        "animals.$.name": name,
-                        "animals.$.species": species,
-                        "animals.$.breed": breed,
-                        "animals.$.age": age,
-                        "animals.$.weightData": weight,
-                        "animals.$.photo": await uploadToImgur(photo),
-                        "animals.$.details": details,
-                    },
+export const updateAnimal: RequestHandler<{ username: string, animalId: string }, unknown, AddAnimalBody, unknown> = async (req, res) => {
+    const { username, animalId } = req.params;
+    const { name, species, breed, weight, age, photo, details } = req.body;
+    const formatId = new ObjectId(animalId);
+    try {
+        const updatedAnimal = await UserModel.findOneAndUpdate(
+            { username: username, "animals._id": formatId },
+            {
+                $set: {
+                    "animals.$.name": name,
+                    "animals.$.species": species,
+                    "animals.$.breed": breed,
+                    "animals.$.age": age,
+                    "animals.$.weightData": weight,
+                    "animals.$.photo": await uploadToImgur(photo),
+                    "animals.$.details": details,
                 },
-                { new: true }
-            ).exec();
+            },
+            { new: true }
+        ).exec();
 
-            if (!updatedAnimal) {
-                return res.status(400).json({ message: "Animal does not exist!" });
-            }
-
-            res.status(200).json(updatedAnimal);
-        } catch (error) {
-            res.status(500).json(error);
+        if (!updatedAnimal) {
+            return res.status(400).json({ message: "Animal does not exist!" });
         }
-    }
 
-    export const addAnimalWeight: RequestHandler<{ username: string, animalId: string }, unknown, { weight: number }, unknown> = async (req, res) => {
-        const { username, animalId } = req.params;
-        const { weight } = req.body;
-        const formatId = new ObjectId(animalId);
-        try {
-            const updatedAnimal = await UserModel.findOneAndUpdate(
-                { username: username, "animals._id": formatId },
-                {
-                    $push: {
-                        "animals.$.weightData": {
-                            weight: weight,
-                            date: new Date()
-                        }
+        res.status(200).json(updatedAnimal);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+export const addAnimalWeight: RequestHandler<{ username: string, animalId: string }, unknown, { weight: number }, unknown> = async (req, res) => {
+    const { username, animalId } = req.params;
+    const { weight } = req.body;
+    const formatId = new ObjectId(animalId);
+    try {
+        const updatedAnimal = await UserModel.findOneAndUpdate(
+            { username: username, "animals._id": formatId },
+            {
+                $push: {
+                    "animals.$.weightData": {
+                        weight: weight,
+                        date: new Date()
                     }
-                },
-                { new: true }
-            ).exec();
+                }
+            },
+            { new: true }
+        ).exec();
 
-            if (!updatedAnimal) {
-                return res.status(400).json({ message: "Animal does not exist!" });
-            }
-
-            res.status(200).json(updatedAnimal);
-        } catch (error) {
-            res.status(500).json({ message: "Something went wrong!" });
+        if (!updatedAnimal) {
+            return res.status(400).json({ message: "Animal does not exist!" });
         }
-    }
 
-    export const uploadWeight: RequestHandler<unknown, unknown, { weight: number }, unknown> = async (req, res) => {
-        const { weight } = req.body;
-        try {
-            const updatedWeight = await WeightModel.create({ weight: weight, date: new Date() });
-            res.status(200).json(updatedWeight);
-        } catch (error) {
-            res.status(500).json({ message: "Something went wrong!" });
-        }
+        res.status(200).json(updatedAnimal);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
     }
+}
+
+export const uploadWeight: RequestHandler<unknown, unknown, { weight: number }, unknown> = async (req, res) => {
+    const { weight } = req.body;
+    try {
+        const updatedWeight = await WeightModel.create({ weight: weight, date: new Date() });
+        res.status(200).json(updatedWeight);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
+    }
+}
