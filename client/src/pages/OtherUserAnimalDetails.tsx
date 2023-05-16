@@ -124,6 +124,28 @@ const OtherUserAnimalDetails = () => {
 
     console.log("weight data", animalWeightData);
 
+    let formattedDate = '';
+    let formattedTime = '';
+
+    const lastWeighedData = animalDetails.weightData[animalDetails.weightData.length - 1];
+
+    if (lastWeighedData) {
+    const date = new Date(lastWeighedData.date);
+    formattedDate = date.toLocaleDateString("en-NZ", {
+        timeZone: "Pacific/Auckland",
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+    });
+    formattedTime = date.toLocaleTimeString("en-NZ", {
+        timeZone: "Pacific/Auckland",
+        hour12: true,
+        hour: 'numeric',
+        minute: 'numeric',
+    });
+    }
+
+
     return (
         <div className="page-container-animal-details">
             <TopNavigation/>
@@ -143,33 +165,13 @@ const OtherUserAnimalDetails = () => {
                     <p className="animal-details-name">{animalDetails.name}</p>   
                     <p><span className="caption-bold">Breed:</span> <span className="details-text">{animalDetails.breed}</span></p>
                     <p><span className="caption-bold">Age:</span> <span className="details-text">{animalDetails.age}</span></p>
-                    <p><span className="caption-bold">Details:</span> <span className="details-text">{animalDetails.details}</span></p>
-                    {animalDetails.weightData.map((weightData) => {
-                            const date = new Date(weightData.date);
-                            const formattedDate = date.toLocaleDateString("en-NZ", {
-                                timeZone: "Pacific/Auckland",
-                                year: 'numeric',
-                                month: 'numeric',   
-                                day: 'numeric',
-                            });
-                            const formattedTime = date.toLocaleTimeString("en-NZ", {
-                                timeZone: "Pacific/Auckland",
-                                hour12: true,   
-                                hour: 'numeric',
-                                minute: 'numeric',
-                            });
-                        
-                            return (
-                                <div key={weightData.date.toString()}>
-                                    <p><span className="caption-bold">Weight:</span> <span className="details-text"> {weightData.weight} Kg</span></p>
-                                    <p><span className="caption-bold">Last Weighed:</span> <span className="details-text"> {formattedDate} at {formattedTime}</span></p>
-                                </div>
-                            )
-                        })}
-
+                    <p><span className="caption-bold">Details:</span> <span className="details-text">{animalDetails.details}</span></p>    
+                    <p><span className="caption-bold">Weight:</span> <span className="details-text">{lastWeighedData.weight} Kg</span></p>
+                    <p><span className="caption-bold">Last Weighed:</span> <span className="details-text">{formattedDate} at {formattedTime}</span></p>
+                    
                     {(loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet") &&
                                     <div className="next-buttons">
-                                        <button onClick={() => { `/EditAnimal/${username}/${animalDetails._id}` }} className="right-indication">
+                                        <button onClick={() => { window.location.href = `/EditAnimal/${username}/${animalDetails._id}` }} className="right-indication">
                                             <img src={NextButton} className="navigation-button"></img>
                                             <p className="navigation-text">Edit Animal</p>
                                         </button>
