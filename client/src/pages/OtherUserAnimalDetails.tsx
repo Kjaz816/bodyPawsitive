@@ -6,6 +6,8 @@ import BackButton from "../lib/icons/LeftIndicator.svg"
 import NextButton from "../lib/icons/RightIndicator.svg"
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
+import { getAnimalWeights } from "../apiControllers/userController"; 
+import { CategoryScale } from 'chart.js';
 
 const OtherUserAnimalDetails = () => {
 
@@ -70,39 +72,57 @@ const OtherUserAnimalDetails = () => {
     interface AnimalWeightData {
         weight: number;
         date: string;
+        
       }
       
+      
     
-    const [animalWeightData, setAnimalWeightData] = useState<AnimalWeightData>({
-        weight: 0,
-        date: "",
-    });
+    const [animalWeightData, setAnimalWeightData] = useState<AnimalWeightData[]>([]);
 
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const animalData = await fetchAnimalWeight(username, animalId);
+    useEffect(() => {
+        const fetchData = async () => {
+            const animalData = await getAnimalWeights(username, animalId);
+            
+            setAnimalWeightData(animalData);
+        };
+        fetchData();
+    }, []);
 
-    //         setAnimalWeightData(animalWeightData);
-    //     };
-    //     fetchData();
-    // }, []);
+    Chart.register(CategoryScale);
 
-    const chartData = {
+
+    const options = {
+        responsive: true,
+        maintainAspectRatio: false,
+      };    
+
+      const data = {
+        labels: animalWeightData.map((weight) => {
+          const date = new Date(weight.date);
+          const formattedDate = date.toLocaleDateString("en-NZ", {
+            timeZone: "Pacific/Auckland",
+            year: 'numeric',
+            month: 'numeric',   
+            day: 'numeric',
+          });
+          return formattedDate;
+        }),
         datasets: [
           {
-            data: [animalWeightData.weight], // Access the weight property directly
             label: 'Animal Weight',
-            borderColor: 'rgba(0, 0, 255, 0.5)',
+            data: animalWeightData.map((weight) => weight.weight),
+            borderColor:  '#1D7AC4',
+            backgroundColor:'rgba(29, 122, 196, 0.2)',
             fill: false,
           },
         ],
-        labels: [animalWeightData.date], // Access the date property directly
       };
+      
             
     const loggedInUserPermLevel = sessionStorage.getItem("loggedInUserPermLevel");
 
-    console.log("chart data", chartData);
+    console.log("weight data", animalWeightData);
 
     return (
         <div className="page-container-animal-details">
@@ -148,7 +168,7 @@ const OtherUserAnimalDetails = () => {
                         })}
 
                     {(loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet") &&
-                                    <div>
+                                    <div className="next-buttons">
                                         <button onClick={() => { `/EditAnimal/${username}/${animalDetails._id}` }} className="right-indication">
                                             <img src={NextButton} className="navigation-button"></img>
                                             <p className="navigation-text">Edit Animal</p>
@@ -160,7 +180,9 @@ const OtherUserAnimalDetails = () => {
                                         </button>
                                     </div>  
                                 }
-                    
+                    <div className="chart-container">
+                        <Line data={data} className="chart"  options={options}></Line>
+                    </div>
                 </div>  
 
             </div>
