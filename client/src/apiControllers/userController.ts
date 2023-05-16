@@ -68,6 +68,13 @@ export const getAnimalDetails = async (username: string, animalId: string) => {
     return animal;
 }
 
+export const getAnimalWeights = async (username: string, animalId: string) => {
+    const response = getAnimalDetails(username, animalId);
+    const data = await response;
+    const weights = data.weightData;
+    return weights;
+}
+
 export const updateProfile = async (username: string, user: User) => {
     const response = await fetch(url + "/api/users/updateProfile/" + username, {
         method: "POST",
