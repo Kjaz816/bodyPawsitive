@@ -66,8 +66,43 @@ const OtherUserAnimalDetails = () => {
         getAnimalDetails();
     }, []);
 
+    
+    interface AnimalWeightData {
+        weight: number;
+        date: string;
+      }
+      
+    
+    const [animalWeightData, setAnimalWeightData] = useState<AnimalWeightData>({
+        weight: 0,
+        date: "",
+    });
+
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const animalData = await fetchAnimalWeight(username, animalId);
+
+    //         setAnimalWeightData(animalWeightData);
+    //     };
+    //     fetchData();
+    // }, []);
+
+    const chartData = {
+        datasets: [
+          {
+            data: [animalWeightData.weight], // Access the weight property directly
+            label: 'Animal Weight',
+            borderColor: 'rgba(0, 0, 255, 0.5)',
+            fill: false,
+          },
+        ],
+        labels: [animalWeightData.date], // Access the date property directly
+      };
+            
     const loggedInUserPermLevel = sessionStorage.getItem("loggedInUserPermLevel");
 
+    console.log("chart data", chartData);
 
     return (
         <div className="page-container-animal-details">
@@ -125,8 +160,8 @@ const OtherUserAnimalDetails = () => {
                                         </button>
                                     </div>  
                                 }
-
-                </div>
+                    
+                </div>  
 
             </div>
         </div>
