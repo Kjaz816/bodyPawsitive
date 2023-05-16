@@ -176,7 +176,7 @@ const OtherUserAnimalDetails = () => {
                                             <p className="navigation-text">Edit Animal</p>
                                         </button>
 
-                                        <button onClick={() => {`/ViewWeight/${username}/${animalDetails._id}` }} className="right-indication">
+                                        <button onClick={() => {window.location.href = `/ViewWeight/${username}/${animalDetails._id}` }} className="right-indication">
                                             <img src={NextButton} className="navigation-button"></img>
                                             <p className="navigation-text">Add Weight Data</p>
                                         </button>
