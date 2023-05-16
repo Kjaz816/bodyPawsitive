@@ -61,9 +61,10 @@
 .animal-details-name{
     font-family: 'Roboto-bold';
     color: #1D7AC4;
-    font-size: 50px;
+    font-size: 35px;
     margin-top: 0%; 
-    margin-bottom: 2%;
+    margin-bottom:0%; 
+    padding-bottom: 12px;
     border-bottom: 0.5px solid #1D7AC4;
 }
 
@@ -95,10 +96,19 @@
 
 .chart-container {
     width: 60vw; /* Adjust the width as needed */
-    height: 36vh; 
+    height: 35vh; 
+    margin-right: 0%; 
   }
   
 .next-buttons{
     display: flex;
     flex-direction: row-reverse;
+    margin-top: 0%;
+    margin-bottom:0%;  
+}
+
+.last-info{
+    margin-bottom: 0%; 
+    border-bottom: 0.5px solid #1D7AC4;
+    padding-bottom: 15px;
 }
