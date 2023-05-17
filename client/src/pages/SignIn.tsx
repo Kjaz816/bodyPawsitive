@@ -45,7 +45,8 @@ const SignIn = () => {
                         id="username"
                         label="Username"
                         variant="outlined"
-                        margin="normal"
+                        margin="dense"
+                        size="small"
                         required
                         onChange={handleChange}
                     />
@@ -56,7 +57,8 @@ const SignIn = () => {
                         id="password"
                         label="Password"
                         variant="outlined"
-                        margin="normal"
+                        margin="dense"
+                        size="small"
                         required
                         onChange={handleChange}
                     />
