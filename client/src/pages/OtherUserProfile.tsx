@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/userController";
+import * as assignApi from "../apiControllers/assignController";
 import TopNavigation from "../components/TopNavigation";
 import "../styling/grid.css";
 import ProfileExample from "../lib/icons/ProfileExample.svg";
@@ -23,6 +24,12 @@ interface SignUpBody {
         photo: string;
         details: string;
     }[];
+}
+
+interface AssignBody {
+    _id: string;
+    vet: string;
+    volunteers: string[];
 }
 
 const OtherUserProfile = () => {
@@ -56,6 +63,9 @@ const OtherUserProfile = () => {
         ],
     });
 
+    const [assigns, setAssigns] = useState<string[]>([]);
+
+    const [viewAssigns, setViewAssigns] = useState<boolean>(false);
     const [viewPets, setViewPets] = useState<boolean>(false);
 
 
@@ -76,20 +86,39 @@ const OtherUserProfile = () => {
             .catch((error) => console.error(error));
     };
 
+    const getAssigns = () => {
+        assignApi.getAssigns(username)
+            .then((data) => {
+                if (!data) {
+                    return;
+                }
+                setAssigns(data.volunteers);
+            })
+            .catch((error) => console.error(error));
+    };
+
+
+
 
     useEffect(() => {
         getProfile();
+        getAssigns();
+        console.log(assigns)
     }, []);
 
     const toggleViewPets = () => {
         setViewPets(!viewPets);
     }
 
+    const toggleViewAssigns = () => {
+        setViewAssigns(!viewAssigns);
+    }
+
 
     return (
 
         <div className="page-container">
-            <TopNavigation/>
+            <TopNavigation />
 
             <a href="/Users">Back to Users</a>
             <div id="profileInfo">
@@ -101,6 +130,9 @@ const OtherUserProfile = () => {
                 <b>Email: </b> <p>{profileDetails.email}</p>
             </div>
             <button onClick={() => { toggleViewPets() }}>View Pets</button>
+            {(sessionStorage.getItem("loggedInUserPermLevel") === "admin" || sessionStorage.getItem("loggedInUserPermLevel") === "vet") && profileDetails.permLevel !== "volunteer" && (
+                <button onClick={() => { toggleViewAssigns() }}>View Assigned Users</button>
+            )}
             <button onClick={() => { window.location.href = `/Chat/${profileDetails.username}` }}>Send a Message</button>
             {sessionStorage.getItem("loggedInUserPermLevel") === "admin" || sessionStorage.getItem("loggedInUserPermLevel") === "vet" && profileDetails.permLevel !== "admin" && (
                 <button onClick={() => { window.location.href = `/EditProfile/${username}` }}>Edit Profile</button>
@@ -115,7 +147,7 @@ const OtherUserProfile = () => {
                                 <div key={animal._id}>
                                     <button onClick={() => { window.location.href = `/Users/${username}/animals/${animal._id}` }} className="animal-card">
                                         <div className="animal-photo-card">
-                                            <img id="img" src={animal.photo} className="animal-photo"/>
+                                            <img id="img" src={animal.photo} className="animal-photo" />
                                         </div>
                                         <p className="animal-name">{animal.name}</p>
                                         <p className="animal-age">Breed: {animal.age}</p>
@@ -130,7 +162,27 @@ const OtherUserProfile = () => {
 
                 </div>
             )}
+            {viewAssigns && assigns.length !== 0 && (
+                <div>
+                    <h1>Assigned Users</h1>
+                    {assigns.map((assign) => (
+                        <div key={assign}>
+                            <a href={`/Users/${assign}`}>{assign}</a>
+                        </div>
+                    ))}
+
+                </div>
+            )}
+            {viewAssigns && assigns.length === 0 && (
+                <div>
+                    <p>No users assigned</p>
+                </div>
+            )}
+
+
         </div>
     )
 }
+
+
 export default OtherUserProfile;

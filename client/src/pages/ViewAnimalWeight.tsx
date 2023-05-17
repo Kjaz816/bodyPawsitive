@@ -21,10 +21,8 @@ interface AnimalDetailsBody {
 const ViewAnimalWeight = () => {
 
     const url = window.location.href;
-    console.log(url);
     const username = url.substring(url.indexOf("ViewWeight/") + 11, url.indexOf("/", url.indexOf("ViewWeight/") + 11));  
     const animalId = url.substring(url.lastIndexOf('/') + 1);
-    console.log(username);
     const [animalDetails, setAnimalDetails] = useState<AnimalDetailsBody>({
         _id: "",
         name: "",
