@@ -1,5 +1,6 @@
 import TopNavigation from "../components/TopNavigation";
 import "../styling/Home.css";
+import "../styling/grid.css";
 import SpcaGlobe from "../lib/assets/SpcaGlobe.svg"
 import { TextField } from "@mui/material";
 
@@ -70,10 +71,15 @@ const Home = () => {
                                 variant="outlined"
                                 margin="dense"
                                 size="small"
-                                required
                                 fullWidth
                             />
                         </div>
+
+                        <div className="grid-container">
+                            <div className="grid">
+                        </div>
+                        </div>
+
                     </div>
 
                     {loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet" && (
