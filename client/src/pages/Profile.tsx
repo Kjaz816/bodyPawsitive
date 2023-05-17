@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/userController";
 import TopNavigation from "../components/TopNavigation";
+import SpcaGlobe from "../lib/assets/SpcaGlobe.svg";
+import "../styling/Profile.css";
 
 interface SignUpBody {
     username: string;
@@ -82,19 +84,26 @@ const Profile = () => {
     return (
 
         <div className="full-page-container">
-            <TopNavigation /> 
+            {/* <TopNavigation />  */}
 
-            <a href="/">Home</a>
-            <div id="profileInfo">
-                <h1>Profile</h1>
-                <img src={profileDetails.photo} alt="Profile Picture" />
-                <b>Username: </b> <p>{profileDetails.username}</p>
-                <b>First Name: </b> <p>{profileDetails.firstName}</p>
-                <b>Last Name: </b> <p>{profileDetails.lastName}</p>
-                <b>Role: </b> <p>{profileDetails.permLevel}</p>
-                <b>Email: </b> <p>{profileDetails.email}</p>
+            <div className="user-option-bar">
+                <a className="back" href="/">{'<- '}Back</a>
+                <button className="edit-profile-button" onClick={() => { window.location.href = `/EditProfile/${profileDetails.username}` }}>{'-> '}Edit Profile</button>
             </div>
-            <button onClick={() => { window.location.href = `/EditProfile/${profileDetails.username}` }}>Edit Profile</button>
+            <div className = "profile-info-container" id="profileInfo">
+                <div className="profile-image-container">
+                    {/* <img src={profileDetails.photo} alt="Profile Picture" /> */}
+                <img className="profile-details-image" src={SpcaGlobe} alt="Profile Picture" />
+                </div>
+                <div className="profile-details-container">
+                    <h1 className="name-text">{profileDetails.firstName} {'  '} {profileDetails.lastName}</h1>
+                    <p><b>Username:</b>{' '}{profileDetails.username}</p>
+                    <p><b>Role:</b>{' '}{profileDetails.permLevel}</p>
+                    <p><b>Email:</b>{' '}{profileDetails.email}</p>
+                </div>
+            </div>
+
+            <hr />
 
             {profileDetails.permLevel === "admin" || profileDetails.permLevel === "vet" && ( // Only show the Add Animal button if the user is an admin
                 <button onClick={() => { window.location.href = "/AddAnimal" }}>Add Animal</button>
