@@ -70,6 +70,7 @@ const SignUp = () => {
                 <img className= "login-logo-image" src={loginLogo} alt="logo" />
                 <a href="/"><img className= "login-logo-image" src={titleLogo} alt="logo" /></a>
                 {/* <p>Sign Up</p> */}
+                {signUpError && <p className="signup-error-message"> {signUpError} </p>}
                 <TextField
                     name="username"
                     id="username"
@@ -139,7 +140,6 @@ const SignUp = () => {
                 <button onClick={addUser}>Add User</button>
             </div>
             {previewPicture && <img src={previewPicture} alt="Profile Image" className="previewImage" style={{ maxWidth: "500px", maxHeight: "500px" }} />}
-            {signUpError && <p> {signUpError} </p>}
         </div>
 
 
