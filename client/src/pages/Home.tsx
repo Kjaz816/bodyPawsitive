@@ -1,6 +1,7 @@
 import TopNavigation from "../components/TopNavigation";
 import "../styling/Home.css";
 import SpcaGlobe from "../lib/assets/SpcaGlobe.svg"
+import { TextField } from "@mui/material";
 
 const Home = () => {
 
@@ -23,7 +24,7 @@ const Home = () => {
             {!loggedInUser && (
 
                 <div className = "home-initial-container">
-                    <div className = "home-contents-container">
+                    <div className = "home-initial-contents-container">
                         <h1 className = "home-title">Body Pawsitive</h1>
                         <p>A scale interfacing tool that allows you to track,<br />
                             weigh, and log details about your pet.</p>
@@ -41,20 +42,40 @@ const Home = () => {
             )}
 
             {loggedInUser && (
+                
                 <div className = "home-page-container">
-                    <TopNavigation/>
-                    <p>Home</p>
-                    <p> Hi, {loggedInUser} </p>
-                    <div>
-                        <a href="/Profile">Profile</a>
-                        <br />
-                        <a href='/Users'>All Users</a>
-                        <br />
-                        <a href='/Chat'>Chat</a>
-                        <br />
-                        <button onClick={logOut}>Logout</button>
+                    {/* <TopNavigation/> */}
+                    <div className="this-top-navigation-container">
+                        <p>Home</p>
+                        <p> Hi, {loggedInUser} </p>
+                        <div>
+                            <a href="/Profile">Profile</a>
+                            <br />
+                            <a href='/Users'>All Users</a>
+                            <br />
+                            <a href='/Chat'>Chat</a>
+                            <br />
+                            <button onClick={logOut}>Logout</button>
+                        </div>
                     </div>
-                    
+
+                    <div className="home-page-contents-container">
+                        <h1 className="page-title-text">DOGS</h1>
+                        <h2 className="page-info-text">{`(8 FURRY FRIENDS )`}</h2>
+                        <div className="search-bar-container">
+                            <TextField
+                                name="searchbar"
+                                id="searchbar"
+                                label="Search here"
+                                variant="outlined"
+                                margin="dense"
+                                size="small"
+                                required
+                                fullWidth
+                            />
+                        </div>
+                    </div>
+
                     {loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet" && (
                         <div>
                             <a href="/AddAnimal">Add Animal</a>
