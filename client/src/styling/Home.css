@@ -41,15 +41,16 @@
 
   .home-logo-image-container {
     display: block;
-    float: right;
+    align-self:flex-end;
+    margin-right: 0%;
   }
 
   .home-logo-image {
-    size: 450px;
-    float: right;
+    width: 80vw;
+    object-fit:cover;
   }
 
-  button {
+.log-in-navigation-container button {
     background-color: white;
     text-decoration: none;
     font-family: 'Nunito-Bold';
