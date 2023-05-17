@@ -5,8 +5,37 @@ import "../styling/TopNavigation.css"
 import TopTitle from "../lib/icons/TitleLogo.svg"
 import NavigationBar from "../lib/icons/NavigationBar.svg"
 
+import {
+    Drawer,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Button,
+  } from "@material-ui/core";
+  import {
+    CheckBoxOutlineBlankOutlined,
+    DraftsOutlined,
+    HomeOutlined,
+    InboxOutlined,
+    MailOutline,
+    ReceiptOutlined,
+  } from "@material-ui/icons";
+  
+const data = [
+    {
+      name: "Home",
+      icon: <HomeOutlined />,
+    },
+    { name: "Inbox", icon: <InboxOutlined /> },
+    { name: "Outbox", icon: <CheckBoxOutlineBlankOutlined /> },
+    { name: "Sent mail", icon: <MailOutline /> },
+    { name: "Draft", icon: <DraftsOutlined /> },
+    { name: "Trash", icon: <ReceiptOutlined /> },
+  ];
+  
 const TopNavigation = () => {
 
+    
     interface SignUpBody {
         username: string;
         firstName: string;
@@ -83,11 +112,32 @@ const TopNavigation = () => {
         window.location.href = "/";
     }
 
-    return (
+    const [open, setOpen] = useState(false);
+
+
+  const getList = () => (
+    <div style={{ width: 250 }} onClick={() => setOpen(false)}>
+      {data.map((item, index) => (
+        <ListItem button key={index}>
+          <ListItemIcon>{item.icon}</ListItemIcon>
+          <ListItemText primary={item.name} />
+        </ListItem>
+      ))}
+    </div>
+  );
+
+    return (  
+
         <div className="top-navigation-container"> 
-            <button onClick={logOut} className="navigation-bar">
-                <img src={NavigationBar} className="navigation-bar-img"></img>
-            </button>
+        
+            <div>
+                <Button onClick={() => setOpen(true)} className="navigation-bar">
+                    <img src={NavigationBar} className="navigation-bar-img"></img>
+                </Button>
+                <Drawer open={open} anchor={"left"} onClose={() => setOpen(false)}>
+                    {getList()}
+                </Drawer>
+            </div>
 
             <button onClick={logOut} className="profile-bar">
                 <img src={profileDetails.photo} className="profile-picture-img"></img>
@@ -96,8 +146,8 @@ const TopNavigation = () => {
 
             <img src={TopTitle} className="top-title"></img>
 
-            <button onClick={logOut} className="chat">CHAT</button>
-            <button onClick={logOut} className="logout">LOGOUT</button>
+            <button onClick={logOut} className="chat">Chat</button>
+            <button onClick={logOut} className="logout">Logout</button>
         </div>
 
     );

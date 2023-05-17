@@ -81,7 +81,7 @@ const Profile = () => {
 
     return (
 
-        <div>
+        <div className="full-page-container">
             <TopNavigation /> 
 
             <a href="/">Home</a>

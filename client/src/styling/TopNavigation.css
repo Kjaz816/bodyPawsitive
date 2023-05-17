@@ -5,7 +5,7 @@
   position: sticky;
   top: 0%;
   background-color: white;
-  height: 12vh; /* Set the desired height of the container */
+  height: 10vh; /* Set the desired height of the container */
 }
 
 .top-title {
@@ -28,7 +28,7 @@
   cursor: pointer;
   font-family: 'Nunito-Bold';
   color: #1D7AC4;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .chat {
@@ -41,7 +41,7 @@
 }
 
 .navigation-bar {
-  margin-left: 2%;
+  margin-left: 0.5%;
   height: 40px;
 }
 

@@ -194,6 +194,26 @@ export const getAnimalDetails: RequestHandler<{ username: string, animalId: stri
     }
 }
 
+export const getAnimalWeights: RequestHandler<{ username: string, animalId: string }, unknown, unknown, unknown> = async (req, res) => {
+    const { username, animalId } = req.params;
+    const formatId = new ObjectId(animalId)
+    try {
+        const user = await UserModel.findOne({ username }).exec();
+        if (!user) {
+            return res.status(400).json({ message: "User does not exist!" });
+        }
+
+        const animal = user.animals.id(formatId);
+        if (!animal) {
+            return res.status(400).json({ message: "Animal does not exist!" });
+        }
+        res.status(200).json(animal.weightData);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
+    }
+}
+
+
 export const updateAnimal: RequestHandler<{ username: string, animalId: string }, unknown, AddAnimalBody, unknown> = async (req, res) => {
     const { username, animalId } = req.params;
     const { name, species, breed, weight, age, photo, details } = req.body;
