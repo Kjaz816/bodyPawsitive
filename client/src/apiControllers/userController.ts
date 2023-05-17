@@ -7,8 +7,8 @@ const url = deployed ? "https://bodypositive.onrender.com" : "";
 
 // Api calls to backend
 
-export const createUser = async (user: User) => {
-    const response = await fetch(url + "/api/users/signUp", {
+export const createUser = async (user: User, assignedTo: string) => {
+    const response = await fetch(url + `/api/users/AddUser/${assignedTo}`, {
         method: "POST", 
         headers: {
             "Content-Type": "application/json"

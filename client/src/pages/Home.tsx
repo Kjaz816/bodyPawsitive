@@ -44,6 +44,8 @@ const Home = () => {
                     
                     {loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet" && (
                         <div>
+                            <a href = "/AddUser">Add User</a>
+                            <br />
                             <a href="/AddAnimal">Add Animal</a>
                         </div>)}
                 </div>
