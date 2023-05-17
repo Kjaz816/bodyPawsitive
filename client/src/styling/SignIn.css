@@ -1,0 +1,43 @@
+.page-container-signin{
+    overflow: hidden; 
+    display: flex;
+    height: 100vh;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+}
+
+.sign-in-fields {
+    display: block;
+    align-items: center;
+    margin-bottom: 0%;
+    overflow: hidden;
+    margin: auto;
+    justify-content: center;
+}
+
+.login-logo-image {
+    margin-top: 2%;
+    width: 20vw;
+    object-fit: cover;
+}
+
+.page-container-signin button {
+    display: block;
+    margin: auto;
+    background-color: #1d7ac4;
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    border: none;
+    height: 40px;
+    width: 220px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    margin-top: 30px;
+  }
+
+  button:hover {
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+  }

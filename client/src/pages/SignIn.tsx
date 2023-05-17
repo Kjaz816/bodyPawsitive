@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { TextField } from '@mui/material';
 import * as api from "../apiControllers/userController";
-import { SignInBody } from "../models/signInModel"
+import { SignInBody } from "../models/signInModel";
+import "../styling/SignIn.css";
+import loginLogo from "../lib/assets/loginlogo.png";
+import titleLogo from "../lib/icons/TitleLogo.svg";
+
 
 
 const SignIn = () => {
@@ -30,29 +34,35 @@ const SignIn = () => {
     };
 
     return (
-        <div>
-            <a href="/">Home</a>
-            <p>Sign In</p>
-            <div id="signUpFields"> 
-            <TextField  
-                name="username"
-                id="username"
-                label="Username"
-                variant="outlined"
-                margin="normal"
-                required
-                onChange={handleChange}
-            />
-            <TextField
-                name="password"
-                id="password"
-                label="Password"
-                variant="outlined"
-                margin="normal"
-                required
-                onChange={handleChange}
-            />
-            <button onClick={signIn}>Sign In</button>
+        <div className = "page-container-signin">
+            <div className = "sign-in-fields" id="signUpFields"> 
+                <div>
+                    <img className= "login-logo-image" src={loginLogo} alt="logo" />
+                </div>
+                <a href="/"><img className= "login-logo-image" src={titleLogo} alt="logo" /></a>
+                <div>
+                    <TextField
+                        name="username"
+                        id="username"
+                        label="Username"
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <TextField
+                        name="password"
+                        id="password"
+                        label="Password"
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        onChange={handleChange}
+                    />
+                </div>
+                    <button onClick={signIn}>Log In</button>
             </div>
             <p> {loginFailedMessage} </p>
         </div>
