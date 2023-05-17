@@ -1,4 +1,6 @@
 import TopNavigation from "../components/TopNavigation";
+import "../styling/Home.css";
+import SpcaGlobe from "../lib/assets/SpcaGlobe.svg"
 
 const Home = () => {
 
@@ -16,19 +18,30 @@ const Home = () => {
     }
 
     return (
-        <div>
-            
+        <div className="page-container-home">
 
             {!loggedInUser && (
-                <div>
-                    <a href="/SignIn">Sign In</a>
-                    <br />
-                    <a href="/SignUp">Sign Up</a>
+
+                <div className = "home-initial-container">
+                    <div className = "home-contents-container">
+                        <h1 className = "home-title">Body Pawsitive</h1>
+                        <p>A scale interfacing tool that allows you to track,<br />
+                            weigh, and log details about your pet.</p>
+                        <div className = "log-in-navigation-container">
+                            <a href="/SignIn"><button>Log In</button></a>
+                            <br />
+                            <a href="/SignUp"><button>Sign Up</button></a>
+                        </div>
+                    </div>
+                    <div className = "home-logo-image-container">
+                        <img className = "home-logo-image" src={SpcaGlobe} alt="logo" />
+                    </div>
                 </div>
+
             )}
 
             {loggedInUser && (
-                <div>
+                <div className = "home-page-container">
                     <TopNavigation/>
                     <p>Home</p>
                     <p> Hi, {loggedInUser} </p>
