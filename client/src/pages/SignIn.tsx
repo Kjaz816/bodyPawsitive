@@ -36,10 +36,9 @@ const SignIn = () => {
     return (
         <div className = "page-container-signin">
             <div className = "sign-in-fields" id="signUpFields"> 
-                <div>
-                    <img className= "login-logo-image" src={loginLogo} alt="logo" />
-                </div>
+                <img className= "login-logo-image" src={loginLogo} alt="logo" />
                 <a href="/"><img className= "login-logo-image" src={titleLogo} alt="logo" /></a>
+                <p className="login-failed-message"> {loginFailedMessage} </p>
                 <div>
                     <TextField
                         name="username"
@@ -62,9 +61,8 @@ const SignIn = () => {
                         onChange={handleChange}
                     />
                 </div>
-                    <button onClick={signIn}>Log In</button>
+                <button onClick={signIn}>Log In</button>
             </div>
-            <p> {loginFailedMessage} </p>
         </div>
 
     );
