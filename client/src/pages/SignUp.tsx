@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { TextField } from '@mui/material';
 import * as api from "../apiControllers/userController";
 import { User } from "../models/userModel"
+import "../styling/SignUp.css";
+import loginLogo from "../lib/assets/loginlogo.png";
+import titleLogo from "../lib/icons/TitleLogo.svg";
 
 
 const SignUp = () => {
@@ -62,16 +65,18 @@ const SignUp = () => {
     }, []);
 
     return (
-        <div>
-            <a href="/">Home</a>
-            <p>Sign Up</p>
-            <div id="signUpFields">
+        <div className="page-container-signup">
+            <div className= "sign-up-fields" id="signUpFields">
+                <img className= "login-logo-image" src={loginLogo} alt="logo" />
+                <a href="/"><img className= "login-logo-image" src={titleLogo} alt="logo" /></a>
+                {/* <p>Sign Up</p> */}
                 <TextField
                     name="username"
                     id="username"
                     label="Username"
                     variant="outlined"
-                    margin="normal"
+                    margin="dense"
+                    size="small"
                     required
                     onChange={handleChange}
                 />
@@ -80,7 +85,8 @@ const SignUp = () => {
                     id="firstName"
                     label="First Name"
                     variant="outlined"
-                    margin="normal"
+                    margin="dense"
+                    size="small"
                     required
                     onChange={handleChange}
                 />
@@ -89,7 +95,8 @@ const SignUp = () => {
                     id="lastName"
                     label="Last Name"
                     variant="outlined"
-                    margin="normal"
+                    margin="dense"
+                    size="small"
                     required
                     onChange={handleChange}
                 />
@@ -98,7 +105,8 @@ const SignUp = () => {
                     id="password"
                     label="Password"
                     variant="outlined"
-                    margin="normal"
+                    margin="dense"
+                    size="small"
                     required
                     onChange={handleChange}
                 />
@@ -107,11 +115,13 @@ const SignUp = () => {
                     id="email"
                     label="Email"
                     variant="outlined"
-                    margin="normal"
+                    margin="dense"
+                    size="small"
                     required
                     onChange={handleChange}
                 />
                 <input
+                    className="input-sign-up"
                     type="file"
                     id="profile"
                     name="photo"
@@ -126,10 +136,8 @@ const SignUp = () => {
 
                 <br />
                 <div id="preview"></div>
+                <button onClick={addUser}>Add User</button>
             </div>
-
-
-            <button onClick={addUser}>Add User</button>
             {previewPicture && <img src={previewPicture} alt="Profile Image" className="previewImage" style={{ maxWidth: "500px", maxHeight: "500px" }} />}
             {signUpError && <p> {signUpError} </p>}
         </div>
