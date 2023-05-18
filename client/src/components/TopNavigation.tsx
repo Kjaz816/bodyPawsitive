@@ -115,22 +115,22 @@ const TopNavigation = () => {
     const [open, setOpen] = useState(false);
 
 
-  const getList = () => (
-    <div style={{ width: 250 }} onClick={() => setOpen(false)}>
-      {data.map((item, index) => (
-        <ListItem button key={index}>
-          <ListItemIcon>{item.icon}</ListItemIcon>
-          <ListItemText primary={item.name} />
-        </ListItem>
-      ))}
-    </div>
-  );
+//   const getList = () => (
+//     <div style={{ width: 250 }} onClick={() => setOpen(false)}>
+//       {data.map((item, index) => (
+//         <ListItem key={index}>
+//           <ListItemIcon>{item.icon}</ListItemIcon>
+//           <ListItemText primary={item.name} />
+//         </ListItem>
+//       ))}
+//     </div>
+//   );
 
     return (  
 
         <div className="top-navigation-container"> 
         
-            <div>
+            {/* <div>
                 <Button onClick={() => setOpen(true)} className="navigation-bar">
                     <img src={NavigationBar} className="navigation-bar-img"></img>
                 </Button>
@@ -138,7 +138,7 @@ const TopNavigation = () => {
                     {getList()}
                 </Drawer>
             </div>
-
+ */}
             <button onClick={logOut} className="profile-bar">
                 <img src={profileDetails.photo} className="profile-picture-img"></img>
                 <p className="profile-name">{profileDetails.firstName} {profileDetails.lastName}</p>
