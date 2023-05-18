@@ -88,21 +88,6 @@ const Profile = () => {
         }
     };
 
-
-    // const getAssigns = () => {
-    //     const username = sessionStorage.getItem("loggedInUser");
-    //     if (username) {
-    //         assignApi.getAssigns(username)
-    //             .then((data) => {
-    //                 for ()
-    //             }
-    //             )
-    //             .catch((error) => console.error(error));
-    //     } else {
-    //         window.location.href = "/Login";
-    //     }
-    // };
-
     useEffect(() => {
         const username = sessionStorage.getItem('loggedInUser')
         if (username){
