@@ -1,7 +1,7 @@
 import TopNavigation from "../components/TopNavigation";
 import "../styling/Home.css";
 import "../styling/grid.css";
-import SpcaGlobe from "../lib/assets/SpcaGlobe.svg"
+import SpcaGlobe from "../lib/assets/SpcaGlobe.png"
 import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/userController";
@@ -163,9 +163,9 @@ const Home = () => {
                             <a href="/SignUp"><button>Sign Up</button></a>
                         </div>
                     </div>
-                    {/* <div className="home-logo-image-container">
+                    <div className="home-logo-image-container">
                         <img className="home-logo-image" src={SpcaGlobe} alt="logo" />
-                    </div> */}
+                    </div>
                 </div>
 
             )}

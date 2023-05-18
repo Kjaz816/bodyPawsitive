@@ -38,17 +38,23 @@
     margin-top: 8%; 
   }
 
-  .home-logo-image-container {
-    display: block;
-    align-self:flex-end;
-    margin-right: 0%;
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
-
+  
   .home-logo-image {
-    width: 80vw;
-    object-fit:cover;
+    width: 90vw;
+    object-fit: fill;
+    position: fixed;
+    right:-25%;
+    animation: spin 20s linear infinite; /* Adjust the animation duration for desired spinning speed */
   }
-
+  
 .log-in-navigation-container button {
     background-color: white;
     text-decoration: none;
@@ -147,6 +153,8 @@
     width:15vw; 
     margin-top:15%; 
     border-radius: 50%;
+    border:solid; 
+    border-color: #1D7AC4;
   }
   
   .profile-details-container{

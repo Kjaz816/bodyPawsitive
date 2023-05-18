@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/userController";
 import TopNavigation from "../components/TopNavigation";
-import SpcaGlobe from "../lib/assets/SpcaGlobe.svg";
+import SpcaGlobe from "../lib/assets/SpcaGlobe.png";
 import "../styling/Profile.css";
 import "../styling/grid.css"
 import * as assignApi from "../apiControllers/assignController";
