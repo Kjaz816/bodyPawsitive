@@ -145,6 +145,7 @@ const TopNavigation = () => {
 
             <img src={TopTitle} className="top-title"></img>
 
+            <button onClick={() => { window.location.href = `/`}} className="home">Home</button>
             <button onClick={() => { window.location.href = `/Users`}} className="all-users">All Users</button>
             <button onClick={() => { window.location.href = `/Chat`}} className="chat">Chat</button>
             <button onClick={logOut} className="logout">Logout</button>

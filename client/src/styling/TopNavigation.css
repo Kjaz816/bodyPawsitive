@@ -5,7 +5,7 @@
   position: sticky;
   top: 0%;
   background-color: white;
-  height: 10vh; /* Set the desired height of the container */
+  height: 8vh; /* Set the desired height of the container */
 }
 
 .top-title {
@@ -23,6 +23,7 @@
 .profile-bar,
 .profile-picture,
 .top-title,
+.home, 
 .all-users {
   background-color: transparent;
   border-color: transparent;
@@ -68,9 +69,14 @@
 }
 
 .all-users {
+  margin-right: 2%;
+}
+
+.home {
   margin-left: auto;
   margin-right: 2%;
 }
+
 
 
 
