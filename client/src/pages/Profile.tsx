@@ -28,22 +28,20 @@ interface SignUpBody {
     }[];
 }
 
-interface AssignBody {
-    vet: string;
-    volunteers: [{
-        name: string;
-        photo: string;
-    }];
+
+interface volunteer {
+    name: string;
+    photo: string;
+    _id: string;
 }
+
 const Profile = () => {
 
-    const [assignBody, setAssignBody] = useState<AssignBody>({
-        vet: "",
-        volunteers: [{
-            name: "",
-            photo: ""
-        }]
-    })
+    const [volunteers, setVolunteers] = useState<volunteer[]>([{
+        name: "",
+        photo: "",
+        _id: ""
+    }]);
 
     const [profileDetails, setProfileDetails] = useState<SignUpBody>({
         username: "",
@@ -88,16 +86,34 @@ const Profile = () => {
         }
     };
 
+
+    const getAssigns = () => {
+        const username = sessionStorage.getItem("loggedInUser");
+        if (username) {
+            assignApi.getAssigns(username)
+                .then((data) => {
+                    setVolunteers(data.volunteers);
+                })
+                .catch((error) => console.error(error));
+        } else {
+            window.location.href = "/Login";
+        }
+    };
+
     useEffect(() => {
         const username = sessionStorage.getItem('loggedInUser')
         if (username){
         getProfile(username);
         if (sessionStorage.getItem('loggedInUserPermLevel') === "vet" || sessionStorage.getItem('loggedInUserPermLevel') === "vet"  ){
-            // getAssigns();
+            getAssigns();
         }
     }
         
     }, []);
+
+    useEffect(() => {
+        console.log(volunteers);
+    }, [volunteers]);
 
     const toggleViewPets = () => {
         setViewPets(!viewPets);
@@ -126,6 +142,7 @@ const Profile = () => {
             </div>
 
             <hr />
+
             
             <div className="grid-container">
                         <div className="grid">
