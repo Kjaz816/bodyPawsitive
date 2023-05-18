@@ -4,6 +4,7 @@ import TopNavigation from "../components/TopNavigation";
 import SpcaGlobe from "../lib/assets/SpcaGlobe.svg";
 import "../styling/Profile.css";
 import "../styling/grid.css"
+import * as assignApi from "../apiControllers/assignController";
 
 interface SignUpBody {
     username: string;
@@ -27,7 +28,22 @@ interface SignUpBody {
     }[];
 }
 
+interface AssignBody {
+    vet: string;
+    volunteers: [{
+        name: string;
+        photo: string;
+    }];
+}
 const Profile = () => {
+
+    const [assignBody, setAssignBody] = useState<AssignBody>({
+        vet: "",
+        volunteers: [{
+            name: "",
+            photo: ""
+        }]
+    })
 
     const [profileDetails, setProfileDetails] = useState<SignUpBody>({
         username: "",
@@ -59,10 +75,9 @@ const Profile = () => {
     const [viewPets, setViewPets] = useState<boolean>(false);
 
 
-    const getProfile = () => {
-        const username = sessionStorage.getItem("loggedInUser");
-        if (username) {
-            api.getProfile(username)
+    const getProfile = (userToGet: string) => {
+        if (userToGet) {
+            api.getProfile(userToGet)
                 .then((data) => {
                     setProfileDetails(data);
                 }
@@ -74,8 +89,29 @@ const Profile = () => {
     };
 
 
+    const getAssigns = () => {
+        const username = sessionStorage.getItem("loggedInUser");
+        if (username) {
+            assignApi.getAssigns(username)
+                .then((data) => {
+                    for ()
+                }
+                )
+                .catch((error) => console.error(error));
+        } else {
+            window.location.href = "/Login";
+        }
+    };
+
     useEffect(() => {
-        getProfile();
+        const username = sessionStorage.getItem('loggedInUser')
+        if (username){
+        getProfile(username);
+        if (sessionStorage.getItem('loggedInUserPermLevel') === "vet" || sessionStorage.getItem('loggedInUserPermLevel') === "vet"  ){
+            getAssigns();
+        }
+    }
+        
     }, []);
 
     const toggleViewPets = () => {

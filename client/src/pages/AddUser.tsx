@@ -6,7 +6,7 @@ import { User } from "../models/userModel"
 
 const AddUser = () => {
     const [addUserError, setAddUserError] = useState("");
-    const [volunteers, setVolunteers] = useState<User[]>([]);
+    const [volunteers, setVets] = useState<User[]>([]);
 
     const addUser = () => {
         api.createUser(profileDetails, assignTo)
@@ -70,7 +70,7 @@ const AddUser = () => {
                         vets.push(element);
                     }
                 }
-                setVolunteers(vets);
+                setVets(vets);
             })
     }
 
