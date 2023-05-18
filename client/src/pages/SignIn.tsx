@@ -14,7 +14,7 @@ const SignIn = () => {
             .then((data) => {
                 sessionStorage.setItem("loggedInUser", data.username);
                 sessionStorage.setItem("loggedInUserPermLevel", data.permLevel);
-                window.location.href = "/Profile";
+                window.location.href = "/";
             })
             .catch((error) => {
                 setLoginFailedMessage("Username or password is incorrect");
