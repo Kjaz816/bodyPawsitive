@@ -45,7 +45,7 @@ const Home = () => {
             {loggedInUser && (
                 
                 <div className = "home-page-container">
-                    {/* <TopNavigation/> */}
+                    <TopNavigation/>
                     <div className="this-top-navigation-container">
                         <p>Home</p>
                         <p> Hi, {loggedInUser} </p>

@@ -1,4 +1,3 @@
-import { TextField } from '@mui/material';
 import * as api from "../apiControllers/userController";
 import { useEffect, useState } from "react";
 import "../styling/TopNavigation.css" 
@@ -12,6 +11,7 @@ import {
     ListItemText,
     Button,
   } from "@material-ui/core";
+  
   import {
     CheckBoxOutlineBlankOutlined,
     DraftsOutlined,
