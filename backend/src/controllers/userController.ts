@@ -78,14 +78,20 @@ export const addUser: RequestHandler<{ assignedTo: string }, unknown, UserDetail
         });
         const assignExisting = await AssignModel.findOne({ vet: assignedTo }).exec();
         if (assignExisting) {
-            assignExisting.volunteers.push(username);
+            console.log(username, photo)
+            assignExisting.volunteers.push({
+                name: username,
+                photo: await uploadToImgur(photo)
+            });
             await assignExisting.save();
             return res.status(201).json({ newUser });
         } else {
             const newAssign = await AssignModel.create({
                 vet: assignedTo,
-                volunteers: [
-                    username
+                volunteers: [{
+                    name: username,
+                    photo: await uploadToImgur(photo)
+                }
                 ]
             }).catch(error => {
                 console.error(error);
@@ -95,7 +101,7 @@ export const addUser: RequestHandler<{ assignedTo: string }, unknown, UserDetail
         }
     }
     catch (error) {
-        res.status(500).json({ message: "Something went wrong!" });
+        res.status(500).json({ error });
     }
 }
 

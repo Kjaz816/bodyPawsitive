@@ -56,6 +56,7 @@ const Home = () => {
                             <br />
                             <a href='/Chat'>Chat</a>
                             <br />
+                            <a href='/addUser'>Add User</a>
                             <button onClick={logOut}>Logout</button>
                         </div>
                     </div>

@@ -5,10 +5,12 @@ const assignSchema = new Schema({
         type: String,
         required: true,
     },
-    volunteers: [{
-        type: String,
-        required: true,
-    }],
+    volunteers: [
+        {
+            name: { type: String, required: true },
+            photo: { type: String, required: true },
+        }
+    ],
 });
 
 type Assign = InferSchemaType<typeof assignSchema>;
