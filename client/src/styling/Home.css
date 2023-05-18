@@ -117,11 +117,27 @@
   }
 
   .page-title-text {
+    display:flex; 
+    justify-content: center;
+    width:95%; 
     font-size: 30px;
-    margin-top:0%; 
+    margin-top: 0%;
     margin-bottom: 0%;
+    padding-top: 15px;
+    position: relative;
   }
-
+  
+  .page-title-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Adjust the width as needed */
+    height: 0.5px;
+    background-color: #1D7AC4;
+    animation: borderAnimation 2s ease forwards;
+  }
+  
   .page-info-text {
     margin-top: 0%;
     font-size: 15px;
@@ -135,4 +151,13 @@
   
   .profile-details-container{
     margin-left:5%; 
+  }
+
+  @keyframes borderAnimation {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
   }

@@ -150,7 +150,7 @@ const OtherUserAnimalDetails = () => {
         <div className="page-container-animal-details">
             <TopNavigation/>
             
-            <button onClick={() => { window.location.href = `/Users/${username}` }} className="left-indication">
+            <button onClick={() =>   window.history.back()} className="left-indication">
                 <img src={BackButton} className="navigation-button"></img>
                 <p className="navigation-text">Back</p>         
             </button>
@@ -169,7 +169,7 @@ const OtherUserAnimalDetails = () => {
                     <p><span className="caption-bold">Weight:</span> <span className="details-text">{lastWeighedData.weight} Kg</span></p>
                     <p className="last-info"><span className="caption-bold">Last Weighed:</span> <span className="details-text">{formattedDate} at {formattedTime}</span></p>
                     
-                    {(loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet") &&
+                    {(loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet" || loggedInUserPermLevel === "volunteer") &&
                                     <div className="next-buttons">
                                         <button onClick={() => { window.location.href = `/EditAnimal/${username}/${animalDetails._id}` }} className="right-indication">
                                             <img src={NextButton} className="navigation-button"></img>

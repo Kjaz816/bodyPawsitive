@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import * as api from "../apiControllers/userController";
 import "../styling/Profile.css";
 import * as assignApi from "../apiControllers/assignController";
+import NextButton from "../lib/icons/RightIndicator.svg"
+import "../styling/AnimalDetails.css"
 
 interface SignUpBody {
     username: string;
@@ -183,6 +185,12 @@ const Home = () => {
                                 <p><b>Email:</b>{' '}{profileDetails.email}</p>
                             </div>
                         </div>
+                        
+                        <button onClick={() => {window.location.href = `/EditProfile/${profileDetails.username}` }} className="right-indication">
+                                            <img src={NextButton} className="navigation-button"></img>
+                                            <p className="navigation-text">Edit Details</p>
+                        </button>
+
 
                         {loggedInUserPermLevel === "volunteer" && (
                             <div>
@@ -202,12 +210,11 @@ const Home = () => {
                                     </div>
 
                                 </div>
-
                                 <div className="grid-container">
                                     <div className="grid">
                                         {profileDetails.animals.map((animal) => (
                                             <div key={animal._id}>
-                                                <button onClick={() => { window.location.href = `/Users/${username}/animals/${animal._id}` }} className="animal-card">
+                                                <button onClick={() => { window.location.href = `/AnimalDetails/${animal._id}` }} className="animal-card">
                                                     <div className="animal-photo-card">
                                                         <img id="img" src={animal.photo} className="animal-photo" />
                                                     </div>
