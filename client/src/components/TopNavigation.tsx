@@ -10,7 +10,7 @@ import {
     ListItemIcon,
     ListItemText,
     Button,
-  } from "@material-ui/core";
+  } from "@mui/material";
   
   import {
     CheckBoxOutlineBlankOutlined,
@@ -19,7 +19,7 @@ import {
     InboxOutlined,
     MailOutline,
     ReceiptOutlined,
-  } from "@material-ui/icons";
+  } from "@mui/icons-material";
   
 const data = [
     {
