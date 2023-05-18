@@ -1,24 +1,20 @@
 import { useState, useEffect } from "react";
-import { TextField } from '@mui/material';
+import { TextField, MenuItem } from '@mui/material';
 import * as api from "../apiControllers/userController";
 import { User } from "../models/userModel"
-import "../styling/SignUp.css";
-import loginLogo from "../lib/assets/loginlogo.png";
-import titleLogo from "../lib/icons/TitleLogo.svg";
 
 
-const SignUp = () => {
-    const [signUpError, setSignUpError] = useState("");
+const AddUser = () => {
+    const [addUserError, setAddUserError] = useState("");
+    const [volunteers, setVolunteers] = useState<User[]>([]);
 
     const addUser = () => {
-        api.createUser(profileDetails)
+        api.createUser(profileDetails, assignTo)
             .then((data) => {
-                sessionStorage.setItem("loggedInUser", profileDetails.username);
-                sessionStorage.setItem("loggedInUserPermLevel", profileDetails.permLevel);
-                window.location.href = "/";
+                console.log(data);
             })
             .catch((error) => {
-                setSignUpError("Username already exists");
+                setAddUserError("Username already exists");
                 console.error(error);
             });
     };
@@ -33,16 +29,23 @@ const SignUp = () => {
         photo: "",
     });
 
+    const [assignTo, setAssignTo] = useState<string>("");
+
     const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
+        if (name === "assignTo") {
+            setAssignTo(value);
+            return
+        }
         if (name === "photo") {
             const file = event.target.files![0];
             const photoBase64 = await fileToBase64(file);
             const photoString = (photoBase64 as string).toString().replace(/^data:image\/[a-z]+;base64,/, "");   // remove the file type prefix
             setProfileDetails((prevState) => ({ ...prevState, [name]: photoString }));
-        } else {
-            setProfileDetails((prevState) => ({ ...prevState, [name]: value }));
+            return
         }
+        setProfileDetails((prevState) => ({ ...prevState, [name]: value }));
+
     };
 
     function fileToBase64(file: any) {
@@ -58,26 +61,36 @@ const SignUp = () => {
         });
     }
 
-    const [previewPicture, setPreviewPicture] = useState<string>("");
-
+    function getVets() {
+        api.getAllProfiles()
+            .then((data) => {
+                const vets: User[] = [];
+                for (const element of data) {
+                    if (element.permLevel === "vet") {
+                        vets.push(element);
+                    }
+                }
+                setVolunteers(vets);
+            })
+    }
 
     useEffect(() => {
+        getVets();
     }, []);
 
+    const [previewPicture, setPreviewPicture] = useState<string>("");
+
     return (
-        <div className="page-container-signup">
-            <div className= "sign-up-fields" id="signUpFields">
-                <img className= "login-logo-image" src={loginLogo} alt="logo" />
-                <a href="/"><img className= "login-logo-image" src={titleLogo} alt="logo" /></a>
-                {/* <p>Sign Up</p> */}
-                {signUpError && <p className="signup-error-message"> {signUpError} </p>}
+        <div>
+            <a href="/">Home</a>
+            <p>Add User</p>
+            <div id="addUserFields">
                 <TextField
                     name="username"
                     id="username"
                     label="Username"
                     variant="outlined"
-                    margin="dense"
-                    size="small"
+                    margin="normal"
                     required
                     onChange={handleChange}
                 />
@@ -86,8 +99,7 @@ const SignUp = () => {
                     id="firstName"
                     label="First Name"
                     variant="outlined"
-                    margin="dense"
-                    size="small"
+                    margin="normal"
                     required
                     onChange={handleChange}
                 />
@@ -96,8 +108,7 @@ const SignUp = () => {
                     id="lastName"
                     label="Last Name"
                     variant="outlined"
-                    margin="dense"
-                    size="small"
+                    margin="normal"
                     required
                     onChange={handleChange}
                 />
@@ -106,8 +117,7 @@ const SignUp = () => {
                     id="password"
                     label="Password"
                     variant="outlined"
-                    margin="dense"
-                    size="small"
+                    margin="normal"
                     required
                     onChange={handleChange}
                 />
@@ -116,13 +126,11 @@ const SignUp = () => {
                     id="email"
                     label="Email"
                     variant="outlined"
-                    margin="dense"
-                    size="small"
+                    margin="normal"
                     required
                     onChange={handleChange}
                 />
                 <input
-                    className="input-sign-up"
                     type="file"
                     id="profile"
                     name="photo"
@@ -134,16 +142,49 @@ const SignUp = () => {
                         handleChange(event);
                     }}
                 />
+                <TextField
+                    select
+                    name="permLevel"
+                    id="permLevel"
+                    defaultValue={"volunteer"}
+                    label="Permission Level"
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    onChange={handleChange}
+                >
+                    <MenuItem value="volunteer">Volunteer</MenuItem>
+                    <MenuItem value="vet">Vet</MenuItem>
+                    <MenuItem value="admin">Admin</MenuItem>
+                </TextField>
+                <TextField
+                    select
+                    name="assignTo"
+                    id="assignTo"
+                    label="Assign To"
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    defaultValue=''
+                    onChange={handleChange}
+                >
+                    {volunteers.map((volunteer) => (
+                        <MenuItem key={volunteer.username} value={volunteer.username}>{volunteer.firstName} {volunteer.lastName}</MenuItem>
+                    ))}
+                </TextField>
 
                 <br />
                 <div id="preview"></div>
-                <button onClick={addUser}>Add User</button>
             </div>
+
+
+            <button onClick={addUser}>Add User</button>
             {previewPicture && <img src={previewPicture} alt="Profile Image" className="previewImage" style={{ maxWidth: "500px", maxHeight: "500px" }} />}
+            {addUserError && <p> {addUserError} </p>}
         </div>
 
 
     );
 }
 
-export default SignUp;
+export default AddUser;

@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, } from "react-router-dom";
-import SignUp from "./pages/SignUp";
+import AddUser from "./pages/AddUser";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import AddAnimal from "./pages/AddAnimal";
@@ -24,7 +24,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/EditProfile/:id" element={<EditProfile />} /> 
-          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/AddUser" element={<AddUser />} />
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/AddAnimal" element={<AddAnimal />} />
           <Route path="/AnimalDetails/:id" element={<AnimalDetails />} />
