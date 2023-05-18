@@ -138,15 +138,15 @@ const TopNavigation = () => {
                     {getList()}
                 </Drawer> */}
             </div>
-
-            <button onClick={logOut} className="profile-bar">
+            <button onClick={() => { window.location.href = `/Profile`}} className="profile-bar">
                 <img src={profileDetails.photo} className="profile-picture-img"></img>
                 <p className="profile-name">{profileDetails.firstName} {profileDetails.lastName}</p>
             </button>
 
             <img src={TopTitle} className="top-title"></img>
 
-            <button onClick={logOut} className="chat">Chat</button>
+            <button onClick={() => { window.location.href = `/Users`}} className="all-users">All Users</button>
+            <button onClick={() => { window.location.href = `/Chat`}} className="chat">Chat</button>
             <button onClick={logOut} className="logout">Logout</button>
         </div>
 
