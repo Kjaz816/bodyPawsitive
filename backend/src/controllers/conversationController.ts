@@ -31,7 +31,13 @@ export const sendMessage: RequestHandler<unknown, unknown, MessageBody, unknown>
         return res.status(400).json({ message: "Cannot send message to yourself!" });
     }
     try {
-        const conversation = await ConversationModel.findOne({ participants: { $all: [sender, receiver] } }).exec();
+        const conversation = await ConversationModel.findOne({
+            $and: [
+              { participants: { $in: [sender] } },
+              { participants: { $in: [receiver] } },
+              { participants: { $size: 2 } }
+            ]
+          }).exec();
         if (conversation) {
             conversation.messages.push({
                 sender: sender,
