@@ -147,8 +147,7 @@ const Home = () => {
 
     
     return (
-        <div className="page-container-home">
-
+        <div className="page-container">
             {!loggedInUser && (
 
                 <div className="home-initial-container">
@@ -162,55 +161,47 @@ const Home = () => {
                             <a href="/SignUp"><button>Sign Up</button></a>
                         </div>
                     </div>
-                    <div className="home-logo-image-container">
+                    {/* <div className="home-logo-image-container">
                         <img className="home-logo-image" src={SpcaGlobe} alt="logo" />
-                    </div>
+                    </div> */}
                 </div>
 
             )}
 
             {loggedInUser && (
 
-                <div className="home-page-container">
-                    <TopNavigation />
-
-                    <div className="profile-info-container" id="profileInfo">
-                        <div className="profile-image-container">
-                            {/* <img src={profileDetails.photo} alt="Profile Picture" /> */}
-                            <img className="profile-details-image" src={SpcaGlobe} alt="Profile Picture" />
-                        </div>
-                        <div className="profile-details-container">
-                            <h1 className="name-text">{profileDetails.firstName} {'  '} {profileDetails.lastName}</h1>
-                            <p><b>Username:</b>{' '}{profileDetails.username}</p>
-                            <p><b>Role:</b>{' '}{profileDetails.permLevel}</p>
-                            <p><b>Email:</b>{' '}{profileDetails.email}</p>
-                            {loggedInUserPermLevel === "volunteer" && (
-                                <button onClick={toggleViewPets} className="view-pets-button">View Pets</button>
-                            )}
-                            {(loggedInUserPermLevel === "vet" || loggedInUserPermLevel === "admin") && (
-                                <button onClick={toggleViewAssigned} className="view-assigned-button">View Assigned</button>
-                            )}
-                        </div>
-                        <div className="home-page-contents-container">
-                            <h1 className="page-title-text">DOGS</h1>
-                            <h2 className="page-info-text">{`(8 FURRY FRIENDS )`}</h2>
-                            <div className="search-bar-container">
-                                <TextField
-                                    name="searchbar"
-                                    id="searchbar"
-                                    label="Search here"
-                                    variant="outlined"
-                                    margin="dense"
-                                    size="small"
-                                    fullWidth
-                                />
+                    <div className="page-container" id="profileInfo">
+                        <TopNavigation />
+                        <div className="profile-info-details-container">
+                            <div className="profile-image-container">
+                                <img className="profile-image" src={profileDetails.photo}/>
                             </div>
-
+                            <div className="profile-details-container">
+                                <h1 className="name-text">Hi, {profileDetails.firstName} {'  '} {profileDetails.lastName}</h1>
+                                <p><b>Username:</b>{' '}{profileDetails.username}</p>
+                                <p><b>Role:</b>{' '}{profileDetails.permLevel}</p>
+                                <p><b>Email:</b>{' '}{profileDetails.email}</p>
+                            </div>
                         </div>
 
-                        {viewPets && (
+                        {loggedInUserPermLevel === "volunteer" && (
                             <div>
-                                <h1>Pets</h1>
+                                <div className="home-page-contents-container">
+                                    <h1 className="page-title-text">DOGS</h1>
+                                    <h2 className="page-info-text">{`(8 FURRY FRIENDS )`}</h2>
+                                    <div className="search-bar-container">
+                                        <TextField
+                                            name="searchbar"
+                                            id="searchbar"
+                                            label="Search here"
+                                            variant="outlined"
+                                            margin="dense"
+                                            size="small"
+                                            fullWidth
+                                        />
+                                    </div>
+
+                                </div>
 
                                 <div className="grid-container">
                                     <div className="grid">
@@ -233,22 +224,45 @@ const Home = () => {
 
                             </div>
                         )}
-                        {viewAssigned && (
+                        {loggedInUserPermLevel === "vet" && (
                             <div>
-                                <h1>Assigned</h1>
-                                {volunteers.map((volunteer) =>
-                                    <div key={volunteer._id}>
-                                        <button onClick={() => { window.location.href = `/Users/${volunteer.name}` }} className="animal-card">
-                                        <p className="animal-name">{volunteer.name}</p>
-                                            
-                                        </button>
-                                        <br />
-                                    </div>)}
+
+                                <div className="home-page-contents-container">
+                                    <h1 className="page-title-text">VOLUNTEERS</h1>
+                                    <h2 className="page-info-text">{`(12 Volunteers)`}</h2>
+                                    <div className="search-bar-container">
+                                        <TextField
+                                            name="searchbar"
+                                            id="searchbar"
+                                            label="Search here"
+                                            variant="outlined"
+                                            margin="dense"
+                                            size="small"
+                                            fullWidth
+                                        />
+                                    </div>
+
+                                </div>
+
+                                <div className="grid-container">
+                                    <div className="grid">
+
+                                        {volunteers.map((volunteer) =>
+                                            <div key={volunteer._id}>
+                                                <button onClick={() => { window.location.href = `/Users/${volunteer.name}` }} className="animal-card">
+                                                            <div className="animal-photo-card">
+                                                                <img id="img" src={volunteer.photo} className="animal-photo" />
+                                                            </div>
+                                                            <p className="animal-name">{volunteer.name}</p>                                            
+                                                </button>
+                                                <br />
+                                            </div>)}
+                                    </div>
+                                </div>
+
                                 </div>) }
 
 
-
-                    </div>
                 </div>
             )}
         </div>

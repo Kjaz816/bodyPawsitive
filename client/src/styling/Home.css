@@ -1,6 +1,5 @@
 .page-container-home {
-    height: 100vh; 
-    overflow: hidden; 
+    overflow: auto; 
 }
 
 .home-initial-container {
@@ -10,7 +9,6 @@
     width: 100%;
     height: 100%;
     background-color: #1d7ac4;
-    overflow: hidden; 
 }
 
 .home-initial-contents-container {
@@ -20,6 +18,7 @@
     color: white;
     font-family: "Nunito-Regular";
     font-size: 20px;
+    overflow: auto; 
 }
 
 .home-title {
@@ -73,9 +72,21 @@
     padding-left: 0px;
   }
   
+  .profile-info-container{
+    flex-direction: column;
+  }
+
+  .profile-info-details-container{
+    display:flex; 
+    margin-bottom: 2%; 
+    justify-content: center;
+    flex-direction: row;
+
+  }
+
   .home-page-container {
     height: 100vh; 
-    overflow: hidden; 
+    flex-direction: column;
   }
 
   .this-top-navigation-container {
@@ -92,11 +103,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 2%;
+    margin-top: 0%;
     margin-bottom: 0%; 
     width: 100%;
-    height: 100%;
-    overflow: hidden; 
     animation: fadeInAnimation 2s ease forwards;
     font-family: "Nunito-Bold";
     color: #1d7ac4;
@@ -104,15 +113,26 @@
 
   .search-bar-container {
     width: 95%;
-    height: 100%;
+    margin-bottom:1%; 
   }
 
   .page-title-text {
     font-size: 30px;
+    margin-top:0%; 
     margin-bottom: 0%;
   }
 
   .page-info-text {
     margin-top: 0%;
     font-size: 15px;
+  }
+
+  .profile-image {
+    width:15vw; 
+    margin-top:15%; 
+    border-radius: 50%;
+  }
+  
+  .profile-details-container{
+    margin-left:5%; 
   }

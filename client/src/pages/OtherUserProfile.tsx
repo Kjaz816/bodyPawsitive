@@ -141,24 +141,24 @@ const OtherUserProfile = () => {
                 <div>
                     <h1>Pets</h1>
 
-                    <div className="grid-container">
-                        <div className="grid">
-                            {profileDetails.animals.map((animal) => (
-                                <div key={animal._id}>
-                                    <button onClick={() => { window.location.href = `/Users/${username}/animals/${animal._id}` }} className="animal-card">
-                                        <div className="animal-photo-card">
-                                            <img id="img" src={animal.photo} className="animal-photo" />
-                                        </div>
-                                        <p className="animal-name">{animal.name}</p>
-                                        <p className="animal-age">Breed: {animal.age}</p>
-                                        <p className="animal-breed">Age: {animal.breed}</p>
-                                        <p className="animal-weight">Weight: {animal.weightData[0].weight} Kg</p>
-                                    </button>
-                                    <br />
-                                </div>
-                            ))}
+                        <div className="grid-container">
+                            <div className="grid">
+                                {profileDetails.animals.map((animal) => (
+                                    <div key={animal._id}>
+                                        <button onClick={() => { window.location.href = `/Users/${username}/animals/${animal._id}` }} className="animal-card">
+                                            <div className="animal-photo-card">
+                                                <img id="img" src={animal.photo} className="animal-photo" />
+                                            </div>
+                                            <p className="animal-name">{animal.name}</p>
+                                            <p className="animal-age">Breed: {animal.age}</p>
+                                            <p className="animal-breed">Age: {animal.breed}</p>
+                                            <p className="animal-weight">Weight: {animal.weightData[0].weight} Kg</p>
+                                        </button>
+                                        <br />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
 
                 </div>
             )}
