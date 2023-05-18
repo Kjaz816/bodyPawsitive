@@ -171,7 +171,7 @@ const AnimalDetails = () => {
                     
                     {(loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet" || loggedInUserPermLevel === "volunteer") &&
                                     <div className="next-buttons">
-                                        <button onClick={() => { window.location.href = `/EditAnimal/${username}/${animalDetails._id}` }} className="right-indication">
+                                        <button onClick={() => { window.location.href = `/EditAnimal/${username}/${animalDetails._id}` }} className="right-indication-first">
                                             <img src={NextButton} className="navigation-button"></img>
                                             <p className="navigation-text">Edit Animal</p>
                                         </button>

@@ -7,8 +7,7 @@ import { useEffect, useState } from "react";
 import * as api from "../apiControllers/userController";
 import "../styling/Profile.css";
 import * as assignApi from "../apiControllers/assignController";
-import NextButton from "../lib/icons/RightIndicator.svg"
-import "../styling/AnimalDetails.css"
+import NextButton from "../lib/icons/RightIndicator.svg";
 
 interface SignUpBody {
     username: string;
@@ -149,7 +148,7 @@ const Home = () => {
 
     
     return (
-        <div className="page-container">
+        <div>
             {!loggedInUser && (
 
                 <div className="home-initial-container">
@@ -172,8 +171,8 @@ const Home = () => {
 
             {loggedInUser && (
 
-                    <div className="page-container" id="profileInfo">
-                        <TopNavigation />
+                    <div>
+                        <TopNavigation/>
                         <div className="profile-info-details-container">
                             <div className="profile-image-container">
                                 <img className="profile-image" src={profileDetails.photo}/>
@@ -185,36 +184,37 @@ const Home = () => {
                                 <p><b>Email:</b>{' '}{profileDetails.email}</p>
                             </div>
                         </div>
-                        
-                        <button onClick={() => {window.location.href = `/EditProfile/${profileDetails.username}` }} className="right-indication">
-                                            <img src={NextButton} className="navigation-button"></img>
-                                            <p className="navigation-text">Edit Details</p>
-                        </button>
-
-
                         {loggedInUserPermLevel === "volunteer" && (
                             <div>
-                                <div className="home-page-contents-container">
-                                    <h1 className="page-title-text">DOGS</h1>
-                                    <h2 className="page-info-text">{`(8 FURRY FRIENDS )`}</h2>
-                                    <div className="search-bar-container">
-                                        <TextField
-                                            name="searchbar"
-                                            id="searchbar"
-                                            label="Search here"
-                                            variant="outlined"
-                                            margin="dense"
-                                            size="small"
-                                            fullWidth
-                                        />
-                                    </div>
+                        <button onClick={() => { window.location.href = `/EditProfile/${profileDetails.username}` }} className="right-indication-first">
+                                            <img src={NextButton} className="navigation-button"></img>
+                                            <p className="navigation-text">Edit User</p>
+                        </button>
 
-                                </div>
+                            <div className="home-page-contents-container">
+                            <h1 className="page-title-text">DOGS</h1>
+                            <h2 className="page-info-text">{`(8 FURRY FRIENDS )`}</h2>
+                            <div className="search-bar-container">
+                                <TextField
+                                    name="searchbar"
+                                    id="searchbar"
+                                    label="Search here"
+                                    variant="outlined"
+                                    margin="dense"
+                                    size="small"
+                                    fullWidth
+                                />
+                            </div>
+
+                        </div>
+
+
+
                                 <div className="grid-container">
                                     <div className="grid">
                                         {profileDetails.animals.map((animal) => (
                                             <div key={animal._id}>
-                                                <button onClick={() => { { window.location.href = `/Users/${username}/animals/${animal._id}` } }} className="animal-card">
+                                                <button onClick={() => { window.location.href = `/Users/${username}/animals/${animal._id}` }} className="animal-card">
                                                     <div className="animal-photo-card">
                                                         <img id="img" src={animal.photo} className="animal-photo" />
                                                     </div>
@@ -233,41 +233,56 @@ const Home = () => {
                         )}
                         {loggedInUserPermLevel === "vet" && (
                             <div>
+                        <button onClick={() => { window.location.href = `/AddUser` }} className="right-indication">
+                        <img src={NextButton} className="navigation-button"></img>
+                             <p className="navigation-text">Add User</p>
+                        </button>
+                        <button onClick={() => { window.location.href = `/AddAnimal` }} className="right-indication-left">
+                                            <img src={NextButton} className="navigation-button"></img>
+                                            <p className="navigation-text">Add Animal</p>
+                        </button>
+                        <button onClick={() => { window.location.href = `/EditProfile/${profileDetails.username}` }} className="right-indication-left">
+                                            <img src={NextButton} className="navigation-button"></img>
+                                            <p className="navigation-text">Edit User</p>
+                        </button>
 
-                                <div className="home-page-contents-container">
-                                    <h1 className="page-title-text">VOLUNTEERS</h1>
-                                    <h2 className="page-info-text">{`(12 Volunteers)`}</h2>
-                                    <div className="search-bar-container">
-                                        <TextField
-                                            name="searchbar"
-                                            id="searchbar"
-                                            label="Search here"
-                                            variant="outlined"
-                                            margin="dense"
-                                            size="small"
-                                            fullWidth
-                                        />
-                                    </div>
+                            <div className="home-page-contents-container">
+                            <h1 className="page-title-text">VOLUNTEERS</h1>
+                            <h2 className="page-info-text">{`(8 volunteers )`}</h2>
+                            <div className="search-bar-container">
+                                <TextField
+                                    name="searchbar"
+                                    id="searchbar"
+                                    label="Search here"
+                                    variant="outlined"
+                                    margin="dense"
+                                    size="small"
+                                    fullWidth
+                                />
+                            </div>
 
-                                </div>
+                        </div>
+
 
                                 <div className="grid-container">
                                     <div className="grid">
+                                {volunteers.map((volunteer) =>
+                                    <div key={volunteer._id}>
+                                        <button onClick={() => { window.location.href = `/Users/${volunteer.name}` }} className="animal-card">
+                                        <div className="animal-photo-card">
+                                                        <img id="img" src={volunteer.photo} className="animal-photo" />
+                                                    </div>
 
-                                        {volunteers.map((volunteer) =>
-                                            <div key={volunteer._id}>
-                                                <button onClick={() => { window.location.href = `/Users/${volunteer.name}` }} className="animal-card">
-                                                            <div className="animal-photo-card">
-                                                                <img id="img" src={volunteer.photo} className="animal-photo" />
-                                                            </div>
-                                                            <p className="animal-name">{volunteer.name}</p>                                            
-                                                </button>
-                                                <br />
-                                            </div>)}
+                                        <p className="animal-name">{volunteer.name}</p>
+                                            
+                                        </button>
+                                        <br />
+                                    </div>)}
                                     </div>
                                 </div>
 
                                 </div>) }
+
 
 
                 </div>

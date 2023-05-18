@@ -16,6 +16,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 0.2px;
+    width: 100vw; 
   }
 
 .animal-card{
@@ -43,7 +44,7 @@
   .animal-photo-card {
     width: 85%; /* Set the desired width */
     margin: 0 auto; /* Center the container horizontally */
-    height: 300px; /* Set the desired height */
+    height: 45vh; /* Set the desired height */
     background-color: #fff;
     border-radius: 5%;
   }
