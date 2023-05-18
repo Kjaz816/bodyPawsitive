@@ -159,9 +159,7 @@ const Home = () => {
                             <p><b>Role:</b>{' '}{profileDetails.permLevel}</p>
                             <p><b>Email:</b>{' '}{profileDetails.email}</p>
                         </div>
-                    </div>
-
-                    <div className="home-page-contents-container">
+                        <div className="home-page-contents-container">
                         <h1 className="page-title-text">DOGS</h1>
                         <h2 className="page-info-text">{`(8 FURRY FRIENDS )`}</h2>
                         <div className="search-bar-container">
@@ -175,13 +173,10 @@ const Home = () => {
                                 fullWidth
                             />
                         </div>
-
-                        <div className="grid-container">
-                            <div className="grid">
-                        </div>
-                        </div>
+                    </div>
 
                     </div>
+
 
                     {loggedInUserPermLevel === "admin" || loggedInUserPermLevel === "vet" && (
                         <div>
