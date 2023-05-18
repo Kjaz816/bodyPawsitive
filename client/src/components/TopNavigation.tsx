@@ -131,12 +131,12 @@ const TopNavigation = () => {
         <div className="top-navigation-container"> 
         
             <div>
-                <Button onClick={() => setOpen(true)} className="navigation-bar">
+                {/* <Button onClick={() => setOpen(true)} className="navigation-bar">
                     <img src={NavigationBar} className="navigation-bar-img"></img>
                 </Button>
                 <Drawer open={open} anchor={"left"} onClose={() => setOpen(false)}>
                     {getList()}
-                </Drawer>
+                </Drawer> */}
             </div>
 
             <button onClick={logOut} className="profile-bar">
