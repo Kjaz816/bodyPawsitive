@@ -186,7 +186,7 @@ const Home = () => {
                         </div>
                         {loggedInUserPermLevel === "volunteer" && (
                             <div>
-                        <button onClick={() => { window.location.href = `/EditProfile/${profileDetails.username}` }} className="right-indication-first">
+                        <button onClick={() => { window.location.href = `/EditProfile/${profileDetails.username}` }} className="right-indication">
                                             <img src={NextButton} className="navigation-button"></img>
                                             <p className="navigation-text">Edit User</p>
                         </button>
