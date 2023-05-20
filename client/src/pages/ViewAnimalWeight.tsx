@@ -88,8 +88,32 @@ const ViewAnimalWeight = () => {
         setWeight(parseInt(value));
 
     };
-    //
-    return (
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const button = document.querySelector('.scale-start-button');
+        const startWeighingText = document.querySelector('#start-weighing-text');
+      
+        if (button && startWeighingText) {
+          button.addEventListener('click', handleBeginWeighing);
+        }
+      });
+      
+      function handleBeginWeighing() {
+        const startWeighingText = document.querySelector('#start-weighing-text');
+        
+        if (startWeighingText) {
+          // Check the current text content of startWeighingText
+          if (startWeighingText.textContent === 'Start Weighing') {
+            // Update the text content to a different text
+            startWeighingText.textContent = 'Weighing...';
+          } else {
+            // Reset the text content back to the initial text
+            startWeighingText.textContent = 'Start Weighing';
+          }
+        }
+      }
+            
+          return (
         <div className="view-animal-weight-container">
             <TopNavigation/>
 
@@ -134,25 +158,30 @@ const ViewAnimalWeight = () => {
                     })}
                     </div>
                 </div>
-                <div className="weigh-scale-container">
-                    <div className="weighing-scale-text-container">
-                        <div className="scale-title">
-                            <p>Weigh Your Pet</p>
-                        </div>
-                        <div className="scale-caption">
-                            <p>Weight</p>
-                        </div>
-                        <div className="scale-start-weighing">
-                            <p>Start Weighing</p>
-                        </div>
-                        <div className="scale-start-button-container">
-                            <button className="scale-start-button">Begin</button>
-                        </div>
-                        <div className="scale-instructions">
-                            <p>To start weighing your pet, press the Begin button above. Then, press the button on the Pico before you place your pet on the scale.</p>
-                        </div>
+             <div className="weigh-scale-container">
+                <div className="weighing-scale-text-container">
+                    <div className="scale-title">
+                    <p>Weigh Your Pet</p>
                     </div>
-                    <img src={Scale} className="scale"/>
+                    <div className="scale-caption">
+                    <p>Weight</p>
+                    </div>
+                    <div className="scale-start-weighing">
+                    <p id="start-weighing-text">Start Weighing</p>
+                    </div>
+                    <div className="scale-start-button-container">
+                    <button onClick={handleBeginWeighing} className="scale-start-button">
+                        Begin
+                    </button>
+                    </div>
+                    <div className="scale-instructions">
+                    <p>
+                        To start weighing your pet, press the Begin button above. Then, press
+                        the button on the Pico before you place your pet on the scale.
+                    </p>
+                    </div>
+                </div>
+                <img src={Scale} className="scale" alt="Weighing Scale" />
                 </div>
             </div>
 

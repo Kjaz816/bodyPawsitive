@@ -175,6 +175,7 @@
     width:150px; 
     height:40px;
     margin-top:2%; 
+    cursor:pointer;
   } 
 
   .scale-start-button-container{
