@@ -107,26 +107,30 @@ const ViewAnimalWeight = () => {
                         <span className="weight-data-weight">Weight</span>
                         <span className="weight-data-date">Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     </p>
-                     {animalDetails.weightData.map((weightData) => {
-                        const date = new Date(weightData.date);
-                        const formattedDate = date.toLocaleDateString("en-NZ", {
+                    {animalDetails.weightData
+                            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                            .map((weightData) => {
+                            const date = new Date(weightData.date);
+                            const formattedDate = date.toLocaleDateString("en-NZ", {
                             timeZone: "Pacific/Auckland",
                             year: 'numeric',
                             month: 'numeric',
                             day: 'numeric',
-                        });
-                        const formattedTime = date.toLocaleTimeString("en-NZ", {
+                            });
+                            const formattedTime = date.toLocaleTimeString("en-NZ", {
                             timeZone: "Pacific/Auckland",
                             hour12: true,
                             hour: 'numeric',
                             minute: 'numeric',
-                        });
-                        return (
-
+                            });
+                            return (
                             <div key={weightData.date.toString()}>
-                                <p className="weight-and-date"><span className="weight-data-weight">{weightData.weight} Kg</span><span className="weight-data-date"> {formattedDate} at {formattedTime}</span></p>
+                                <p className="weight-and-date">
+                                <span className="weight-data-weight">{weightData.weight} Kg</span>
+                                <span className="weight-data-date"> {formattedDate} at {formattedTime}</span>
+                                </p>
                             </div>
-                        )
+    )
                     })}
                     </div>
                 </div>
