@@ -2,6 +2,10 @@ import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/userController";
 import TopNavigation from "../components/TopNavigation";
+import "../styling/ViewAnimalWeight.css";
+import BackButton from "../lib/icons/LeftIndicator.svg";
+import "../styling/AnimalDetails.css"
+import Scale from "../lib/assets/ScaleLong.png";
 
 interface AnimalDetailsBody {
     _id: string;
@@ -86,38 +90,70 @@ const ViewAnimalWeight = () => {
     };
     //
     return (
-        <div>
+        <div className="page-container-animal-details">
 
             <TopNavigation/>
             
-            <a href = {"/Users/" + username + "/animals/" + animalId}>Back to Animal Details</a>
-            <p>Weight History of </p> {animalDetails.name}
-            <h3>Weight Data: </h3>
-            <hr></hr> {animalDetails.weightData.map((weightData) => {
-                const date = new Date(weightData.date);
-                const formattedDate = date.toLocaleDateString("en-NZ", {
-                    timeZone: "Pacific/Auckland",
-                    year: 'numeric',
-                    month: 'numeric',
-                    day: 'numeric',
-                });
-                const formattedTime = date.toLocaleTimeString("en-NZ", {
-                    timeZone: "Pacific/Auckland",
-                    hour12: true,
-                    hour: 'numeric',
-                    minute: 'numeric',
-                });
-                return (
 
-                    <div key={weightData.date.toString()}>
-                        <p>Weight: {weightData.weight}</p>
-                        <p>Date: {formattedDate} at {formattedTime}</p>
-                        <hr></hr>
+            <button onClick={() =>  { window.location.href = "/Users/" + username + "/animals/" + animalId}} className="left-indication">
+                <img src={BackButton} className="navigation-button-animal"></img>
+                <p className="navigation-text">Back to {animalDetails.name}'s details</p>
+            </button>
+
+            <div className="weigh-animal-page-container">
+                <div className="weight-data-container">
+                    <div className="weight-data-values">
+                    <h3 className="weight-data-title">Weight History </h3>
+                    <p className="weight-and-date-title">
+                        <span className="weight-data-weight">Weight</span>
+                        <span className="weight-data-date">Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    </p>
+                     {animalDetails.weightData.map((weightData) => {
+                        const date = new Date(weightData.date);
+                        const formattedDate = date.toLocaleDateString("en-NZ", {
+                            timeZone: "Pacific/Auckland",
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                        });
+                        const formattedTime = date.toLocaleTimeString("en-NZ", {
+                            timeZone: "Pacific/Auckland",
+                            hour12: true,
+                            hour: 'numeric',
+                            minute: 'numeric',
+                        });
+                        return (
+
+                            <div key={weightData.date.toString()}>
+                                <p className="weight-and-date"><span className="weight-data-weight">{weightData.weight} Kg</span><span className="weight-data-date"> {formattedDate} at {formattedTime}</span></p>
+                            </div>
+                        )
+                    })}
                     </div>
-                )
-            })}
+                </div>
+                <div className="weigh-scale-container">
+                    <div className="weighing-scale-text-container">
+                        <div className="scale-title">
+                            <p>Weigh Your Pet</p>
+                        </div>
+                        <div className="scale-caption">
+                            <p>Weight</p>
+                        </div>
+                        <div className="scale-start-weighing">
+                            <p>Start Weighing</p>
+                        </div>
+                        <div className="scale-start-button-container">
+                            <button className="scale-start-button">Begin</button>
+                        </div>
+                        <div className="scale-instructions">
 
-            <div id="addWeightFields">
+                        </div>
+                    </div>
+                    <img src={Scale} className="scale"/>
+                </div>
+            </div>
+
+            {/* <div id="addWeightFields">
                 <TextField
                     name="weight"
                     type="number"
@@ -129,7 +165,7 @@ const ViewAnimalWeight = () => {
                     onChange={handleChange}
                 />
             </div>
-            <button onClick={AddWeight}>Add Weight</button>
+            <button onClick={AddWeight}>Add Weight</button> */}
         </div>
     );
 }

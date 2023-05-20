@@ -214,7 +214,7 @@ const Home = () => {
                                     <div className="grid">
                                         {profileDetails.animals.map((animal) => (
                                             <div key={animal._id}>
-                                                <button onClick={() => { window.location.href = `/Users/${username}/animals/${animal._id}` }} className="animal-card">
+                                                <button onClick={() => { window.location.href = `/AnimalDetails/${animal._id}` }} className="animal-card">
                                                     <div className="animal-photo-card">
                                                         <img id="img" src={animal.photo} className="animal-photo" />
                                                     </div>

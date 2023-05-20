@@ -150,7 +150,7 @@ const AnimalDetails = () => {
         <div className="page-container-animal-details">
             <TopNavigation/>
             
-            <button onClick={() =>   window.history.back()} className="left-indication">
+            <button onClick={() =>   window.location.href = "/" } className="left-indication">
                 <img src={BackButton} className="navigation-button"></img>
                 <p className="navigation-text">Back</p>         
             </button>

@@ -53,6 +53,14 @@
 
 }
 
+.navigation-button-animal{
+  height: 10px;
+  margin-left: 25%;   
+  margin-right: 10%; 
+
+}
+
+
 .navigation-text{
     font-family: 'Nunito-regular';
     color: #1D7AC4;
@@ -152,6 +160,13 @@
     animation: borderAnimation 2s ease forwards;
   }
   
+  .last-info {
+    margin-bottom: 0%;
+    padding-bottom: 15px;
+    position: relative;
+  }
+  
+
   @keyframes borderAnimation {
     0% {
       width: 0;
