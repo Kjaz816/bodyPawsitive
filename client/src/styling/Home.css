@@ -5,7 +5,6 @@
 .home-initial-container {
     display: flex;
     padding-left: 5%;
-    padding-top: 10%;
     height:100vh; 
     overflow: hidden;
     overflow-y:hidden;
@@ -16,6 +15,7 @@
     display: block;
     align-items: center;
     margin-bottom: 0%;
+    margin-top:15%; 
     color: white;
     font-family: "Nunito-Regular";
     font-size: 20px;
@@ -23,15 +23,26 @@
     overflow-y:hidden;
 }
 
-.home-title {
-    font-family: 'Nunito-Bold';
-    display: flex;
-    white-space: nowrap;
-    color: white;
-    font-size: 80px;
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 30px;
+  .home-title {
+      font-family: 'Nunito-Bold';
+      display: flex;
+      position:relative; 
+      white-space: nowrap;
+      color: white;
+      width:48vw; 
+      font-size: 80px;
+    }
+
+  .home-title::after {
+    margin-top:4%; 
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: white;
+    animation: borderAnimation 4s ease forwards;
   }
 
   .log-in-navigation-container {
@@ -49,11 +60,12 @@
   }
   
   .home-logo-image {
-    width: 90vw;
+    width: 100vw;
     object-fit: fill;
     position: fixed;
-    right:-25%;
-    animation: spin 20s linear infinite; /* Adjust the animation duration for desired spinning speed */
+    right:-38%;
+    top: 8%;
+    animation: spin 35s linear infinite; /* Adjust the animation duration for desired spinning speed */
   }
   
 .log-in-navigation-container button {
@@ -142,7 +154,7 @@
     width: 100%; /* Adjust the width as needed */
     height: 0.5px;
     background-color: #1D7AC4;
-    animation: borderAnimation 2s ease forwards;
+    animation: borderAnimation 3s ease forwards;
   }
   
   .page-info-text {

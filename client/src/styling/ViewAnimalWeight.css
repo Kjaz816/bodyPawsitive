@@ -1,5 +1,6 @@
 .view-animal-weight-container{
     overflow:hidden; 
+    animation: fadeInAnimation 1.5s ease forwards;
 }
 
 .weight-data-container{
@@ -12,7 +13,6 @@
     margin-left: 2%; 
     margin-top: 1.3%; 
     overflow-y: auto; /* Enable vertical scroll */
-    animation: fadeInAnimation 2s ease forwards;
 }
 
 .weigh-animal-page-container{
