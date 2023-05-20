@@ -90,10 +90,9 @@ const ViewAnimalWeight = () => {
     };
     //
     return (
-        <div className="page-container-animal-details">
-
+        <div className="view-animal-weight-container">
             <TopNavigation/>
-            
+
 
             <button onClick={() =>  { window.location.href = "/Users/" + username + "/animals/" + animalId}} className="left-indication">
                 <img src={BackButton} className="navigation-button-animal"></img>
@@ -146,7 +145,7 @@ const ViewAnimalWeight = () => {
                             <button className="scale-start-button">Begin</button>
                         </div>
                         <div className="scale-instructions">
-
+                            <p>To start weighing your pet, press the Begin button above. Then, press the button on the Pico before you place your pet on the scale.</p>
                         </div>
                     </div>
                     <img src={Scale} className="scale"/>

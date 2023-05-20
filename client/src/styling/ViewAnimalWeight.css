@@ -1,3 +1,7 @@
+.view-animal-weight-container{
+    overflow:hidden; 
+}
+
 .weight-data-container{
     display:flex;
     flex-direction:column;
@@ -101,15 +105,12 @@
   }
 
   .weigh-scale-container {
-    position: fixed;
-    left: 0;
-    bottom: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
     text-align: center;
-    height: 100vh;
+    height: 95vh;
   }
   
   .scale {
@@ -119,7 +120,7 @@
   
   .weighing-scale-text-container {
     position:absolute; 
-    top:30vh;
+    top:18vh;
     width:90%; 
   }
   
@@ -132,7 +133,6 @@
   .scale-title{
     font-family:'Roboto-Bold';
     font-size: 25px; 
-    margin-top: -9%;
     color: white;    
   }
 
@@ -194,6 +194,13 @@
     animation: borderAnimation 2s ease forwards;
   }
 
+  .scale-instructions{
+    font-family:'Nunito-Light';
+    font-size: 15px; 
+    margin-top:4%; 
+    color: white;    
+
+  }
 
   @keyframes borderAnimation {
     0% {
