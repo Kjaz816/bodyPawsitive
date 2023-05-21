@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import UserModel from "../models/userModel";
+import AssignModel from "../models/assignModel";
 import WeightModel from "../models/weightModel";
 import { RequestHandler } from "express";
 import { ObjectId } from "mongodb";
@@ -53,8 +54,9 @@ const uploadToImgur = async (photo: string) => {
 
 
 
-export const signUp: RequestHandler<unknown, unknown, UserDetails, unknown> = async (req, res) => {
+export const addUser: RequestHandler<{ assignedTo: string }, unknown, UserDetails, unknown> = async (req, res) => {
     const { username, firstName, lastName, password, permLevel, email, photo } = req.body;
+    const assignedTo = req.params.assignedTo;
     try {
         const existingUser = await UserModel.findOne({ username }).exec();
         if (existingUser) {
@@ -74,10 +76,32 @@ export const signUp: RequestHandler<unknown, unknown, UserDetails, unknown> = as
             console.error(error);
             return res.status(500).json({ message: error });
         });
-        res.status(201).json({ newUser });
+        const assignExisting = await AssignModel.findOne({ vet: assignedTo }).exec();
+        if (assignExisting) {
+            console.log(username, photo)
+            assignExisting.volunteers.push({
+                name: username,
+                photo: await uploadToImgur(photo)
+            });
+            await assignExisting.save();
+            return res.status(201).json({ newUser });
+        } else {
+            const newAssign = await AssignModel.create({
+                vet: assignedTo,
+                volunteers: [{
+                    name: username,
+                    photo: await uploadToImgur(photo)
+                }
+                ]
+            }).catch(error => {
+                console.error(error);
+                return res.status(500).json({ message: "Assign Error: " + error });
+            });
+            res.status(201).json({ newUser });
+        }
     }
     catch (error) {
-        res.status(500).json({ message: "Something went wrong!" });
+        res.status(500).json({ error });
     }
 }
 
@@ -273,11 +297,20 @@ export const addAnimalWeight: RequestHandler<{ username: string, animalId: strin
     }
 }
 
-export const uploadWeight: RequestHandler<unknown, unknown, { weight: number }, unknown> = async (req, res) => {
-    const { weight } = req.body;
+export const uploadWeight: RequestHandler<unknown, unknown, { weight: number, status: string }, unknown> = async (req, res) => {
+    const { weight, status } = req.body;
     try {
-        const updatedWeight = await WeightModel.create({ weight: weight, date: new Date() });
+        const updatedWeight = await WeightModel.findOneAndUpdate({}, { weight, status, date: new Date() }, { upsert: true, new: true });
         res.status(200).json(updatedWeight);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
+    }
+};
+
+export const getUploadedWeight: RequestHandler<unknown, unknown, unknown, unknown> = async (req, res) => {
+    try {
+        const weights = await WeightModel.findOne().exec();
+        res.status(200).json(weights);
     } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }

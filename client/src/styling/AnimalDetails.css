@@ -53,6 +53,14 @@
 
 }
 
+.navigation-button-animal{
+  height: 10px;
+  margin-left: 25%;   
+  margin-right: 10%; 
+
+}
+
+
 .navigation-text{
     font-family: 'Nunito-regular';
     color: #1D7AC4;
@@ -104,9 +112,23 @@
     cursor:pointer; 
     margin-left:0%; 
     margin-top: 0%; 
-    margin-right: 5.8%; 
+    margin-right: 5%; 
     float: right; 
 }
+
+.right-indication-left{
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  cursor:pointer; 
+  margin-left:0%; 
+  margin-top: 0%; 
+  margin-right: 1%; 
+  float: right; 
+
+}
+
 
 .chart-container {
     width: 60vw; /* Adjust the width as needed */
@@ -138,6 +160,13 @@
     animation: borderAnimation 2s ease forwards;
   }
   
+  .last-info {
+    margin-bottom: 0%;
+    padding-bottom: 15px;
+    position: relative;
+  }
+  
+
   @keyframes borderAnimation {
     0% {
       width: 0;

@@ -3,6 +3,7 @@ import { TextField } from "@mui/material";
 import * as api from "../apiControllers/userController";
 import { User } from "../models/userModel";
 import TopNavigation from "../components/TopNavigation";
+import BackButton from "../lib/icons/LeftIndicator.svg";
 
 const EditProfile = () => {
     const url = window.location.href;
@@ -89,8 +90,7 @@ const EditProfile = () => {
             api.updateProfile(username, profileDetails)
                 .then((data) => {
                     setUpdateResponse(data.message);
-                    sessionStorage.setItem("loggedInUser", profileDetails.username);
-
+                    window.location.href = `/Users/${username}`;
                 })
                 .catch((error) => console.error(error));
         } else {
@@ -109,7 +109,10 @@ const EditProfile = () => {
             <TopNavigation/>
             
             <br />
-            <a href="/Profile">Back to Profile</a>
+            <button onClick={() =>   { window.location.href = `/Users/${username}` }} className="left-indication">
+                <img src={BackButton} className="navigation-button"></img>
+                <p className="navigation-text">Back</p>         
+            </button>
             <br />
             <br />
             <div>

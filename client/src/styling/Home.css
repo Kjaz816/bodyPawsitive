@@ -1,36 +1,48 @@
 .page-container-home {
-    height: 100vh; 
-    overflow: hidden; 
+    overflow-x: hidden;
 }
 
 .home-initial-container {
     display: flex;
     padding-left: 5%;
-    padding-top: 10%;
-    width: 100%;
-    height: 100%;
+    height:100vh; 
+    overflow: hidden;
+    overflow-y:hidden;
     background-color: #1d7ac4;
-    overflow: hidden; 
 }
 
 .home-initial-contents-container {
     display: block;
     align-items: center;
     margin-bottom: 0%;
+    margin-top:15%; 
     color: white;
     font-family: "Nunito-Regular";
     font-size: 20px;
+    overflow: hidden;
+    overflow-y:hidden;
 }
 
-.home-title {
-    font-family: 'Nunito-Bold';
-    display: flex;
-    white-space: nowrap;
-    color: white;
-    font-size: 80px;
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 30px;
+  .home-title {
+      font-family: 'Nunito-Bold';
+      display: flex;
+      position:relative; 
+      white-space: nowrap;
+      color: white;
+      width:48vw; 
+      font-size: 80px;
+    }
+
+  .home-title::after {
+    margin-top:4%; 
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: white;
+    animation: borderAnimation 4s ease forwards;
   }
 
   .log-in-navigation-container {
@@ -38,18 +50,24 @@
     width:100%; 
     margin-top: 8%; 
   }
-
-  .home-logo-image-container {
-    display: block;
-    align-self:flex-end;
-    margin-right: 0%;
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
-
+  
   .home-logo-image {
-    width: 80vw;
-    object-fit:cover;
+    width: 100vw;
+    object-fit: fill;
+    position: fixed;
+    right:-38%;
+    top: 8%;
+    animation: spin 35s linear infinite; /* Adjust the animation duration for desired spinning speed */
   }
-
+  
 .log-in-navigation-container button {
     background-color: white;
     text-decoration: none;
@@ -73,9 +91,21 @@
     padding-left: 0px;
   }
   
+  .profile-info-container{
+    flex-direction: column;
+  }
+
+  .profile-info-details-container{
+    display:flex; 
+    margin-bottom: 2%; 
+    justify-content: center;
+    flex-direction: row;
+
+  }
+
   .home-page-container {
     height: 100vh; 
-    overflow: hidden; 
+    flex-direction: column;
   }
 
   .this-top-navigation-container {
@@ -92,11 +122,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 2%;
+    margin-top: 0%;
     margin-bottom: 0%; 
     width: 100%;
-    height: 100%;
-    overflow: hidden; 
     animation: fadeInAnimation 2s ease forwards;
     font-family: "Nunito-Bold";
     color: #1d7ac4;
@@ -104,15 +132,55 @@
 
   .search-bar-container {
     width: 95%;
-    height: 100%;
+    margin-bottom:1%; 
   }
 
   .page-title-text {
+    display:flex; 
+    justify-content: center;
+    width:95%; 
     font-size: 30px;
+    margin-top: 0%;
     margin-bottom: 0%;
+    padding-top: 15px;
+    position: relative;
   }
-
+  
+  .page-title-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Adjust the width as needed */
+    height: 0.5px;
+    background-color: #1D7AC4;
+    animation: borderAnimation 3s ease forwards;
+  }
+  
   .page-info-text {
     margin-top: 0%;
     font-size: 15px;
+  }
+
+  .profile-image {
+    width: 15vw;
+    height: 15vw;
+    margin-top: 15%;
+    border-radius: 50%;
+    object-fit: cover;
+    border:solid; 
+    border-color: #1D7AC4;
+  }
+  
+  .profile-details-container{
+    margin-left:5%; 
+  }
+
+  @keyframes borderAnimation {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
   }

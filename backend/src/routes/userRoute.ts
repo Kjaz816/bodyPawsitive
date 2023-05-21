@@ -3,7 +3,7 @@ import * as UserController from "../controllers/userController";
 
 const router = express.Router();
 
-router.post("/signup", UserController.signUp);
+router.post("/addUser/:assignedTo", UserController.addUser);
 
 router.post("/signin", UserController.signIn);
 
@@ -23,6 +23,7 @@ router.post("/updateAnimal/:username/animals/:animalId", UserController.updateAn
 
 router.post("/addAnimalWeight/:username/animals/:animalId", UserController.addAnimalWeight)
 
-router.post("/postWeight/", UserController.uploadWeight)
+router.post("/postWeight", UserController.uploadWeight)
 
+router.get("/getUploadedWeight" , UserController.getUploadedWeight)
 export default router;

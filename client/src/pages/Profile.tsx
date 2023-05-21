@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/userController";
 import TopNavigation from "../components/TopNavigation";
-import SpcaGlobe from "../lib/assets/SpcaGlobe.svg";
+import SpcaGlobe from "../lib/assets/SpcaGlobe.png";
 import "../styling/Profile.css";
 import "../styling/grid.css"
+import * as assignApi from "../apiControllers/assignController";
 
 interface SignUpBody {
     username: string;
@@ -27,7 +28,20 @@ interface SignUpBody {
     }[];
 }
 
+
+interface volunteer {
+    name: string;
+    photo: string;
+    _id: string;
+}
+
 const Profile = () => {
+
+    const [volunteers, setVolunteers] = useState<volunteer[]>([{
+        name: "",
+        photo: "",
+        _id: ""
+    }]);
 
     const [profileDetails, setProfileDetails] = useState<SignUpBody>({
         username: "",
@@ -59,10 +73,9 @@ const Profile = () => {
     const [viewPets, setViewPets] = useState<boolean>(false);
 
 
-    const getProfile = () => {
-        const username = sessionStorage.getItem("loggedInUser");
-        if (username) {
-            api.getProfile(username)
+    const getProfile = (userToGet: string) => {
+        if (userToGet) {
+            api.getProfile(userToGet)
                 .then((data) => {
                     setProfileDetails(data);
                 }
@@ -74,9 +87,33 @@ const Profile = () => {
     };
 
 
+    const getAssigns = () => {
+        const username = sessionStorage.getItem("loggedInUser");
+        if (username) {
+            assignApi.getAssigns(username)
+                .then((data) => {
+                    setVolunteers(data.volunteers);
+                })
+                .catch((error) => console.error(error));
+        } else {
+            window.location.href = "/Login";
+        }
+    };
+
     useEffect(() => {
-        getProfile();
+        const username = sessionStorage.getItem('loggedInUser')
+        if (username){
+        getProfile(username);
+        if (sessionStorage.getItem('loggedInUserPermLevel') === "vet" || sessionStorage.getItem('loggedInUserPermLevel') === "vet"  ){
+            getAssigns();
+        }
+    }
+        
     }, []);
+
+    useEffect(() => {
+        console.log(volunteers);
+    }, [volunteers]);
 
     const toggleViewPets = () => {
         setViewPets(!viewPets);
@@ -105,6 +142,7 @@ const Profile = () => {
             </div>
 
             <hr />
+
             
             <div className="grid-container">
                         <div className="grid">

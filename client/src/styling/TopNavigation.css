@@ -5,7 +5,7 @@
   position: sticky;
   top: 0%;
   background-color: white;
-  height: 10vh; /* Set the desired height of the container */
+  height: 8vh; /* Set the desired height of the container */
 }
 
 .top-title {
@@ -13,7 +13,7 @@
   /* Additional styles for the top title image */
   position: absolute;
   left: 50%;
-  transform: translateX(-58%);
+  transform: translateX(-50%);
   /* Additional styles for the top title image */
 }
 
@@ -22,7 +22,9 @@
 .navigation-bar,
 .profile-bar,
 .profile-picture,
-.top-title {
+.top-title,
+.home, 
+.all-users {
   background-color: transparent;
   border-color: transparent;
   cursor: pointer;
@@ -32,7 +34,6 @@
 }
 
 .chat {
-  margin-left: auto;
   margin-right: 2%;
 }
 
@@ -52,13 +53,32 @@
 .profile-picture-img {
   border-radius: 50%;
   height: 40px;
+  margin-left:3%; 
 }
+
 
 .profile-bar {
   display: flex;
+  width: 40%; 
   align-items: center;
   margin-right: auto; /* Move the profile bar to the left side */
 }
+
+.profile-name {
+  margin-left: 2%; 
+}
+
+.all-users {
+  margin-right: 2%;
+}
+
+.home {
+  margin-left: auto;
+  margin-right: 2%;
+}
+
+
+
 
 @font-face {
     font-family: 'Nunito-Bold';

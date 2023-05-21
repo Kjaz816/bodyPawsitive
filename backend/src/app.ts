@@ -1,6 +1,7 @@
 import express from "express";
 import userRoute from "./routes/userRoute";
 import conversationRoute from "./routes/conversationRoute"
+import assignRoute from "./routes/assignRoute"
 
 import cors from "cors";
 import "dotenv/config"
@@ -19,6 +20,7 @@ app.use(cors(corsOptions));
 // routes
 app.use("/api/users", userRoute);
 app.use("/api/conversations", conversationRoute);
+app.use("/api/assigns", assignRoute); 
 
 app.get("/", (req, res) => {
     res.status(201).json({ message: "Connected to Backend!" });

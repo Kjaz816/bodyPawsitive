@@ -1,7 +1,7 @@
 import { Conversation } from "../models/conversationModel";
 import { Message } from "../models/messageModel";
 
-const deployed = true;
+const deployed = false;
 
 const url = deployed ? "https://bodypositive.onrender.com" : "";
 

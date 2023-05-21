@@ -1,14 +1,14 @@
 import { User } from "../models/userModel";
 import { SignInBody } from "../models/signInModel";
 
-const deployed = true;
+const deployed = false;
 
 const url = deployed ? "https://bodypositive.onrender.com" : "";
 
 // Api calls to backend
 
-export const createUser = async (user: User) => {
-    const response = await fetch(url + "/api/users/signUp", {
+export const createUser = async (user: User, assignedTo: string) => {
+    const response = await fetch(url + `/api/users/AddUser/${assignedTo}`, {
         method: "POST", 
         headers: {
             "Content-Type": "application/json"
@@ -61,7 +61,6 @@ export const getProfile = async (username: string) => {
 }   
 
 export const getAnimalDetails = async (username: string, animalId: string) => {
-    console.log(username, animalId)
     const response = getProfile(username);
     const data = await response;
     const animal = data.animals.find((animal: { _id: string; }) => animal._id === animalId);
@@ -148,6 +147,28 @@ export const addAnimalWeight = async (username: string, animalId: string, weight
             "Content-Type": "application/json"
         },
         body: JSON.stringify({ weight: weight })
+    });
+    const data = await response.json();
+    return data;
+}
+
+export const setDefaultWeight = async () => {
+    await fetch(url + "/api/users/postWeight", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ weight: 0, status: "default" })
+    });
+}
+
+export const getUploadedWeight = async() => {
+    console.log("getUploadedWeight")
+    const response = await fetch(url + "/api/users/getUploadedWeight", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
     });
     const data = await response.json();
     return data;
