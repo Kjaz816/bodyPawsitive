@@ -90,8 +90,7 @@ const EditProfile = () => {
             api.updateProfile(username, profileDetails)
                 .then((data) => {
                     setUpdateResponse(data.message);
-                    sessionStorage.setItem("loggedInUser", profileDetails.username);
-
+                    window.location.href = `/Users/${username}`;
                 })
                 .catch((error) => console.error(error));
         } else {

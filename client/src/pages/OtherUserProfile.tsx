@@ -11,6 +11,7 @@ interface SignUpBody {
     lastName: string;
     permLevel: string;
     email: string;
+    photo: string;
     animals: {
         _id: string;
         name: string;
@@ -43,6 +44,7 @@ const OtherUserProfile = () => {
         lastName: "",
         permLevel: "",
         email: "",
+        photo: "",
         animals: [
             {
                 _id: "",
@@ -79,6 +81,7 @@ const OtherUserProfile = () => {
                         lastName: data.lastName,
                         permLevel: data.permLevel,
                         email: data.email,
+                        photo: data.photo,
                         animals: data.animals
                     }
                 );
@@ -123,6 +126,8 @@ const OtherUserProfile = () => {
             <a href="/Users">Back to Users</a>
             <div id="profileInfo">
                 <h1>Profile</h1>
+                <img id="img" src={profileDetails.photo} className="profile-photo" />
+                <br></br>
                 <b>Username: </b> <p>{profileDetails.username}</p>
                 <b>First Name: </b> <p>{profileDetails.firstName}</p>
                 <b>Last Name: </b> <p>{profileDetails.lastName}</p>
