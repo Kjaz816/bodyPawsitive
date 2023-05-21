@@ -97,25 +97,36 @@ const ViewAnimalWeight = () => {
 
     };
 
+    const [weightSucceeded, setWeightSucceeded] = useState<boolean>(false);
+    const [fetchFinished, setFetchFinished] = useState<boolean>(false);
+
     async function handleBeginWeighing() {
         let counter = 0;
+        setDisplay("Press Tare Button To Start Weighing")
+        await api.setDefaultWeight();
 
         const interval = setInterval(async () => {
-            await api.setDefaultWeight();
+
             const response = await api.getUploadedWeight() as Weightbody;
             console.log(response.status)
             counter++;
             if (response.status === 'start') {
                 setDisplay("Weighing");
             } else if (response.status === 'stable') {
-                setDisplay(response.weight + " Kg");
+                setDisplay(response.weight + " Kg")
+                setWeight(response.weight)
+                setWeightSucceeded(true)
+                setFetchFinished(true)
             }
 
             if (counter === 20 || response.status === 'stable') {
                 clearInterval(interval);
                 console.log('Finished weighing');
-                if (response.status != 'stable'){
+                if (response.status != 'stable') {
                     setDisplay("No weight detected");
+                    setFetchFinished(true)
+                    setWeightSucceeded(false)
+
                 }
             }
         }, 500);
@@ -193,6 +204,20 @@ const ViewAnimalWeight = () => {
                                 To start weighing your pet, press the Begin button above. Then, press
                                 the button on the Pico before you place your pet on the scale.
                             </p>
+                            {fetchFinished && (
+                                <div>
+                                    <p>
+                                        Choose your action from the below button/s
+                                    </p>
+                                    {weightSucceeded && (
+                                        <button onClick={AddWeight} className="scale-add-weight-button" > Send Weight </button>
+                                    )}
+                                    <button onClick={handleBeginWeighing} className="scale-add-weight-button" > Weigh again </button>
+
+
+                                </div>
+                            )}
+
                         </div>
                     </div>
                     <img src={Scale} className="scale" alt="Weighing Scale" />
