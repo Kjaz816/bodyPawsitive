@@ -151,3 +151,15 @@ export const addAnimalWeight = async (username: string, animalId: string, weight
     const data = await response.json();
     return data;
 }
+
+export const getUploadedWeight = async() => {
+    console.log("getUploadedWeight")
+    const response = await fetch(url + "/api/users/getUploadedWeight", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    const data = await response.json();
+    return data;
+}

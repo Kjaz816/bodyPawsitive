@@ -297,11 +297,20 @@ export const addAnimalWeight: RequestHandler<{ username: string, animalId: strin
     }
 }
 
-export const uploadWeight: RequestHandler<unknown, unknown, { weight: number, tare: boolean }, unknown> = async (req, res) => {
-    const { weight, tare } = req.body;
+export const uploadWeight: RequestHandler<unknown, unknown, { weight: number }, unknown> = async (req, res) => {
+    const { weight } = req.body;
     try {
-        const updatedWeight = await WeightModel.create({ weight: weight, date: new Date() });
+        const updatedWeight = await WeightModel.findOneAndUpdate({}, { weight, date: new Date() }, { upsert: true, new: true });
         res.status(200).json(updatedWeight);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
+    }
+};
+
+export const getUploadedWeight: RequestHandler<unknown, unknown, unknown, unknown> = async (req, res) => {
+    try {
+        const weights = await WeightModel.find().exec();
+        res.status(200).json(weights);
     } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }
