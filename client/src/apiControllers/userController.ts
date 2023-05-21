@@ -152,6 +152,16 @@ export const addAnimalWeight = async (username: string, animalId: string, weight
     return data;
 }
 
+export const setDefaultWeight = async () => {
+    await fetch(url + "/api/users/postWeight", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ weight: 0, status: "default" })
+    });
+}
+
 export const getUploadedWeight = async() => {
     console.log("getUploadedWeight")
     const response = await fetch(url + "/api/users/getUploadedWeight", {

@@ -22,6 +22,13 @@ interface AnimalDetailsBody {
     details: string;
 }
 
+interface Weightbody {
+    weight: number;
+    date: Date;
+    status: string;
+
+}
+
 const ViewAnimalWeight = () => {
 
     const url = window.location.href;
@@ -44,6 +51,7 @@ const ViewAnimalWeight = () => {
     });
 
     const [weight, setWeight] = useState<number>(0);
+    const [display, setDisplay] = useState<string>("Start Weighing");
 
     const getAnimalDetails = () => {
         if (username) {
@@ -89,31 +97,35 @@ const ViewAnimalWeight = () => {
 
     };
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const button = document.querySelector('.scale-start-button');
-        const startWeighingText = document.querySelector('#start-weighing-text');
-
-        if (button && startWeighingText) {
-            button.addEventListener('click', handleBeginWeighing);
-        }
-    });
-
     async function handleBeginWeighing() {
-        const startWeighingText = document.querySelector('#start-weighing-text');
+        let counter = 0;
 
-        if (startWeighingText) {
-            // Check the current text content of startWeighingText
-            if (startWeighingText.textContent === 'Start Weighing') {
-                const weight = await api.getUploadedWeight();
-                console.log(weight);
-                // Update the text content to a different text
-                startWeighingText.textContent = 'Weighing...';
-            } else {
-                // Reset the text content back to the initial text
-                startWeighingText.textContent = 'Start Weighing';
+        const interval = setInterval(async () => {
+            await api.setDefaultWeight();
+            const response = await api.getUploadedWeight() as Weightbody;
+            console.log(response.status)
+            counter++;
+            if (response.status === 'start') {
+                setDisplay("Weighing");
+            } else if (response.status === 'stable') {
+                setDisplay(response.weight + " Kg");
             }
-        }
+
+            if (counter === 20 || response.status === 'stable') {
+                clearInterval(interval);
+                console.log('Finished weighing');
+                if (response.status != 'stable'){
+                    setDisplay("No weight detected");
+                }
+            }
+        }, 500);
+
+        setTimeout(() => {
+            clearInterval(interval);
+            console.log('Finished weighing');
+        }, 20000);
     }
+
 
     return (
         <div className="view-animal-weight-container">
@@ -169,7 +181,7 @@ const ViewAnimalWeight = () => {
                             <p>Weight</p>
                         </div>
                         <div className="scale-start-weighing">
-                            <p id="start-weighing-text">Start Weighing</p>
+                            <p id="start-weighing-text">{display}</p>
                         </div>
                         <div className="scale-start-button-container">
                             <button onClick={handleBeginWeighing} className="scale-start-button">
