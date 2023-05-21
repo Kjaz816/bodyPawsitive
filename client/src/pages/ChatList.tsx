@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import * as api from "../apiControllers/conversationController";
 import { Conversation } from "../models/conversationModel";
 import TopNavigation from "../components/TopNavigation";
+import "../styling/ChatList.css";
 
 const ChatList = () => {
 
@@ -25,14 +26,14 @@ const ChatList = () => {
     }, []);
 
     return (
-        <div>
+        <div className="page-container-chat-list">
             <TopNavigation/>
 
-            <p>Chat List</p>
             <a href="/">Home</a>
             <br></br>
             <a href="/Profile">Back to Profile</a>
             <br></br>
+            <h1 className="page-title">Chats</h1>
             {conversations.map((conversation) => {
                 // Find the index of the current user in the participants array
                 const currentUserIndex = username !== null ? conversation.participants.indexOf(username) : -1;
@@ -44,10 +45,14 @@ const ChatList = () => {
                 const otherUsername = conversation.participants[otherUserIndex];
 
                 return (
-                    <div key={conversation.participants[0]}>
-                        <hr />
-                        <p>Chatting with: {otherUsername}</p>
+                    <div className="chat-list-container">
+                        <div className="conversation-container" key={conversation.participants[0]}>
+                            <div className = "chat-user-container">
+                                <img src=" " className="profile-picture-img"></img>
+                                <p className="chat-username">{otherUsername}</p>
+                            </div>
                         <button onClick={() => { window.location.href = `/Chat/${otherUsername}` }}>View Chat</button>
+                        </div>
                     </div>
                 );
             })}
