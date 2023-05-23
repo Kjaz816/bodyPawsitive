@@ -108,14 +108,11 @@ const EditProfile = () => {
     return (
         <div >
             <TopNavigation/>
-            
-            <br />
             <button onClick={() =>   { window.location.href = `/` }} className="left-indication">
                 <img src={BackButton} className="navigation-button"></img>
                 <p className="navigation-text">Back</p>         
             </button>
-            <br />
-            <br />
+            <h2 className="add-edit-titles" style={{marginTop: 0, marginBottom: 5}}>Edit Profile</h2>
             <div className="edit-details-center">
                 <TextField 
                     style={{margin:15, color:"#1D7AC4"}}

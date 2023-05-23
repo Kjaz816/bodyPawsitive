@@ -109,6 +109,7 @@ const EditAnimal = () => {
                 <img src={BackButton} className="navigation-button"></img>
                 <p className="navigation-text">Back</p>         
             </button>
+            <h2 className="add-edit-titles" style={{marginTop: 0, marginBottom: 5, fontSize:40}}>Edit Animal Details</h2>
 
             <div className="edit-details-center" id="editAnimalFields">
                 <TextField

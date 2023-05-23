@@ -8,6 +8,7 @@ import ProfileExample from "../lib/icons/ProfileExample.svg";
 import "../styling/UserList.css";
 import { TextField } from "@mui/material";
 import BackButton from "../lib/icons/LeftIndicator.svg";
+import { ChangeEvent } from 'react';
 
 const UserList = () => {
 
@@ -30,6 +31,16 @@ const UserList = () => {
         getAllProfiles();
     }, []);
 
+    const [searchValue, setSearchValue] = useState('');
+
+    const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
+    };
+
+    const filteredUsers = users.filter((user) =>
+    `${user.firstName} ${user.lastName}`.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
     return (
         <div>
             <TopNavigation/>
@@ -43,30 +54,32 @@ const UserList = () => {
                             <h1 className="page-title-text">USERS</h1>
                             <h2 className="page-info-text">{`(` + users.length + ` USERS)`}</h2>
                             <div className="search-bar-container">
-                                <TextField
-                                    name="searchbar"
-                                    id="searchbar"
-                                    label="Search here"
-                                    variant="outlined"
-                                    margin="dense"
-                                    size="small"
-                                    fullWidth
-                                />
+                            <TextField
+                                name="searchbar"
+                                id="searchbar"
+                                label="Search here"
+                                variant="outlined"
+                                margin="dense"
+                                size="small"
+                                fullWidth
+                                value={searchValue}
+                                onChange={handleSearchInputChange}
+                            />
                             </div>
 
                         </div>
-            <div className="grid-container">
+                        <div className="grid-container">
                 <div className="grid">
-            {users.map((user) => (
-                <div key={user.username}>
-                    {user.username !== currentUser && (
+                    {filteredUsers.map((user) => (
+                    <div key={user.username}>
+                        {user.username !== currentUser && (
                         <div>
                             <button onClick={() => { window.location.href = `/Users/${user.username}` }} className="animal-card">
                             <div className="animal-photo-card">
                                 <img id="img" src={user.photo} className="animal-photo" />
                             </div>
                             <p className="animal-name">{user.firstName} {user.lastName}</p>
-                            <p className="animal-age">Username:{user.username}</p>
+                            <p className="animal-age">Username: {user.username}</p>
                             <p className="animal-age">Role: {user.permLevel}</p>
                             <p className="animal-age">Email: {user.email}</p>
                             </button>

@@ -6,6 +6,7 @@ import "../styling/grid.css";
 import { TextField } from "@mui/material";
 import BackButton from "../lib/icons/LeftIndicator.svg";
 import NextButton from "../lib/icons/RightIndicator.svg";
+import { ChangeEvent } from 'react';
 
 interface SignUpBody {
     username: string;
@@ -123,7 +124,20 @@ const OtherUserProfile = () => {
         setViewAssigns(!viewAssigns);
     }
 
+    const [searchValue, setSearchValue] = useState('');
 
+    const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+      setSearchValue(event.target.value);
+    };
+    
+    const filteredAnimals = profileDetails.animals.filter((animal) =>
+      animal.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
+    const filteredAssigns = assigns.filter((assign) =>
+    assign.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    
     return (
 
         <div className="page-container">
@@ -165,26 +179,28 @@ const OtherUserProfile = () => {
                                     margin="dense"
                                     size="small"
                                     fullWidth
+                                    value={searchValue}
+                                    onChange={handleSearchInputChange}
                                 />
-                            </div>
+                                </div>
 
                         </div>
 
 
 
-                                <div className="grid-container">
-                                    <div className="grid">
-                                        {profileDetails.animals.map((animal) => (
-                                            <div key={animal._id}>
-                                                <button onClick={() => { window.location.href = `/Users/${username}/animals/${animal._id}` }} className="animal-card">
-                                                    <div className="animal-photo-card">
-                                                        <img id="img" src={animal.photo} className="animal-photo" />
-                                                    </div>
-                                                    <p className="animal-name">{animal.name}</p>
-                                                    <p className="animal-age">Breed: {animal.age}</p>
-                                                    <p className="animal-breed">Age: {animal.breed}</p>
-                                                    <p className="animal-weight">Weight: {animal.weightData[0].weight} Kg</p>
-                                                </button>
+                        <div className="grid-container">
+                            <div className="grid">
+                                {filteredAnimals.map((animal) => (
+                                <div key={animal._id}>
+                                    <button onClick={() => { window.location.href = `/Users/${username}/animals/${animal._id}` }} className="animal-card">
+                                    <div className="animal-photo-card">
+                                        <img id="img" src={animal.photo} className="animal-photo" />
+                                    </div>
+                                    <p className="animal-name">{animal.name}</p>
+                                    <p className="animal-age">Breed: {animal.age}</p>
+                                    <p className="animal-breed">Age: {animal.breed}</p>
+                                    <p className="animal-weight">Weight: {animal.weightData[0].weight} Kg</p>
+                                    </button>
                                                 <br />
                                             </div>
                                         ))}
@@ -220,26 +236,27 @@ const OtherUserProfile = () => {
                                     margin="dense"
                                     size="small"
                                     fullWidth
+                                    value={searchValue}
+                                    onChange={handleSearchInputChange}
                                 />
-                            </div>
+                                </div>
 
                         </div>
 
 
-                                <div className="grid-container">
-                                    <div className="grid">
-                                {assigns.map((assign) =>
-                                    <div>
+                        <div className="grid-container">
+                            <div className="grid">
+                                    {filteredAssigns.map((assign) => (
+                                    <div key={assign.name}>
                                         <button onClick={() => { window.location.href = `/Users/${assign.name}` }} className="animal-card">
                                         <div className="animal-photo-card">
-                                                        <img id="img" src={assign.photo} className="animal-photo" />
-                                                    </div>
-
+                                            <img id="img" src={assign.photo} className="animal-photo" />
+                                        </div>
                                         <p className="animal-name">{assign.name}</p>
-                                            
                                         </button>
                                         <br />
-                                    </div>)}
+                                    </div>
+                                    ))}
                                     </div>
                                 </div>
 

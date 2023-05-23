@@ -41,3 +41,24 @@
     /* Add more styles as needed */
   }
   
+  .add-animal-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0%;
+  }
+  
+  .add-animal-columns > div {
+    width: 25%; /* Adjust the width as needed */
+  }
+    
+
+  .add-edit-titles {
+    /* Styles for the "choose item" button */
+    color: #1D7AC4;
+    display: flex;
+    font-size: 50px;
+    justify-content: center;
+    align-items: center;
+    }

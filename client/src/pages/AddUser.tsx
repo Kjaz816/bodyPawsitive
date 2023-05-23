@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { TextField, MenuItem } from '@mui/material';
 import * as api from "../apiControllers/userController";
 import { User } from "../models/userModel"
-
+import TopNavigation from "../components/TopNavigation";
+import BackButton from "../lib/icons/LeftIndicator.svg";
 
 const AddUser = () => {
     const [addUserError, setAddUserError] = useState("");
@@ -82,10 +83,17 @@ const AddUser = () => {
 
     return (
         <div>
-            <a href="/">Home</a>
-            <p>Add User</p>
-            <div id="addUserFields">
+            <TopNavigation/>
+
+            <button onClick={() =>   { window.location.href = `/` }} className="left-indication">
+                <img src={BackButton} className="navigation-button"></img>
+                <p className="navigation-text">Back</p>         
+            </button>
+
+            <h2 className="add-edit-titles">Add User</h2>
+            <div className="add-animal-columns" id="addUserFields">
                 <TextField
+                    style={{margin:15}}
                     name="username"
                     id="username"
                     label="Username"
@@ -95,6 +103,7 @@ const AddUser = () => {
                     onChange={handleChange}
                 />
                 <TextField
+                    style={{margin:15}}
                     name="firstName"
                     id="firstName"
                     label="First Name"
@@ -104,6 +113,7 @@ const AddUser = () => {
                     onChange={handleChange}
                 />
                 <TextField
+                    style={{margin:15}}
                     name="lastName"
                     id="lastName"
                     label="Last Name"
@@ -113,6 +123,7 @@ const AddUser = () => {
                     onChange={handleChange}
                 />
                 <TextField
+                    style={{margin:15}}
                     name="password"
                     id="password"
                     label="Password"
@@ -122,6 +133,7 @@ const AddUser = () => {
                     onChange={handleChange}
                 />
                 <TextField
+                    style={{margin:15}}
                     name="email"
                     id="email"
                     label="Email"
@@ -130,20 +142,9 @@ const AddUser = () => {
                     required
                     onChange={handleChange}
                 />
-                <input
-                    type="file"
-                    id="profile"
-                    name="photo"
-                    accept="image/png, image/jpeg"
-                    onChange={(event) => {
-                        if (!event.target.files) return;
-                        const file = event.target.files[0];
-                        setPreviewPicture(URL.createObjectURL(file));
-                        handleChange(event);
-                    }}
-                />
                 <TextField
                     select
+                    style={{margin:15}}
                     name="permLevel"
                     id="permLevel"
                     defaultValue={"volunteer"}
@@ -158,6 +159,7 @@ const AddUser = () => {
                     <MenuItem value="admin">Admin</MenuItem>
                 </TextField>
                 <TextField
+                    style={{margin:15}}
                     select
                     name="assignTo"
                     id="assignTo"
@@ -173,13 +175,31 @@ const AddUser = () => {
                     ))}
                 </TextField>
 
-                <br />
-                <div id="preview"></div>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop:15, marginBottom:15 }}>
+
+            <input
+                    className="input-style"
+                    type="file"
+                    id="profile"
+                    name="photo"
+                    accept="image/png, image/jpeg"
+                    onChange={(event) => {
+                        if (!event.target.files) return;
+                        const file = event.target.files[0];
+                        setPreviewPicture(URL.createObjectURL(file));
+                        handleChange(event);
+                    }}
+                />
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+            <button className="edit-profile-button" onClick={addUser}>Add User</button>
             </div>
 
 
-            <button onClick={addUser}>Add User</button>
-            {previewPicture && <img src={previewPicture} alt="Profile Image" className="previewImage" style={{ maxWidth: "500px", maxHeight: "500px" }} />}
             {addUserError && <p> {addUserError} </p>}
         </div>
 
