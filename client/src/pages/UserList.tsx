@@ -82,7 +82,7 @@ const UserList = () => {
                                 <p className="animal-age">Role: {user.permLevel}</p>
                                 <p className="animal-age">Email: {user.email}</p>
                             </button>
-                            <button className="send-messsage-button" onClick={() => { window.location.href = `/Chat/${user.username}` }}>Send a Message</button>
+                            <button className="send-messsage-button" onClick={() => { window.location.href = `/Chat/${user.username}` }}>{`>`} Send a Message</button>
                             </div>
                         )
                         ))}
