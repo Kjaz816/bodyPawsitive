@@ -97,12 +97,16 @@ const ViewAnimalWeight = () => {
 
     };
 
+    const [DefaultWeightState, setDefaultWeightState] = useState<boolean>(true);
     const [weightSucceeded, setWeightSucceeded] = useState<boolean>(false);
     const [fetchFinished, setFetchFinished] = useState<boolean>(false);
+    const [sleepState, setSleepState] = useState<boolean>(false);
 
     async function handleBeginWeighing() {
         let counter = 0;
-        setDisplay("Press Tare Button To Start Weighing")
+        setFetchFinished(false)
+        setDisplay("Press Tare Button To Start")
+        setDefaultWeightState(false)
         await api.setDefaultWeight();
 
         const interval = setInterval(async () => {
@@ -110,16 +114,23 @@ const ViewAnimalWeight = () => {
             const response = await api.getUploadedWeight() as Weightbody;
             console.log(response.status)
             counter++;
+            setDefaultWeightState(false)
             if (response.status === 'start') {
-                setDisplay("Weighing");
-            } else if (response.status === 'stable') {
+                setDisplay("Weighing....");
+                setSleepState(false)
+            }
+            else if(response.status === 'sleep'){
+                setSleepState(true)
+                setDisplay("The Pico is Sleeping");
+            }
+            else if (response.status === 'stable') {
                 setDisplay(response.weight + " Kg")
                 setWeight(response.weight)
                 setWeightSucceeded(true)
                 setFetchFinished(true)
             }
 
-            if (counter === 40 || response.status === 'stable') {
+            if (counter === 500 || response.status === 'stable') {
                 clearInterval(interval);
                 console.log('Finished weighing');
                 if (response.status != 'stable') {
@@ -134,7 +145,7 @@ const ViewAnimalWeight = () => {
         setTimeout(() => {
             clearInterval(interval);
             console.log('Finished weighing');
-        }, 20000);
+        }, 100000);
     }
 
 
@@ -194,25 +205,38 @@ const ViewAnimalWeight = () => {
                         <div className="scale-start-weighing">
                             <p id="start-weighing-text">{display}</p>
                         </div>
+                        {DefaultWeightState && (
+
                         <div className="scale-start-button-container">
                             <button onClick={handleBeginWeighing} className="scale-start-button">
                                 Begin
                             </button>
                         </div>
+
+                        )}
                         <div className="scale-instructions">
+                            {!sleepState && !fetchFinished && (
                             <p>
                                 To start weighing your pet, press the Begin button above. Then, press
                                 the button on the Pico before you place your pet on the scale.
                             </p>
+                            )}
+
+                            {sleepState && (
+                            <p>
+                                The Pico is currently sleeping. Tare to start weighing. 
+                            </p>
+                            )}
+
                             {fetchFinished && (
                                 <div>
                                     <p>
                                         Choose your action from the below button/s
                                     </p>
                                     {weightSucceeded && (
-                                        <button onClick={AddWeight} className="scale-add-weight-button" > Send Weight </button>
+                                        <button onClick={AddWeight} className="scale-start-button" > Send Weight </button>
                                     )}
-                                    <button onClick={handleBeginWeighing} className="scale-add-weight-button" > Weigh again </button>
+                                    <button onClick={handleBeginWeighing} className="scale-start-button" > Weigh again </button>
 
 
                                 </div>
