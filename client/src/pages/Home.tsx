@@ -193,7 +193,7 @@ const Home = () => {
 
                             <div className="home-page-contents-container">
                             <h1 className="page-title-text">DOGS</h1>
-                            <h2 className="page-info-text">{`(8 FURRY FRIENDS )`}</h2>
+                            <h2 className="page-info-text">{`(` + profileDetails.animals.length + ` FURRY FRIENDS)`}</h2>
                             <div className="search-bar-container">
                                 <TextField
                                     name="searchbar"
@@ -248,7 +248,7 @@ const Home = () => {
 
                             <div className="home-page-contents-container">
                             <h1 className="page-title-text">VOLUNTEERS</h1>
-                            <h2 className="page-info-text">{`(8 volunteers )`}</h2>
+                            <h2 className="page-info-text">{`(` + volunteers.length + ` volunteers)`}</h2>
                             <div className="search-bar-container">
                                 <TextField
                                     name="searchbar"

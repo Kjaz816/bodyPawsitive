@@ -130,7 +130,7 @@ const ViewAnimalWeight = () => {
                 setFetchFinished(true)
             }
 
-            if (counter === 500 || response.status === 'stable') {
+            if (counter === 1500 || response.status === 'stable') {
                 clearInterval(interval);
                 console.log('Finished weighing');
                 if (response.status != 'stable') {
@@ -145,7 +145,7 @@ const ViewAnimalWeight = () => {
         setTimeout(() => {
             clearInterval(interval);
             console.log('Finished weighing');
-        }, 100000);
+        }, 150000);
     }
 
 

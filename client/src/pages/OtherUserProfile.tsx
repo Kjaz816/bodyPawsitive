@@ -3,6 +3,9 @@ import * as api from "../apiControllers/userController";
 import * as assignApi from "../apiControllers/assignController";
 import TopNavigation from "../components/TopNavigation";
 import "../styling/grid.css";
+import { TextField } from "@mui/material";
+import BackButton from "../lib/icons/LeftIndicator.svg";
+import NextButton from "../lib/icons/RightIndicator.svg";
 
 interface SignUpBody {
     username: string;
@@ -26,6 +29,10 @@ interface SignUpBody {
     }[];
 }
 
+interface AssignBody{
+    name: string,
+    photo: string
+}
 const OtherUserProfile = () => {
 
     const url = window.location.href;
@@ -58,7 +65,12 @@ const OtherUserProfile = () => {
         ],
     });
 
-    const [assigns, setAssigns] = useState<string[]>([]);
+    const [assigns, setAssigns] = useState<AssignBody[]>([
+        {
+            name: "",
+            photo: ""
+        }
+    ]);
 
     const [viewAssigns, setViewAssigns] = useState<boolean>(false);
     const [viewPets, setViewPets] = useState<boolean>(false);
@@ -88,6 +100,7 @@ const OtherUserProfile = () => {
                 if (!data) {
                     return;
                 }
+                console.log(data);
                 setAssigns(data.volunteers);
             })
             .catch((error) => console.error(error));
@@ -99,7 +112,7 @@ const OtherUserProfile = () => {
     useEffect(() => {
         getProfile();
         getAssigns();
-        console.log(assigns)
+        console.log("assigns", assigns)
     }, []);
 
     const toggleViewPets = () => {
@@ -116,67 +129,120 @@ const OtherUserProfile = () => {
         <div className="page-container">
             <TopNavigation />
 
-            <a href="/Users">Back to Users</a>
-            <div id="profileInfo">
-                <h1>Profile</h1>
-                <img id="img" src={profileDetails.photo} className="profile-photo" />
-                <br></br>
-                <b>Username: </b> <p>{profileDetails.username}</p>
-                <b>First Name: </b> <p>{profileDetails.firstName}</p>
-                <b>Last Name: </b> <p>{profileDetails.lastName}</p>
-                <b>Permission Level: </b> <p>{profileDetails.permLevel}</p>
-                <b>Email: </b> <p>{profileDetails.email}</p>
-            </div>
-            <button onClick={() => { toggleViewPets() }}>View Pets</button>
-            {(sessionStorage.getItem("loggedInUserPermLevel") === "admin" || sessionStorage.getItem("loggedInUserPermLevel") === "vet") && profileDetails.permLevel !== "volunteer" && (
-                <button onClick={() => { toggleViewAssigns() }}>View Assigned Users</button>
-            )}
-            <button onClick={() => { window.location.href = `/Chat/${profileDetails.username}` }}>Send a Message</button>
-            {sessionStorage.getItem("loggedInUserPermLevel") === "admin" || sessionStorage.getItem("loggedInUserPermLevel") === "vet" && profileDetails.permLevel !== "admin" && (
-                <button onClick={() => { window.location.href = `/EditProfile/${username}` }}>Edit Profile</button>
-            )}
-            {viewPets && (
-                <div>
-                    <h1>Pets</h1>
+                    <div>
+                        <div className="profile-info-details-container">
+                            <div className="profile-image-container">
+                                <img className="profile-image" src={profileDetails.photo}/>
+                            </div>
+                            <div className="profile-details-container">
+                                <h1 className="name-text">{profileDetails.firstName} {'  '} {profileDetails.lastName}</h1>
+                                <p><b>Username:</b>{' '}{profileDetails.username}</p>
+                                <p><b>Role:</b>{' '}{profileDetails.permLevel}</p>
+                                <p><b>Email:</b>{' '}{profileDetails.email}</p>
+                            </div>
+                        </div>
+                        {profileDetails.permLevel === "volunteer" && (
+                            <div>
+                        <button onClick={() => { window.location.href = `/EditProfile/${profileDetails.username}` }} className="right-indication">
+                                            <img src={NextButton} className="navigation-button"></img>
+                                            <p className="navigation-text">Edit User</p>
+                        </button>
 
-                    <div className="grid-container">
-                        <div className="grid">
-                            {profileDetails.animals.map((animal) => (
-                                <div key={animal._id}>
-                                    <button onClick={() => { window.location.href = `/Users/${username}/animals/${animal._id}` }} className="animal-card">
-                                        <div className="animal-photo-card">
-                                            <img id="img" src={animal.photo} className="animal-photo" />
-                                        </div>
-                                        <p className="animal-name">{animal.name}</p>
-                                        <p className="animal-age">Breed: {animal.age}</p>
-                                        <p className="animal-breed">Age: {animal.breed}</p>
-                                        <p className="animal-weight">Weight: {animal.weightData[0].weight} Kg</p>
-                                    </button>
-                                    <br />
+                            <div className="home-page-contents-container">
+                            <h1 className="page-title-text">DOGS</h1>
+                            <h2 className="page-info-text">{`(` + profileDetails.animals.length + ` FURRY FRIENDS )`}</h2>
+                            <div className="search-bar-container">
+                                <TextField
+                                    name="searchbar"
+                                    id="searchbar"
+                                    label="Search here"
+                                    variant="outlined"
+                                    margin="dense"
+                                    size="small"
+                                    fullWidth
+                                />
+                            </div>
+
+                        </div>
+
+
+
+                                <div className="grid-container">
+                                    <div className="grid">
+                                        {profileDetails.animals.map((animal) => (
+                                            <div key={animal._id}>
+                                                <button onClick={() => { window.location.href = `/Users/${username}/animals/${animal._id}` }} className="animal-card">
+                                                    <div className="animal-photo-card">
+                                                        <img id="img" src={animal.photo} className="animal-photo" />
+                                                    </div>
+                                                    <p className="animal-name">{animal.name}</p>
+                                                    <p className="animal-age">Breed: {animal.age}</p>
+                                                    <p className="animal-breed">Age: {animal.breed}</p>
+                                                    <p className="animal-weight">Weight: {animal.weightData[0].weight} Kg</p>
+                                                </button>
+                                                <br />
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                            ))}
+
+                            </div>
+                        )}
+                        {profileDetails.permLevel === "vet" && (
+                            <div>
+                        <button onClick={() => { window.location.href = `/AddUser` }} className="right-indication">
+                        <img src={NextButton} className="navigation-button"></img>
+                             <p className="navigation-text">Add User</p>
+                        </button>
+                        <button onClick={() => { window.location.href = `/AddAnimal` }} className="right-indication-left">
+                                            <img src={NextButton} className="navigation-button"></img>
+                                            <p className="navigation-text">Add Animal</p>
+                        </button>
+                        <button onClick={() => { window.location.href = `/EditProfile/${profileDetails.username}` }} className="right-indication-left">
+                                            <img src={NextButton} className="navigation-button"></img>
+                                            <p className="navigation-text">Edit User</p>
+                        </button>
+
+                            <div className="home-page-contents-container">
+                            <h1 className="page-title-text">VOLUNTEERS</h1>
+                            <h2 className="page-info-text">{`(` + assigns.length + ` volunteers )`}</h2>
+                            <div className="search-bar-container">
+                                <TextField
+                                    name="searchbar"
+                                    id="searchbar"
+                                    label="Search here"
+                                    variant="outlined"
+                                    margin="dense"
+                                    size="small"
+                                    fullWidth
+                                />
+                            </div>
+
                         </div>
-                    </div>
-                </div>
-            )}
-            {viewAssigns && assigns.length !== 0 && (
-                <div>
-                    <h1>Assigned Users</h1>
-                    {assigns.map((assign) => (
-                        <div key={assign}>
-                            <a href={`/Users/${assign}`}>{assign}</a>
-                        </div>
-                    ))}
-
-                </div>
-            )}
-            {viewAssigns && assigns.length === 0 && (
-                <div>
-                    <p>No users assigned</p>
-                </div>
-            )}
 
 
+                                <div className="grid-container">
+                                    <div className="grid">
+                                {assigns.map((assign) =>
+                                    <div>
+                                        <button onClick={() => { window.location.href = `/Users/${assign.name}` }} className="animal-card">
+                                        <div className="animal-photo-card">
+                                                        <img id="img" src={assign.photo} className="animal-photo" />
+                                                    </div>
+
+                                        <p className="animal-name">{assign.name}</p>
+                                            
+                                        </button>
+                                        <br />
+                                    </div>)}
+                                    </div>
+                                </div>
+
+                                </div>) }
+
+
+
+                </div>
         </div>
     )
 }
