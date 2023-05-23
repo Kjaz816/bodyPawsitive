@@ -130,6 +130,11 @@ const OtherUserProfile = () => {
             <TopNavigation />
 
                     <div>
+            
+                            <button onClick={() =>   { window.location.href = `/Users` }} className="left-indication">
+                                <img src={BackButton} className="navigation-button"></img>
+                                <p className="navigation-text">Back</p>         
+                            </button>
                         <div className="profile-info-details-container">
                             <div className="profile-image-container">
                                 <img className="profile-image" src={profileDetails.photo}/>
