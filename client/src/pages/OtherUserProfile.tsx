@@ -131,7 +131,7 @@ const OtherUserProfile = () => {
 
                     <div>
             
-                            <button onClick={() =>   { window.location.href = `/Users` }} className="left-indication">
+                            <button onClick={() => { window.history.back(); }} className="left-indication">
                                 <img src={BackButton} className="navigation-button"></img>
                                 <p className="navigation-text">Back</p>         
                             </button>
