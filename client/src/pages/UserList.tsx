@@ -69,28 +69,25 @@ const UserList = () => {
 
                         </div>
                         <div className="grid-container">
-                <div className="grid">
-                    {filteredUsers.map((user) => (
-                    <div key={user.username}>
-                        {user.username !== currentUser && (
-                        <div>
+                    <div className="grid">
+                        {filteredUsers.map((user) => (
+                        user.username !== currentUser && (
+                            <div key={user.username}>
                             <button onClick={() => { window.location.href = `/Users/${user.username}` }} className="animal-card">
-                            <div className="animal-photo-card">
+                                <div className="animal-photo-card">
                                 <img id="img" src={user.photo} className="animal-photo" />
-                            </div>
-                            <p className="animal-name">{user.firstName} {user.lastName}</p>
-                            <p className="animal-age">Username: {user.username}</p>
-                            <p className="animal-age">Role: {user.permLevel}</p>
-                            <p className="animal-age">Email: {user.email}</p>
+                                </div>
+                                <p className="animal-name">{user.firstName} {user.lastName}</p>
+                                <p className="animal-age">Username: {user.username}</p>
+                                <p className="animal-age">Role: {user.permLevel}</p>
+                                <p className="animal-age">Email: {user.email}</p>
                             </button>
                             <button className="send-messsage-button" onClick={() => { window.location.href = `/Chat/${user.username}` }}>Send a Message</button>
-
-                        </div>
-                    )}
-                </div>
-            ))}
-            </div>
-        </div>
+                            </div>
+                        )
+                        ))}
+                    </div>
+                    </div>
         </div>
 
     )
