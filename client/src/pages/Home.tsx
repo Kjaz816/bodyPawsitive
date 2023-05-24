@@ -296,9 +296,9 @@ const Home = () => {
                             <p><b>Role:</b>{' '}{profileDetails.permLevel}</p>
                             <p><b>Email:</b>{' '}{profileDetails.email}</p>
                             {unseenChats && (
-                                <div>
+                                <div className="unseen-chat-container">
                                     <p><b>You have unread chats!</b></p>
-                                    <button onClick={() => { window.location.href = `/Chat` }} className="right-indication"> Go to Chats </button>
+                                    <button onClick={() => { window.location.href = `/Chat` }} className="unseen-button"> Go to Chats </button>
                                 </div>
                             )}
 

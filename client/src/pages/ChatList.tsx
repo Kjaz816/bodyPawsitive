@@ -71,7 +71,7 @@ const ChatList = () => {
                                         <img src={ProfileExample} className="profile-picture-img" style={{ width: "50px", height: "50px"}}></img>
                                     </div>
                                     <p className="chat-username">{otherUsername}</p>
-                                    {conversation.lastMessage.seen === false ? <p className="chat-unseen">Unseen</p> : <p className="chat-seen"></p>}
+                                    {conversation.lastMessage.seen === false ? <p className="chat-unseen">Unread Message</p> : <p className="chat-seen"></p>}
                                 </div>
                                 <button className="view-chat-button" onClick={() => { viewChat(otherUsername) }}>View Chat</button>
                             </div>
