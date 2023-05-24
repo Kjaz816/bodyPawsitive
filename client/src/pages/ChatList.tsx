@@ -4,6 +4,7 @@ import { Conversation } from "../models/conversationModel";
 import "../styling/ChatList.css";
 import BackButton from "../lib/icons/LeftIndicator.svg";
 import TopNavigation from "../components/TopNavigation";
+import ProfileExample from "../lib/icons/ProfileExample.svg";
 
 const ChatList = () => {
 
@@ -50,7 +51,7 @@ const ChatList = () => {
             </button>
 
             <div className="home-page-contents-container">
-                <h1 className="page-title-text" style={{ marginTop: 0, marginBottom: 30 }}>Chats</h1>
+                <h1 className="page-title-text" style={{marginTop: 0, marginBottom: 30}}>CHATS</h1>
                 {conversations.map((conversation) => {
                     // Find the index of the current user in the participants array
                     const currentUserIndex = username !== null ? conversation.participants.indexOf(username) : -1;
@@ -62,14 +63,17 @@ const ChatList = () => {
                     const otherUsername = conversation.participants[otherUserIndex];
 
                     return (
+
                         <div key={conversation.lastMessage.content} className="chat-list-container">
-                            <div className="conversation-container" >
-                                <div className="chat-user-container">
-                                    <img src=" " className="profile-picture-img"></img>
+                            <div className="conversation-container">
+                                <div className = "chat-user-container">
+                                    <div className="chat-user-photo">
+                                        <img src={ProfileExample} className="profile-picture-img" style={{ width: "50px", height: "50px"}}></img>
+                                    </div>
                                     <p className="chat-username">{otherUsername}</p>
                                     {conversation.lastMessage.seen === false ? <p className="chat-unseen">Unseen</p> : <p className="chat-seen"></p>}
                                 </div>
-                                <button onClick={() => { viewChat(otherUsername) }}>View Chat</button>
+                                <button className="view-chat-button" onClick={() => { viewChat(otherUsername) }}>View Chat</button>
                             </div>
                         </div>
                     );
