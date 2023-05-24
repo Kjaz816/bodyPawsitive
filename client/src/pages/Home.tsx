@@ -205,7 +205,7 @@ const Home = () => {
                             <div>
                         <button onClick={() => { window.location.href = `/EditProfile/${profileDetails.username}` }} className="right-indication">
                                             <img src={NextButton} className="navigation-button"></img>
-                                            <p className="navigation-text">Edit User</p>
+                                            <p className="navigation-text">Edit Profile</p>
                         </button>
 
                             <div className="home-page-contents-container">
@@ -261,9 +261,9 @@ const Home = () => {
                         </button>
                         <button onClick={() => { window.location.href = `/EditProfile/${profileDetails.username}` }} className="right-indication-left">
                                             <img src={NextButton} className="navigation-button"></img>
-                                            <p className="navigation-text">Edit User</p>
+                                            <p className="navigation-text">Edit Profile</p>
                         </button>
-
+                        
                             <div className="home-page-contents-container">
                             <h1 className="page-title-text">VOLUNTEERS</h1>
                             <h2 className="page-info-text">{`(` + volunteers.length + ` volunteers)`}</h2>

@@ -66,6 +66,7 @@ const EditProfile = () => {
             const photoBase64 = await fileToBase64(file);
             const photoString = (photoBase64 as string).toString().replace(/^data:image\/[a-z]+;base64,/, "");   // remove the file type prefix
             setProfileDetails((prevState) => ({ ...prevState, [name]: photoString }));
+            setPreviewPicture(URL.createObjectURL(file));
         } else {
             setProfileDetails((prevState) => ({ ...prevState, [name]: value }));
         }
@@ -103,7 +104,7 @@ const EditProfile = () => {
         getProfile();
     }, []);
 
-
+    const [previewPicture, setPreviewPicture] = useState<string>("");
 
     return (
         <div>
@@ -112,8 +113,8 @@ const EditProfile = () => {
                 <img src={BackButton} className="navigation-button"></img>
                 <p className="navigation-text">Back</p>         
             </button>
-            <h2 className="add-edit-titles" style={{marginTop: 0, marginBottom: 5}}>Edit Profile</h2>
             <div className="edit-details-center">
+                <h2 className="add-edit-titles" style={{marginTop: 0, marginBottom: 30}}>Edit Profile</h2>
                 <TextField 
                     style={{margin:15, color:"#1D7AC4"}}
                     className="text-field-box"
@@ -155,8 +156,10 @@ const EditProfile = () => {
                     onChange={handleChange}
                 />
 
+                <br />
                 <input className="input-style" type="file" id="changePhoto" name="photo" accept="image/*" onChange={handleChange} />
                 <p > {updateResponse} </p>
+                {previewPicture && <img src={previewPicture} alt="Profile Image" className="previewImage" style={{ maxWidth: "300px", maxHeight: "300px" }} />}
 
                 <button className="edit-profile-button" onClick={updateProfile}>Update Profile</button>
             </div>
