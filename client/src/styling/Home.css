@@ -2,6 +2,10 @@
     overflow-x: hidden;
 }
 
+.home-description {
+  font-family: "Nunito-Light";
+}
+
 .home-initial-container {
     display: flex;
     padding-left: 5%;
@@ -46,10 +50,54 @@
   }
 
   .log-in-navigation-container {
+    overflow: hidden; 
+    width: 30%;
+    height: 25%;
+    background-color: white;
+    border-radius: 20px;
+    padding: 2%;
+    padding-top: 4%;
+    margin-top: 5%;
     display: flex;
-    width:100%; 
-    margin-top: 8%; 
+    justify-content: center;
+    align-items: left;
   }
+
+  .sign-in-fields {
+    display: flex;
+    align-items: left;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-failed-message {
+  font-family: "Nunito-light";
+  color: red;
+  font-size: 14px;
+  margin: auto;
+}
+
+.login-button {
+  display: block;
+  margin: auto;
+  margin-top: 2%;
+  background-color: #1d7ac4;
+  color: white;
+  font-family: "Nunito-light";
+  font-size: 15px;
+  border: none;
+  height: 40px;
+  width: 150px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+.login-button:hover {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+}
+
   @keyframes spin {
     0% {
       transform: rotate(0deg);
@@ -66,24 +114,6 @@
     right:-38%;
     top: 8%;
     animation: spin 35s linear infinite; /* Adjust the animation duration for desired spinning speed */
-  }
-  
-.log-in-navigation-container button {
-    background-color: white;
-    text-decoration: none;
-    font-family: 'Nunito-Bold';
-    color: #1d7ac4;
-    font-size: 15px;
-    border: none;
-    height: 40px;
-    width: 120px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: box-shadow 0.2s;
-  }
-
-  .log-in-navigation-container button:hover {
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
   }
 
   a {

@@ -6,6 +6,7 @@ import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/userController";
 import "../styling/Profile.css";
+import { SignInBody } from "../models/signInModel";
 import * as assignApi from "../apiControllers/assignController";
 import NextButton from "../lib/icons/RightIndicator.svg";
 import { ChangeEvent } from 'react';
@@ -14,6 +15,7 @@ interface SignUpBody {
     username: string;
     firstName: string;
     lastName: string;
+    password: string;
     permLevel: string;
     email: string;
     photo: string;
@@ -52,6 +54,24 @@ const Home = () => {
         window.location.href = "/";
     }
 
+    const signIn = () => {
+        api.signIn(profileDetails)
+            .then((data) => {
+                sessionStorage.setItem("loggedInUser", data.username);
+                sessionStorage.setItem("loggedInUserPermLevel", data.permLevel);
+                window.location.href = "/";
+            })
+            .catch((error) => {
+                setLoginFailedMessage("Username or password is incorrect");
+                console.error(error);
+            });
+    };
+
+    const [loginFailedMessage, setLoginFailedMessage] = useState("");
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setProfileDetails((prevState) => ({ ...prevState, [name]: value }));
+    };
 
     interface volunteer {
         name: string;
@@ -83,6 +103,7 @@ const Home = () => {
         username: "",
         firstName: "",
         lastName: "",
+        password: "",
         permLevel: "",
         email: "",
         photo: "",
@@ -171,12 +192,39 @@ const Home = () => {
                 <div className="home-initial-container">
                     <div className="home-initial-contents-container">
                         <h1 className="home-title">Body Pawsitive</h1>
-                        <p>A scale interfacing tool that allows you to track,<br />
+                        <p className="description">A scale interfacing tool that allows you to track,<br />
                             weigh, and log details about your pet.</p>
                         <div className="log-in-navigation-container">
-                            <a href="/SignIn"><button>Log In</button></a>
-                            <br />
-                            <a href="/SignUp"><button>Sign Up</button></a>
+                            <div className = "sign-in-fields" id="signUpFields"> 
+                                <div>
+                                    <TextField
+                                        name="username"
+                                        id="username"
+                                        label="Username"
+                                        variant="outlined"
+                                        margin="dense"
+                                        size="small"
+                                        required
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div>
+                                    <TextField
+                                        name="password"
+                                        id="password"
+                                        label="Password"
+                                        variant="outlined"
+                                        margin="dense"
+                                        size="small"
+                                        required
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <p className="login-failed-message"> {loginFailedMessage} </p>
+                                <button className="login-button" onClick={signIn}>Log In</button>
+                                {/* <p className="login-failed-message">login failed</p> */}
+                                {/* <button className="login-button">Log In</button> */}
+                            </div>
                         </div>
                     </div>
                     <div className="home-logo-image-container">
