@@ -26,16 +26,31 @@ const ChatList = () => {
         getAllConversations();
     }, []);
 
+    const viewChat = (otherUsername: string) => {
+        if (username) {
+            api.setRead(username, otherUsername)
+                .then(() => {
+                    window.location.href = `/Chat/${otherUsername}`;
+                })
+                .catch((error) => {
+                    console.error(error);
+                }
+                );
+        } else {
+            window.location.href = "/Login";
+        }
+    }
+
     return (
         <div>
-            <TopNavigation/>
-            <button onClick={() =>   { window.location.href = `/` }} className="left-indication">
+            <TopNavigation />
+            <button onClick={() => { window.location.href = `/` }} className="left-indication">
                 <img src={BackButton} className="navigation-button"></img>
-                <p className="navigation-text">Back to Home</p>         
+                <p className="navigation-text">Back to Home</p>
             </button>
 
             <div className="home-page-contents-container">
-                <h1 className="page-title-text" style={{marginTop: 0, marginBottom: 30}}>Chats</h1>
+                <h1 className="page-title-text" style={{ marginTop: 0, marginBottom: 30 }}>Chats</h1>
                 {conversations.map((conversation) => {
                     // Find the index of the current user in the participants array
                     const currentUserIndex = username !== null ? conversation.participants.indexOf(username) : -1;
@@ -47,13 +62,14 @@ const ChatList = () => {
                     const otherUsername = conversation.participants[otherUserIndex];
 
                     return (
-                        <div className="chat-list-container">
-                            <div className="conversation-container" key={conversation.participants[0]}>
-                                <div className = "chat-user-container">
+                        <div key={conversation.lastMessage.content} className="chat-list-container">
+                            <div className="conversation-container" >
+                                <div className="chat-user-container">
                                     <img src=" " className="profile-picture-img"></img>
                                     <p className="chat-username">{otherUsername}</p>
+                                    {conversation.lastMessage.seen === false ? <p className="chat-unseen">Unseen</p> : <p className="chat-seen"></p>}
                                 </div>
-                            <button onClick={() => { window.location.href = `/Chat/${otherUsername}` }}>View Chat</button>
+                                <button onClick={() => { viewChat(otherUsername) }}>View Chat</button>
                             </div>
                         </div>
                     );

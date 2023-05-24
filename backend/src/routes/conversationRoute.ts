@@ -9,4 +9,8 @@ router.get("/getConversation/:sender/:receiver", conversationController.getConve
 
 router.get("/getConversations/:username", conversationController.getAllConversations);
 
+router.get("/getUnreadChats/:username", conversationController.getUnreadChats);
+
+router.get("/setRead/:username/:otherUser", conversationController.setRead);
+
 export default router;
