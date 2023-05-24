@@ -50,6 +50,7 @@ const EditAnimal = () => {
                 const photoBase64 = await fileToBase64(file);
                 const photoString = (photoBase64 as string).toString().replace(/^data:image\/[a-z]+;base64,/, "");   // remove the file type prefix
                 setAnimalDetails((prevState) => ({ ...prevState, [name]: photoString }));
+                setPreviewPicture(URL.createObjectURL(file));
                 return;
             }
             setAnimalDetails((prevState) => ({ ...prevState, [name]: value }));
@@ -100,6 +101,7 @@ const EditAnimal = () => {
         getAnimalDetails();
     }, []);
 
+    const [previewPicture, setPreviewPicture] = useState<string>("");
 
     return (
         <div>
@@ -158,28 +160,11 @@ const EditAnimal = () => {
                     onChange={handleChange}
                 />
 
+                <br />
                 <input className="input-style" type="file" id="photo" name="photo" accept="image/*" onChange={handleChange} />
+                {previewPicture && <img src={previewPicture} alt="Profile Image" className="previewImage" style={{ maxWidth: "300px", maxHeight: "300px", marginTop:20, marginBottom:20 }} />}
 
                 <button className="edit-profile-button" onClick={updateAnimal}>Save</button>
-
-                {/* <button onClick={() => setViewWeights(!viewWeights)}>View Weights</button>
-                {viewWeights && (
-                    <div>
-                        {animalDetails.weightData.map((weight) => (
-                            <div key={weight.id}>
-                                <p>Weight: {weight.weight}</p>
-                                <p>Date: {
-                                    new Date(weight.date).toLocaleDateString("en-NZ", {
-                                        timeZone: "Pacific/Auckland",
-                                        hour12: true,
-                                        hour: 'numeric',
-                                        minute: 'numeric',
-                                    })
-                                }</p>
-                            </div>
-                        ))}
-                    </div>
-                )} */}
 
             </div>
         </div>
