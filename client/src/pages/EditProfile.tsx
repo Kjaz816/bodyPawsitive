@@ -113,8 +113,9 @@ const EditProfile = () => {
                 <img src={BackButton} className="navigation-button"></img>
                 <p className="navigation-text">Back</p>         
             </button>
+            <h2 className="add-edit-titles" style={{marginTop: 0, marginBottom: 30}}>Edit Profile</h2>
             <div className="edit-details-center">
-                <h2 className="add-edit-titles" style={{marginTop: 0, marginBottom: 30}}>Edit Profile</h2>
+        
                 <TextField 
                     style={{margin:15, color:"#1D7AC4"}}
                     className="text-field-box"

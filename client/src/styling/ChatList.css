@@ -1,20 +1,8 @@
-.page-container-home {
-    height: 100vh; 
-    overflow: hidden; 
-}
-
-.page-title {
-    font-family: "Nunito-Bold";
-    font-size: 45px;
-    color: #1d7ac4;
-    margin-left: 45%;
-}
-
 .chat-list-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 95%;
+    width: 90%;
     height: 100%;
     overflow: hidden;
     padding: 5px;

@@ -75,13 +75,3 @@
     align-items: center;
     }
 
-  .add-edit-titles::before {
-    content: '';
-    position: absolute;
-    top: 12%;
-    left: 0;
-    width: 100%; /* Adjust the width as needed */
-    height: 0.5px;
-    background-color: #1D7AC4;
-    animation: borderAnimation 3s ease forwards;
-  }

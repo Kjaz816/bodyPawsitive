@@ -19,7 +19,7 @@
     display: block;
     align-items: center;
     margin-bottom: 0%;
-    margin-top:15%; 
+    margin-top:12%; 
     color: white;
     font-family: "Nunito-Regular";
     font-size: 20px;
@@ -81,7 +81,7 @@
 .login-button {
   display: block;
   margin: auto;
-  margin-top: 2%;
+  margin-top: 3%;
   background-color: #1d7ac4;
   color: white;
   font-family: "Nunito-light";

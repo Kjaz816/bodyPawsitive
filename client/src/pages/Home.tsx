@@ -216,6 +216,7 @@ const Home = () => {
                                         variant="outlined"
                                         margin="dense"
                                         size="small"
+                                        type="password"
                                         required
                                         onChange={handleChange}
                                     />
