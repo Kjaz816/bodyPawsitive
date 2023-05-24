@@ -4,7 +4,7 @@ import * as api from "../apiControllers/userController";
 import { User } from "../models/userModel"
 import "../styling/AddUser.css";
 import TopNavigation from "../components/TopNavigation";
-
+import BackButton from "../lib/icons/LeftIndicator.svg";
 
 const AddUser = () => {
     const [addUserError, setAddUserError] = useState("");
@@ -85,128 +85,124 @@ const AddUser = () => {
     return (
         <div>
             <TopNavigation/>
-            <a href="/">Home</a>
-            <div id="page-container-adduser">
-                <p className = "page-title-text">Add User</p>
-                <div className = "addUserFields">
-                    {addUserError && <p className = "add-user-error-message"> {addUserError} </p>}
-                    <div>
-                        <TextField
-                            name="username"
-                            id="username"
-                            label="Username"
-                            variant="outlined"
-                            margin="dense"
-                            size="small"
-                            required
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <TextField
-                            name="firstName"
-                            id="firstName"
-                            label="First Name"
-                            variant="outlined"
-                            margin="dense"
-                            size="small"
-                            required
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div> 
-                        <TextField
-                            name="lastName"
-                            id="lastName"
-                            label="Last Name"
-                            variant="outlined"
-                            margin="dense"
-                            size="small"
-                            required
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <TextField
-                            name="password"
-                            id="password"
-                            label="Password"
-                            variant="outlined"
-                            margin="dense"
-                            size="small"
-                            required
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <TextField
-                            name="email"
-                            id="email"
-                            label="Email"
-                            variant="outlined"
-                            margin="dense"
-                            size="small"
-                            required
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <input 
-                        className = "input-add-user"
-                        type="file"
-                        id="profile"
-                        name="photo"
-                        accept="image/png, image/jpeg"
-                        onChange={(event) => {
-                            if (!event.target.files) return;
-                            const file = event.target.files[0];
-                            setPreviewPicture(URL.createObjectURL(file));
-                            handleChange(event);
-                        }}
-                    />
-                    <div>
-                        <TextField
-                            select
-                            name="permLevel"
-                            id="permLevel"
-                            defaultValue={"volunteer"}
-                            label="Permission Level"
-                            variant="outlined"
-                            margin="dense"
-                            size="small"
-                            required
-                            onChange={handleChange}
-                        >
-                            <MenuItem value="volunteer">Volunteer</MenuItem>
-                            <MenuItem value="vet">Vet</MenuItem>
-                            <MenuItem value="admin">Admin</MenuItem>
-                        </TextField>
-                    </div>
-                    <div>
-                        <TextField
-                            select
-                            name="assignTo"
-                            id="assignTo"
-                            label="Assign To"
-                            variant="outlined"
-                            margin="dense"
-                            size="small"
-                            required
-                            defaultValue=''
-                            onChange={handleChange}
-                        >
-                            {volunteers.map((volunteer) => (
-                                <MenuItem key={volunteer.username} value={volunteer.username}>{volunteer.firstName} {volunteer.lastName}</MenuItem>
-                            ))}
-                        </TextField>
-                    </div>
-                    <br />
-                    <div id="preview">PREVIEW</div>
-                    <button onClick={addUser}>Add User</button>
 
-                </div>
+            <button onClick={() =>   { window.location.href = `/` }} className="left-indication">
+                <img src={BackButton} className="navigation-button"></img>
+                <p className="navigation-text">Back</p>         
+            </button>
+
+            <h2 className="add-edit-titles">Add User</h2>
+            <div className="add-animal-columns" id="addUserFields">
+                <TextField
+                    style={{margin:15}}
+                    name="username"
+                    id="username"
+                    label="Username"
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    onChange={handleChange}
+                />
+                <TextField
+                    style={{margin:15}}
+                    name="firstName"
+                    id="firstName"
+                    label="First Name"
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    onChange={handleChange}
+                />
+                <TextField
+                    style={{margin:15}}
+                    name="lastName"
+                    id="lastName"
+                    label="Last Name"
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    onChange={handleChange}
+                />
+                <TextField
+                    style={{margin:15}}
+                    name="password"
+                    id="password"
+                    label="Password"
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    onChange={handleChange}
+                />
+                <TextField
+                    style={{margin:15}}
+                    name="email"
+                    id="email"
+                    label="Email"
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    onChange={handleChange}
+                />
+                <TextField
+                    select
+                    style={{margin:15}}
+                    name="permLevel"
+                    id="permLevel"
+                    defaultValue={"volunteer"}
+                    label="Permission Level"
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    onChange={handleChange}
+                >
+                    <MenuItem value="volunteer">Volunteer</MenuItem>
+                    <MenuItem value="vet">Vet</MenuItem>
+                    <MenuItem value="admin">Admin</MenuItem>
+                </TextField>
+                <TextField
+                    style={{margin:15}}
+                    select
+                    name="assignTo"
+                    id="assignTo"
+                    label="Assign To"
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    defaultValue=''
+                    onChange={handleChange}
+                >
+                    {volunteers.map((volunteer) => (
+                        <MenuItem key={volunteer.username} value={volunteer.username}>{volunteer.firstName} {volunteer.lastName}</MenuItem>
+                    ))}
+                </TextField>
+
             </div>
 
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop:15, marginBottom:15 }}>
+
+            <input
+                    className="input-style"
+                    type="file"
+                    id="profile"
+                    name="photo"
+                    accept="image/png, image/jpeg"
+                    onChange={(event) => {
+                        if (!event.target.files) return;
+                        const file = event.target.files[0];
+                        setPreviewPicture(URL.createObjectURL(file));
+                        handleChange(event);
+                    }}
+                />
+
             {previewPicture && <img src={previewPicture} alt="Profile Image" className="previewImage" style={{ maxWidth: "400px", maxHeight: "400px" }} />}
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+            <button className="edit-profile-button" onClick={addUser}>Add User</button>
+            </div>
+
+            {addUserError && <p> {addUserError} </p>}
         </div>
     );
 }

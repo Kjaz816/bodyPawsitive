@@ -1,0 +1,12 @@
+.send-messsage-button{
+    font-family:'Nunito-Light';
+    font-size: 10px; 
+    color: #1D7AC4;  
+    background-color: transparent;
+    border-color: transparent;
+    border:0px; 
+    border-radius:20px; 
+    margin-left: 8%; 
+    margin-bottom:10%; 
+    cursor:pointer;
+}

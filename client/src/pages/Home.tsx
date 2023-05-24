@@ -8,6 +8,7 @@ import * as api from "../apiControllers/userController";
 import "../styling/Profile.css";
 import * as assignApi from "../apiControllers/assignController";
 import NextButton from "../lib/icons/RightIndicator.svg";
+import { ChangeEvent } from 'react';
 
 interface SignUpBody {
     username: string;
@@ -146,7 +147,23 @@ const Home = () => {
         setViewAssigned(!viewAssigned);
     }
 
-    
+    // Define a state variable for the search input value
+    const [searchValue, setSearchValue] = useState('');
+
+    // Filter the volunteers array based on the search input value
+    const filteredVolunteers = volunteers.filter((volunteer) =>
+    volunteer.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
+    const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(event.target.value);
+      };
+
+      const filteredDogs = profileDetails.animals.filter((animal) =>
+  animal.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
+
     return (
         <div>
             {!loggedInUser && (
@@ -193,7 +210,7 @@ const Home = () => {
 
                             <div className="home-page-contents-container">
                             <h1 className="page-title-text">DOGS</h1>
-                            <h2 className="page-info-text">{`(8 FURRY FRIENDS )`}</h2>
+                            <h2 className="page-info-text">{`(` + profileDetails.animals.length + ` FURRY FRIENDS)`}</h2>
                             <div className="search-bar-container">
                                 <TextField
                                     name="searchbar"
@@ -203,25 +220,27 @@ const Home = () => {
                                     margin="dense"
                                     size="small"
                                     fullWidth
+                                    value={searchValue}
+                                    onChange={handleSearchInputChange}
                                 />
-                            </div>
-
+                                </div>
                         </div>
 
 
-                                <div className="grid-container">
-                                    <div className="grid">
-                                        {profileDetails.animals.map((animal) => (
-                                            <div key={animal._id}>
-                                                <button onClick={() => { window.location.href = `/Users/${username}/animals/${animal._id}` }} className="animal-card">
-                                                    <div className="animal-photo-card">
-                                                        <img id="img" src={animal.photo} className="animal-photo" />
-                                                    </div>
-                                                    <p className="animal-name">{animal.name}</p>
-                                                    <p className="animal-age">Breed: {animal.age}</p>
-                                                    <p className="animal-breed">Age: {animal.breed}</p>
-                                                    <p className="animal-weight">Weight: {animal.weightData[0].weight} Kg</p>
-                                                </button>
+
+                        <div className="grid-container">
+                            <div className="grid">
+                                {filteredDogs.map((animal) => (
+                                <div key={animal._id}>
+                                    <button onClick={() => { window.location.href = `/Users/${username}/animals/${animal._id}` }} className="animal-card">
+                                    <div className="animal-photo-card">
+                                        <img id="img" src={animal.photo} className="animal-photo" />
+                                    </div>
+                                    <p className="animal-name">{animal.name}</p>
+                                    <p className="animal-age">Breed: {animal.age}</p>
+                                    <p className="animal-breed">Age: {animal.breed}</p>
+                                    <p className="animal-weight">Weight: {animal.weightData[0].weight} Kg</p>
+                                    </button>
                                                 <br />
                                             </div>
                                         ))}
@@ -247,7 +266,7 @@ const Home = () => {
 
                             <div className="home-page-contents-container">
                             <h1 className="page-title-text">VOLUNTEERS</h1>
-                            <h2 className="page-info-text">{`(8 volunteers )`}</h2>
+                            <h2 className="page-info-text">{`(` + volunteers.length + ` volunteers)`}</h2>
                             <div className="search-bar-container">
                                 <TextField
                                     name="searchbar"
@@ -257,30 +276,31 @@ const Home = () => {
                                     margin="dense"
                                     size="small"
                                     fullWidth
+                                    value={searchValue}
+                                    onChange={handleSearchInputChange}
                                 />
-                            </div>
+                                </div>
 
                         </div>
 
 
-                                <div className="grid-container">
-                                    <div className="grid">
-                                {volunteers.map((volunteer) =>
-                                    <div key={volunteer._id}>
-                                        <button onClick={() => { window.location.href = `/Users/${volunteer.name}` }} className="animal-card">
-                                        <div className="animal-photo-card">
-                                                        <img id="img" src={volunteer.photo} className="animal-photo" />
-                                                    </div>
-
-                                        <p className="animal-name">{volunteer.name}</p>
-                                            
-                                        </button>
-                                        <br />
-                                    </div>)}
+                        <div className="grid-container">
+                            <div className="grid">
+                                {filteredVolunteers.map((volunteer) => (
+                                <div key={volunteer._id}>
+                                    <button onClick={() => { window.location.href = `/Users/${volunteer.name}` }} className="animal-card">
+                                    <div className="animal-photo-card">
+                                        <img id="img" src={volunteer.photo} className="animal-photo" />
                                     </div>
+                                    <p className="animal-name">{volunteer.name}</p>
+                                    </button>
+                                    <br />
                                 </div>
+                                ))}
+                            </div>
+                            </div>
 
-                                </div>) }
+                     </div>) }
 
 
 

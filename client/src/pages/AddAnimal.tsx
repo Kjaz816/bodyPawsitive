@@ -2,6 +2,7 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 import * as api from "../apiControllers/userController";
 import TopNavigation from "../components/TopNavigation";
+import BackButton from "../lib/icons/LeftIndicator.svg";
 
 interface AddAnimalBody {
     name: string;
@@ -80,10 +81,14 @@ const AddAnimal = () => {
 
             <TopNavigation/>
 
-            <a href="/">Home</a>
-            <p>Add Animal</p>
-            <div id="signUpFields">
+            <button onClick={() =>   { window.location.href = `/` }} className="left-indication">
+                <img src={BackButton} className="navigation-button"></img>
+                <p className="navigation-text">Back</p>         
+            </button>
+            <h2 className="add-edit-titles">Add Animal</h2>
+            <div className="add-animal-columns" id="signUpFields">
                 <TextField
+                    style={{margin:15}}
                     name="name"
                     id="name"
                     label="Name"
@@ -93,6 +98,7 @@ const AddAnimal = () => {
                     onChange={handleChange}
                 />
                 <TextField
+                    style={{margin:15}}
                     name="species"
                     id="species"
                     label="Species"
@@ -102,6 +108,7 @@ const AddAnimal = () => {
                     onChange={handleChange}
                 />
                 <TextField
+                    style={{margin:15}}
                     name="breed"
                     id="breed"
                     label="Breed"
@@ -111,6 +118,7 @@ const AddAnimal = () => {
                     onChange={handleChange}
                 />
                 <TextField
+                    style={{margin:15}}
                     name="weight"
                     id="weight"
                     type="number"
@@ -121,6 +129,7 @@ const AddAnimal = () => {
                     onChange={handleChange}
                 />
                 <TextField
+                    style={{margin:15}}
                     name="age"
                     id="age"
                     type="number"
@@ -131,6 +140,7 @@ const AddAnimal = () => {
                     onChange={handleChange}
                 />
                 <TextField
+                    style={{margin:15}}
                     name="details"
                     id="details"
                     label="Details"
@@ -140,9 +150,8 @@ const AddAnimal = () => {
                     onChange={handleChange}
                 />
 
-                <input type="file" id="photo" name="photo" accept="image/*" onChange={handleChange} />
-            </div>
-            <TextField
+                <TextField
+                style={{margin:15}}
                 name="user"
                 id="user"
                 label="Assign to"
@@ -151,8 +160,14 @@ const AddAnimal = () => {
                 required
                 onChange={handleChange}
             />
-                
-            <button onClick={addAnimal}>Add Animal</button>
+
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop:15, marginBottom:15 }}>
+                <input className="input-style" type="file" id="photo" name="photo" accept="image/*" onChange={handleChange} />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <button style={{ marginBottom: 20 }} className="edit-profile-button" onClick={addAnimal}>Add Animal</button>
+            </div>
         </div>
     )
 }

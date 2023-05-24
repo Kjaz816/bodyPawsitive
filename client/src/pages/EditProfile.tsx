@@ -6,7 +6,6 @@ import TopNavigation from "../components/TopNavigation";
 import BackButton from "../lib/icons/LeftIndicator.svg";
 import "../styling/EditProfile.css";
 
-
 const EditProfile = () => {
     const url = window.location.href;
     const username = url.substring(url.lastIndexOf('/') + 1);
@@ -92,7 +91,7 @@ const EditProfile = () => {
             api.updateProfile(username, profileDetails)
                 .then((data) => {
                     setUpdateResponse(data.message);
-                    window.location.href = `/Users/${username}`;
+                    window.location.href = `/`;
                 })
                 .catch((error) => console.error(error));
         } else {
@@ -109,51 +108,57 @@ const EditProfile = () => {
     return (
         <div>
             <TopNavigation/>
-            <button onClick={() =>   { window.location.href = `/Users/${username}` }} className="left-indication">
-                    <img src={BackButton} className="navigation-button"></img>
-                    <p className="navigation-text">Back</p>         
-                </button>
-            <div className = "page-container-editprofile">
-                <div className="edit-fields">
-                    <TextField
-                        id="changeUsername"
-                        label="Username"
-                        variant="outlined"
-                        name="username"
-                        value={profileDetails.username || ''}
-                        onChange={handleChange}
-                    />
-                    <TextField
-                        id="changeFirstName"
-                        label="First Name"
-                        variant="outlined"
-                        name="firstName"
-                        value={profileDetails.firstName || ''}
-                        onChange={handleChange}
-                    />
-                    <TextField
-                        id="changeLastName"
-                        label="Last Name"
-                        variant="outlined"
-                        name="lastName"
-                        value={profileDetails.lastName || ''}
-                        onChange={handleChange}
-                    />
-                    <TextField
-                        id="changeEmail"
-                        label="Email"
-                        variant="outlined"
-                        name="email"
-                        value={profileDetails.email || ''}
-                        onChange={handleChange}
-                    />
+            <button onClick={() =>   { window.location.href = `/` }} className="left-indication">
+                <img src={BackButton} className="navigation-button"></img>
+                <p className="navigation-text">Back</p>         
+            </button>
+            <h2 className="add-edit-titles" style={{marginTop: 0, marginBottom: 5}}>Edit Profile</h2>
+            <div className="edit-details-center">
+                <TextField 
+                    style={{margin:15, color:"#1D7AC4"}}
+                    className="text-field-box"
+                    id="changeUsername"
+                    label="Username"
+                    variant="outlined"
+                    name="username"
+                    value={profileDetails.username || ''}
+                    onChange={handleChange}
+                />
+                <TextField
+                    style={{margin:15}}
+                    className="text-field-box"
+                    id="changeFirstName"
+                    label="First Name"
+                    variant="outlined"
+                    name="firstName"
+                    value={profileDetails.firstName || ''}
+                    onChange={handleChange}
+                />
+                <TextField
+                    style={{margin:15}}
+                    className="text-field-box"
+                    id="changeLastName"
+                    label="Last Name"
+                    variant="outlined"
+                    name="lastName"
+                    value={profileDetails.lastName || ''}
+                    onChange={handleChange}
+                />
+                <TextField
+                    style={{margin:15}}
+                    className="text-field-box"
+                    id="changeEmail"
+                    label="Email"
+                    variant="outlined"
+                    name="email"
+                    value={profileDetails.email || ''}
+                    onChange={handleChange}
+                />
 
-                    <input type="file" id="changePhoto" name="photo" accept="image/*" onChange={handleChange} />
-                    <p> {updateResponse} </p>
+                <input className="input-style" type="file" id="changePhoto" name="photo" accept="image/*" onChange={handleChange} />
+                <p > {updateResponse} </p>
 
-                    <button onClick={updateProfile}>Update Profile</button>
-                </div>
-
+                <button className="edit-profile-button" onClick={updateProfile}>Update Profile</button>
             </div>
         </div>
     );

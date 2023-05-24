@@ -1,18 +1,64 @@
-.page-container-editprofile {
-    overflow: hidden; 
-    display: flex;
-    height: 100vh;
-    background-color: white;
-    justify-content: center;
-}
-
-.edit-fields {
+.edit-details-center {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-    margin: auto;
     justify-content: center;
-}
+    align-items: center;
+    margin-top:0%; 
+  }
 
+  .edit-profile-button{
+  font-family:'Nunito-Light';
+  font-size: 15px; 
+  color: white;  
+  background-color: #1D7AC4;
+  border-color: transparent;
+  border:0px; 
+  border-radius:20px; 
+  width:150px; 
+  height:40px;
+  cursor:pointer;
+  margin-top: 1%;
+  }
 
+  .input-style {
+    /* Add your desired CSS properties here */
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    color: #333;
+    /* Add more styles as needed */
+  }
+
+  
+  .input-style[type="file"]::-webkit-file-upload-button {
+    /* Styles for the "choose item" button */
+    background-color: #1D7AC4; /* Replace with your desired color */
+    color: #fff;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    /* Add more styles as needed */
+  }
+  
+  .add-animal-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0%;
+  }
+  
+  .add-animal-columns > div {
+    width: 25%; /* Adjust the width as needed */
+  }
+    
+
+  .add-edit-titles {
+    /* Styles for the "choose item" button */
+    color: #1D7AC4;
+    display: flex;
+    font-size: 50px;
+    justify-content: center;
+    align-items: center;
+    }
