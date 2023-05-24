@@ -13,14 +13,29 @@
     border-radius: 20px;
 }
 
-.message-container {
+.sender-message-container {
     background-color: #1D7AC4;
     color: white;
     padding-top: 1%;
     padding-left: 2%;
+    padding-right: 2%;
+    margin-bottom: 1%;
+    margin-left: 54%;
+    border-radius: 20px;
+    width: 30%;
+    overflow-wrap: break-word;
+}
+
+.receiver-message-container {
+    background-color: lightgrey;
+    color: #1D7AC4;
+    padding-top: 1%;
+    padding-left: 2%;
+    padding-right: 2%;
     margin-bottom: 1%;
     border-radius: 20px;
     width: 30%;
+    overflow-wrap: break-word;
 }
 
 .send-container {

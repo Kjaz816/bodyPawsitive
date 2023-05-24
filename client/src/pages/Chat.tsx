@@ -60,6 +60,16 @@ const Chat = () => {
         }
     }
 
+    function getClassName(sender: string): string {
+        if (sender === username) {
+          return 'sender-message-container';
+        } else if (sender === chattingWith) {
+          return 'receiver-message-container';
+        } else {
+          return 'message-container';
+        }
+      }
+
     useEffect(() => {
         getMessages();
     }, []);
@@ -68,7 +78,6 @@ const Chat = () => {
         const { value } = event.target;
         setChatMessage(() => (value));
     };
-
 
     return (
         <div>
@@ -87,8 +96,8 @@ const Chat = () => {
             <div className = "chat-container">
                 <div>
                     {chatMessages?.messages?.map((message) => (
-                        <div className="message-container" key={message._id}>
-                            <p><b>Message Sender:</b> {message.sender}</p>
+                        <div className={getClassName(message.sender)} key={message._id}>
+                            <p><b>Sent by:</b> {message.sender}</p>
                             <p>{message.content}</p>
                             <p>{new Date(message.date).toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' })}</p>
                             <br />
