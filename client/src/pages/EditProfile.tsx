@@ -92,7 +92,7 @@ const EditProfile = () => {
             api.updateProfile(username, profileDetails)
                 .then((data) => {
                     setUpdateResponse(data.message);
-                    window.location.href = `/`;
+                    window.location.href = `/Users/${username}`;
                 })
                 .catch((error) => console.error(error));
         } else {

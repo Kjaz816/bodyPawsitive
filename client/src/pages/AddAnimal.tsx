@@ -56,6 +56,7 @@ const AddAnimal = () => {
             const photoBase64 = await fileToBase64(file);
             const photoString = (photoBase64 as string).toString().replace(/^data:image\/[a-z]+;base64,/, "");   // remove the file type prefix
             setAnimalDetails((prevState) => ({ ...prevState, [name]: photoString }));
+            setPreviewPicture(URL.createObjectURL(file));
             return;
         } 
             
@@ -76,6 +77,8 @@ const AddAnimal = () => {
         });
     }
 
+    const [previewPicture, setPreviewPicture] = useState<string>("");
+
     return (
         <div>
 
@@ -85,7 +88,7 @@ const AddAnimal = () => {
                 <img src={BackButton} className="navigation-button"></img>
                 <p className="navigation-text">Back</p>         
             </button>
-            <h2 className="add-edit-titles">Add Animal</h2>
+            <h2 className="add-edit-titles" style={{marginTop: 20, marginBottom: 30}}>Add Animal</h2>
             <div className="add-animal-columns" id="signUpFields">
                 <TextField
                     style={{margin:15}}
@@ -159,11 +162,13 @@ const AddAnimal = () => {
                 margin="normal"
                 required
                 onChange={handleChange}
-            />
-
+                />
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop:15, marginBottom:15 }}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop:40, marginBottom:20 }}>
                 <input className="input-style" type="file" id="photo" name="photo" accept="image/*" onChange={handleChange} />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop:20, marginBottom:20 }}>
+                {previewPicture && <img src={previewPicture} alt="Profile Image" className="previewImage" style={{ maxWidth: "300px", maxHeight: "300px" }} />}
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <button style={{ marginBottom: 20 }} className="edit-profile-button" onClick={addAnimal}>Add Animal</button>

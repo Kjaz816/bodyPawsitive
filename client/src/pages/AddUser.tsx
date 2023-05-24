@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { TextField, MenuItem } from '@mui/material';
 import * as api from "../apiControllers/userController";
 import { User } from "../models/userModel"
-import "../styling/AddUser.css";
 import TopNavigation from "../components/TopNavigation";
 import BackButton from "../lib/icons/LeftIndicator.svg";
 
@@ -91,7 +90,7 @@ const AddUser = () => {
                 <p className="navigation-text">Back</p>         
             </button>
 
-            <h2 className="add-edit-titles">Add User</h2>
+            <h2 className="add-edit-titles" style={{marginTop: 20, marginBottom: 30}}>Add User</h2>
             <div className="add-animal-columns" id="addUserFields">
                 <TextField
                     style={{margin:15}}
@@ -178,8 +177,7 @@ const AddUser = () => {
 
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop:15, marginBottom:15 }}>
-
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop:40, marginBottom:20 }}>
             <input
                     className="input-style"
                     type="file"
@@ -193,13 +191,14 @@ const AddUser = () => {
                         handleChange(event);
                     }}
                 />
+            </div>
 
-            {previewPicture && <img src={previewPicture} alt="Profile Image" className="previewImage" style={{ maxWidth: "400px", maxHeight: "400px" }} />}
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop:20, marginBottom:20}}>
+                {previewPicture && <img src={previewPicture} alt="Profile Image" className="previewImage" style={{ maxWidth: "300px", maxHeight: "300px" }} />}
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-
-            <button className="edit-profile-button" onClick={addUser}>Add User</button>
+                <button className="edit-profile-button" onClick={addUser}>Add User</button>
             </div>
 
             {addUserError && <p> {addUserError} </p>}

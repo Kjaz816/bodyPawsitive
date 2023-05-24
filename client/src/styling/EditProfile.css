@@ -41,9 +41,15 @@
     /* Styles for the "choose item" button */
     background-color: #1D7AC4; /* Replace with your desired color */
     color: #fff;
-    border-radius: 8px;
+    border-radius: 20px;
     border: none;
     cursor: pointer;
+    padding: 3%;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin: 1%;
+    margin-right: 5%;
+    font-family: 'Nunito-Light';
     /* Add more styles as needed */
   }
   
