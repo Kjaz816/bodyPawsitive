@@ -83,7 +83,7 @@ const Chat = () => {
         <div>
             <TopNavigation/>
             <div style={{display: 'flex'}}>
-                <button onClick={() =>   { window.location.href = `/Chat`}} className="left-indication">
+                <button onClick={() =>   { window.location.href = '/Chat'}} className="left-indication">
                     <img src={BackButton} className="navigation-button"></img>
                     <p className="navigation-text">Back to Chat</p>         
                 </button>
