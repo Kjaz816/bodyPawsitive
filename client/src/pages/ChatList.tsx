@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/conversationController";
 import { Conversation } from "../models/conversationModel";
-import TopNavigation from "../components/TopNavigation";
 import "../styling/ChatList.css";
+import TopNavigation from "../components/TopNavigation";
 
 const ChatList = () => {
 

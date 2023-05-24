@@ -1,11 +1,12 @@
-.page-container-signup {
+.page-container-adduser {
     overflow: hidden; 
     display: flex;
     height: 100vh;
     background-color: white;
+    font-family: "Nunito-Bold";
 }
 
-.sign-up-fields {
+.addUserFields {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,12 +15,12 @@
     justify-content: center;
 }
 
-.input-sign-up {
+.input-add-user {
     margin-left: 30px;
     margin-top: 20px;
 }
 
-.page-container-signup button {
+.page-container-adduser button {
     display: block;
     margin: auto;
     background-color: #1d7ac4;
@@ -35,11 +36,11 @@
     margin-top: 20px;
   }
 
-  .page-container-signup button:hover {
+  .page-container-adduser button:hover {
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
   }
 
-  .login-failed-message {
+  .add-user-error-message {
     font-family: "Nunito-light";
     color: red;
 }

@@ -4,6 +4,8 @@ import * as api from "../apiControllers/userController";
 import { User } from "../models/userModel";
 import TopNavigation from "../components/TopNavigation";
 import BackButton from "../lib/icons/LeftIndicator.svg";
+import "../styling/EditProfile.css";
+
 
 const EditProfile = () => {
     const url = window.location.href;
@@ -105,54 +107,53 @@ const EditProfile = () => {
 
 
     return (
-        <div >
+        <div>
             <TopNavigation/>
-            
-            <br />
             <button onClick={() =>   { window.location.href = `/Users/${username}` }} className="left-indication">
-                <img src={BackButton} className="navigation-button"></img>
-                <p className="navigation-text">Back</p>         
-            </button>
-            <br />
-            <br />
-            <div>
-                <TextField
-                    id="changeUsername"
-                    label="Username"
-                    variant="outlined"
-                    name="username"
-                    value={profileDetails.username || ''}
-                    onChange={handleChange}
-                />
-                <TextField
-                    id="changeFirstName"
-                    label="First Name"
-                    variant="outlined"
-                    name="firstName"
-                    value={profileDetails.firstName || ''}
-                    onChange={handleChange}
-                />
-                <TextField
-                    id="changeLastName"
-                    label="Last Name"
-                    variant="outlined"
-                    name="lastName"
-                    value={profileDetails.lastName || ''}
-                    onChange={handleChange}
-                />
-                <TextField
-                    id="changeEmail"
-                    label="Email"
-                    variant="outlined"
-                    name="email"
-                    value={profileDetails.email || ''}
-                    onChange={handleChange}
-                />
+                    <img src={BackButton} className="navigation-button"></img>
+                    <p className="navigation-text">Back</p>         
+                </button>
+            <div className = "page-container-editprofile">
+                <div className="edit-fields">
+                    <TextField
+                        id="changeUsername"
+                        label="Username"
+                        variant="outlined"
+                        name="username"
+                        value={profileDetails.username || ''}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        id="changeFirstName"
+                        label="First Name"
+                        variant="outlined"
+                        name="firstName"
+                        value={profileDetails.firstName || ''}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        id="changeLastName"
+                        label="Last Name"
+                        variant="outlined"
+                        name="lastName"
+                        value={profileDetails.lastName || ''}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        id="changeEmail"
+                        label="Email"
+                        variant="outlined"
+                        name="email"
+                        value={profileDetails.email || ''}
+                        onChange={handleChange}
+                    />
 
-                <input type="file" id="changePhoto" name="photo" accept="image/*" onChange={handleChange} />
-                <p> {updateResponse} </p>
+                    <input type="file" id="changePhoto" name="photo" accept="image/*" onChange={handleChange} />
+                    <p> {updateResponse} </p>
 
-                <button onClick={updateProfile}>Update Profile</button>
+                    <button onClick={updateProfile}>Update Profile</button>
+                </div>
+
             </div>
         </div>
     );

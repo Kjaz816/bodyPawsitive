@@ -209,7 +209,6 @@ const Home = () => {
                         </div>
 
 
-
                                 <div className="grid-container">
                                     <div className="grid">
                                         {profileDetails.animals.map((animal) => (
