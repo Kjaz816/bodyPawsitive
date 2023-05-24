@@ -211,6 +211,41 @@ const ViewAnimalWeight = () => {
                             <button onClick={handleBeginWeighing} className="scale-start-button">
                                 Begin
                             </button>
+                            <TextField
+                                name="location"
+                                type="string"
+                                id="location"
+                                label="Location"
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                onChange={handleChange}
+                                select >
+                                <option value="1">Auckland</option>
+                                <option value="2">Tauranga</option>
+                                <option value="3">Rotorua</option>
+                                <option value="4">Wellington</option>
+                                <option value="5">Dunedin</option>
+                                <option value="6">Christchurch</option>
+                                <option value="7">Hamilton</option>
+                                <option value="8">Palmerston North</option>
+                                <option value="9">Napier</option>
+                                <option value="10">New Plymouth</option>
+                                <option value="11">Whangarei</option>
+                                <option value="12">Invercargill</option>
+                                <option value="13">Nelson</option>
+                                <option value="14">Queenstown</option>
+                                <option value="15">Hastings</option>
+                                <option value="16">Greymouth</option>
+                                <option value="17">Timaru</option>
+                                <option value="18">Gisborne</option>
+                                <option value="19">Blenheim</option>
+                                <option value="20">Taupo</option>
+                                <option value="21">Whanganui</option>
+                                <option value="22">Masterton</option>
+                                <option value="23">Levin</option>
+                                <option value="24">Ashburton</option>
+                            </TextField>
                         </div>
 
                         )}
