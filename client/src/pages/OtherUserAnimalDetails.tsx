@@ -166,6 +166,7 @@ const OtherUserAnimalDetails = () => {
                     <p><span className="caption-bold">Breed:</span> <span className="details-text">{animalDetails.breed}</span></p>
                     <p><span className="caption-bold">Age:</span> <span className="details-text">{animalDetails.age}</span></p>
                     <p><span className="caption-bold">Details:</span> <span className="details-text">{animalDetails.details}</span></p>
+                    <p><span className="caption-bold">Vet Location:</span> <span className="details-text">Christchurch</span></p>
                     <p><span className="caption-bold">Weight:</span> <span className="details-text">{lastWeighedData.weight.toFixed(2)} Kg</span></p>
                     <p className="last-info"><span className="caption-bold">Last Weighed:</span> <span className="details-text">{formattedDate} at {formattedTime}</span></p>
 
