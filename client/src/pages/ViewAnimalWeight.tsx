@@ -6,6 +6,8 @@ import "../styling/ViewAnimalWeight.css";
 import BackButton from "../lib/icons/LeftIndicator.svg";
 import "../styling/AnimalDetails.css"
 import Scale from "../lib/assets/ScaleLong.png";
+import MenuItem from '@mui/material/MenuItem';
+import { styled } from '@mui/material/styles';
 
 interface AnimalDetailsBody {
     _id: string;
@@ -130,7 +132,7 @@ const ViewAnimalWeight = () => {
                 setFetchFinished(true)
             }
 
-            if (counter === 1500 || response.status === 'stable') {
+            if (counter === 150000 || response.status === 'stable') {
                 clearInterval(interval);
                 console.log('Finished weighing');
                 if (response.status != 'stable') {
@@ -196,9 +198,6 @@ const ViewAnimalWeight = () => {
                 </div>
                 <div className="weigh-scale-container">
                     <div className="weighing-scale-text-container">
-                        <div className="scale-title">
-                            <p>Weigh Your Pet</p>
-                        </div>
                         <div className="scale-caption">
                             <p>Weight</p>
                         </div>
@@ -208,44 +207,60 @@ const ViewAnimalWeight = () => {
                         {DefaultWeightState && (
 
                         <div className="scale-start-button-container">
+                            <TextField
+                                size="small"
+                                select
+                                style={{cursor: 'pointer', marginBottom:0, width:140}}
+                                className="dropdown-box"
+                                name="location"
+                                type="string"
+                                id="location"   
+                                label="Location"
+                                variant="outlined"
+                                margin="dense"
+                                required
+                                onChange={handleChange}
+                                InputLabelProps={{
+                                    style: {
+                                        color: "white", // Set the color of the input label text to white
+                                    },
+                                    
+                                }}
+                                SelectProps={{
+                                    style: {
+                                        color: "white", // Set the color of the select options text to white
+                                    },
+                                }}
+                                >
+
+                                <MenuItem value="1">Auckland</MenuItem>
+                                <MenuItem value="2">Tauranga</MenuItem>
+                                <MenuItem value="3">Rotorua</MenuItem>
+                                <MenuItem value="4">Wellington</MenuItem>
+                                <MenuItem value="5">Dunedin</MenuItem>
+                                <MenuItem value="6">Christchurch</MenuItem>
+                                <MenuItem value="7">Hamilton</MenuItem>
+                                <MenuItem value="8">Palmerston North</MenuItem>
+                                <MenuItem value="9">Napier</MenuItem>
+                                <MenuItem value="10">New Plymouth</MenuItem>
+                                <MenuItem value="11">Whangarei</MenuItem>
+                                <MenuItem value="12">Invercargill</MenuItem>
+                                <MenuItem value="13">Nelson</MenuItem>
+                                <MenuItem value="14">Queenstown</MenuItem>
+                                <MenuItem value="15">Hastings</MenuItem>
+                                <MenuItem value="16">Greymouth</MenuItem>
+                                <MenuItem value="17">Timaru</MenuItem>
+                                <MenuItem value="18">Gisborne</MenuItem>
+                                <MenuItem value="19">Blenheim</MenuItem>
+                                <MenuItem value="20">Taupo</MenuItem>
+                                <MenuItem value="21">Whanganui</MenuItem>
+                                <MenuItem value="22">Masterton</MenuItem>
+                                <MenuItem value="23">Levin</MenuItem>
+                                <MenuItem value="24">Ashburton</MenuItem>
+                            </TextField>
                             <button onClick={handleBeginWeighing} className="scale-start-button">
                                 Begin
                             </button>
-                            <TextField
-                                name="location"
-                                type="string"
-                                id="location"
-                                label="Location"
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                onChange={handleChange}
-                                select >
-                                <option value="1">Auckland</option>
-                                <option value="2">Tauranga</option>
-                                <option value="3">Rotorua</option>
-                                <option value="4">Wellington</option>
-                                <option value="5">Dunedin</option>
-                                <option value="6">Christchurch</option>
-                                <option value="7">Hamilton</option>
-                                <option value="8">Palmerston North</option>
-                                <option value="9">Napier</option>
-                                <option value="10">New Plymouth</option>
-                                <option value="11">Whangarei</option>
-                                <option value="12">Invercargill</option>
-                                <option value="13">Nelson</option>
-                                <option value="14">Queenstown</option>
-                                <option value="15">Hastings</option>
-                                <option value="16">Greymouth</option>
-                                <option value="17">Timaru</option>
-                                <option value="18">Gisborne</option>
-                                <option value="19">Blenheim</option>
-                                <option value="20">Taupo</option>
-                                <option value="21">Whanganui</option>
-                                <option value="22">Masterton</option>
-                                <option value="23">Levin</option>
-                                <option value="24">Ashburton</option>
-                            </TextField>
                         </div>
 
                         )}
