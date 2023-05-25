@@ -126,7 +126,7 @@ const ViewAnimalWeight = () => {
                 setDisplay("The Pico is Sleeping");
             }
             else if (response.status === 'stable') {
-                setDisplay(response.weight + " Kg")
+                setDisplay(response.weight.toFixed(2) + " Kg")
                 setWeight(response.weight)
                 setWeightSucceeded(true)
                 setFetchFinished(true)
@@ -188,7 +188,7 @@ const ViewAnimalWeight = () => {
                                 return (
                                     <div key={weightData.date.toString()}>
                                         <p className="weight-and-date">
-                                            <span className="weight-data-weight">{weightData.weight} Kg</span>
+                                            <span className="weight-data-weight">{weightData.weight.toFixed(2)} Kg</span>
                                             <span className="weight-data-date"> {formattedDate} at {formattedTime}</span>
                                         </p>
                                     </div>

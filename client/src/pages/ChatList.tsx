@@ -105,7 +105,7 @@ const ChatList = () => {
               <div className="conversation-container">
                 <div className="chat-user-container">
                   <div className="chat-user-photo">
-                    <img src={otherUserPicture} style={{maxWidth: "50px"}}/>
+                    <img src={otherUserPicture} style={{height:"50px", width:"50px", objectFit:"cover", borderRadius:"50%"}}/>
                   </div>
                   <p className="chat-username">{otherUsername}</p>
                   {conversation.lastMessage.seen === false ? <p className="chat-unseen">Unread Message</p> : <p className="chat-seen"></p>}
@@ -119,5 +119,11 @@ const ChatList = () => {
     </div>
   )
 }
+
+// border-radius: 50%;
+// height: 40px;
+// width: 40px;
+// margin-left:3%; 
+// object-fit: cover;
 
 export default ChatList;
