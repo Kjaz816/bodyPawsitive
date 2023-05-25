@@ -6,6 +6,8 @@ import "../styling/ViewAnimalWeight.css";
 import BackButton from "../lib/icons/LeftIndicator.svg";
 import "../styling/AnimalDetails.css"
 import Scale from "../lib/assets/ScaleLong.png";
+import MenuItem from '@mui/material/MenuItem';
+import { styled } from '@mui/material/styles';
 
 interface AnimalDetailsBody {
     _id: string;
@@ -97,12 +99,16 @@ const ViewAnimalWeight = () => {
 
     };
 
+    const [DefaultWeightState, setDefaultWeightState] = useState<boolean>(true);
     const [weightSucceeded, setWeightSucceeded] = useState<boolean>(false);
     const [fetchFinished, setFetchFinished] = useState<boolean>(false);
+    const [sleepState, setSleepState] = useState<boolean>(false);
 
     async function handleBeginWeighing() {
         let counter = 0;
-        setDisplay("Press Tare Button To Start Weighing")
+        setFetchFinished(false)
+        setDisplay("Press Tare Button To Start")
+        setDefaultWeightState(false)
         await api.setDefaultWeight();
 
         const interval = setInterval(async () => {
@@ -110,16 +116,23 @@ const ViewAnimalWeight = () => {
             const response = await api.getUploadedWeight() as Weightbody;
             console.log(response.status)
             counter++;
+            setDefaultWeightState(false)
             if (response.status === 'start') {
-                setDisplay("Weighing");
-            } else if (response.status === 'stable') {
-                setDisplay(response.weight + " Kg")
+                setDisplay("Weighing....");
+                setSleepState(false)
+            }
+            else if(response.status === 'sleep'){
+                setSleepState(true)
+                setDisplay("The Pico is Sleeping");
+            }
+            else if (response.status === 'stable') {
+                setDisplay(response.weight.toFixed(2) + " Kg")
                 setWeight(response.weight)
                 setWeightSucceeded(true)
                 setFetchFinished(true)
             }
 
-            if (counter === 40 || response.status === 'stable') {
+            if (counter === 150000 || response.status === 'stable') {
                 clearInterval(interval);
                 console.log('Finished weighing');
                 if (response.status != 'stable') {
@@ -134,7 +147,7 @@ const ViewAnimalWeight = () => {
         setTimeout(() => {
             clearInterval(interval);
             console.log('Finished weighing');
-        }, 20000);
+        }, 150000);
     }
 
 
@@ -175,7 +188,7 @@ const ViewAnimalWeight = () => {
                                 return (
                                     <div key={weightData.date.toString()}>
                                         <p className="weight-and-date">
-                                            <span className="weight-data-weight">{weightData.weight} Kg</span>
+                                            <span className="weight-data-weight">{weightData.weight.toFixed(2)} Kg</span>
                                             <span className="weight-data-date"> {formattedDate} at {formattedTime}</span>
                                         </p>
                                     </div>
@@ -185,34 +198,95 @@ const ViewAnimalWeight = () => {
                 </div>
                 <div className="weigh-scale-container">
                     <div className="weighing-scale-text-container">
-                        <div className="scale-title">
-                            <p>Weigh Your Pet</p>
-                        </div>
                         <div className="scale-caption">
                             <p>Weight</p>
                         </div>
                         <div className="scale-start-weighing">
                             <p id="start-weighing-text">{display}</p>
                         </div>
+                        {DefaultWeightState && (
+
                         <div className="scale-start-button-container">
+                            <TextField
+                                size="small"
+                                select
+                                style={{cursor: 'pointer', marginBottom:5, width:140}}
+                                className="dropdown-box"
+                                name="location"
+                                type="string"
+                                id="location"   
+                                label="Location"
+                                variant="outlined"
+                                margin="dense"
+                                required
+                                onChange={handleChange}
+                                InputLabelProps={{
+                                    style: {
+                                        color: "white", // Set the color of the input label text to white
+                                    },
+                                    
+                                }}
+                                SelectProps={{
+                                    style: {
+                                        color: "white", // Set the color of the select options text to white
+                                    },
+                                }}
+                                >
+
+                                <MenuItem value="1">Auckland</MenuItem>
+                                <MenuItem value="2">Tauranga</MenuItem>
+                                <MenuItem value="3">Rotorua</MenuItem>
+                                <MenuItem value="4">Wellington</MenuItem>
+                                <MenuItem value="5">Dunedin</MenuItem>
+                                <MenuItem value="6">Christchurch</MenuItem>
+                                <MenuItem value="7">Hamilton</MenuItem>
+                                <MenuItem value="8">Palmerston North</MenuItem>
+                                <MenuItem value="9">Napier</MenuItem>
+                                <MenuItem value="10">New Plymouth</MenuItem>
+                                <MenuItem value="11">Whangarei</MenuItem>
+                                <MenuItem value="12">Invercargill</MenuItem>
+                                <MenuItem value="13">Nelson</MenuItem>
+                                <MenuItem value="14">Queenstown</MenuItem>
+                                <MenuItem value="15">Hastings</MenuItem>
+                                <MenuItem value="16">Greymouth</MenuItem>
+                                <MenuItem value="17">Timaru</MenuItem>
+                                <MenuItem value="18">Gisborne</MenuItem>
+                                <MenuItem value="19">Blenheim</MenuItem>
+                                <MenuItem value="20">Taupo</MenuItem>
+                                <MenuItem value="21">Whanganui</MenuItem>
+                                <MenuItem value="22">Masterton</MenuItem>
+                                <MenuItem value="23">Levin</MenuItem>
+                                <MenuItem value="24">Ashburton</MenuItem>
+                            </TextField>
                             <button onClick={handleBeginWeighing} className="scale-start-button">
                                 Begin
                             </button>
                         </div>
+
+                        )}
                         <div className="scale-instructions">
+                            {!sleepState && !fetchFinished && (
                             <p>
                                 To start weighing your pet, press the Begin button above. Then, press
                                 the button on the Pico before you place your pet on the scale.
                             </p>
+                            )}
+
+                            {sleepState && (
+                            <p>
+                                The Pico is currently sleeping. Tare to start weighing. 
+                            </p>
+                            )}
+
                             {fetchFinished && (
                                 <div>
                                     <p>
                                         Choose your action from the below button/s
                                     </p>
                                     {weightSucceeded && (
-                                        <button onClick={AddWeight} className="scale-add-weight-button" > Send Weight </button>
+                                        <button onClick={AddWeight} className="scale-start-button" > Send Weight </button>
                                     )}
-                                    <button onClick={handleBeginWeighing} className="scale-add-weight-button" > Weigh again </button>
+                                    <button onClick={handleBeginWeighing} style={{marginLeft:10}}className="scale-start-button" > Weigh again </button>
 
 
                                 </div>

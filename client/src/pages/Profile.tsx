@@ -122,7 +122,7 @@ const Profile = () => {
     return (
 
         <div className="full-page-container">
-            {/* <TopNavigation />  */}
+            <TopNavigation /> 
 
             <div className="user-option-bar">
                 <a className="back" href="/">{'<- '}Back</a>
@@ -159,7 +159,7 @@ const Profile = () => {
                                 </div>
                             ))}
                         </div>
-                    </div>
+            </div>
 
             {profileDetails.permLevel === "admin" || profileDetails.permLevel === "vet" && ( // Only show the Add Animal button if the user is an admin
                 <button onClick={() => { window.location.href = "/AddAnimal" }}>Add Animal</button>

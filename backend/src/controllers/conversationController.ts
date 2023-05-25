@@ -33,11 +33,11 @@ export const sendMessage: RequestHandler<unknown, unknown, MessageBody, unknown>
     try {
         const conversation = await ConversationModel.findOne({
             $and: [
-              { participants: { $in: [sender] } },
-              { participants: { $in: [receiver] } },
-              { participants: { $size: 2 } }
+                { participants: { $in: [sender] } },
+                { participants: { $in: [receiver] } },
+                { participants: { $size: 2 } }
             ]
-          }).exec();
+        }).exec();
         if (conversation) {
             conversation.messages.push({
                 sender: sender,
@@ -86,22 +86,56 @@ export const getConversation: RequestHandler<{ sender: string, receiver: string 
         if (!conversation) {
             return res.status(400).json({ message: "Conversation does not exist!" });
         }
-        return res.status(200).json( conversation );
+        return res.status(200).json(conversation);
     } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }
 }
 
 export const getAllConversations: RequestHandler<{ username: string }, unknown, unknown, unknown> = async (req, res, next) => {
-    const username = req.params.username;  
+    const username = req.params.username;
     try {
         const conversations = await ConversationModel.find({ participants: { $in: [username] } }).exec();
         if (!conversations) {
             return res.status(400).json({ message: "No conversations found!" });
         }
-        return res.status(200).json( conversations );
+        return res.status(200).json(conversations);
     }
     catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
+    }
+}
+
+export const getUnreadChats: RequestHandler<{ username: string }, unknown, unknown, unknown> = async (req, res, next) => {
+    const username = req.params.username;
+    try {
+        const conversations = await ConversationModel.find({ participants: { $in: [username] }, "lastMessage.seen": false }).exec();
+        if (!conversations) {
+            return res.status(400).json({ message: "No conversations found!" });
+        }
+        return res.status(200).json(conversations);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
+    }
+}
+
+export const setRead: RequestHandler<{ username: string, otherUser: string }, unknown, unknown, unknown> = async (req, res, next) => {
+    const username = req.params.username;
+    const otherUser = req.params.otherUser;
+    try {
+        const conversation = await ConversationModel.findOne({ participants: { $all: [username, otherUser] } }).exec();
+        if (!conversation) {
+            return res.status(400).json({ message: "Conversation does not exist!" });
+        }
+        if (conversation.lastMessage) {
+        conversation.lastMessage.seen = true;
+        } else {
+            return res.status(400).json({ message: "Conversation does not exist!" });
+        }
+        const Update = await ConversationModel.findOneAndUpdate({ participants: { $all: [username, otherUser] } }, conversation, { new: true }).exec();
+        return res.status(200).json({ Update });
+    } catch (error) {
         res.status(500).json({ message: "Something went wrong!" });
     }
 }

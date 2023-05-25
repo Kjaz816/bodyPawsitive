@@ -26,4 +26,6 @@ router.post("/addAnimalWeight/:username/animals/:animalId", UserController.addAn
 router.post("/postWeight", UserController.uploadWeight)
 
 router.get("/getUploadedWeight" , UserController.getUploadedWeight)
+
+router.get("/getProfilePicture/:username", UserController.getProfilePicture)
 export default router;

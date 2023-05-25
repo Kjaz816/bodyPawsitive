@@ -2,6 +2,7 @@ import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/userController";
 import TopNavigation from "../components/TopNavigation";
+import BackButton from "../lib/icons/LeftIndicator.svg";
 
 const EditAnimal = () => {
 
@@ -49,6 +50,7 @@ const EditAnimal = () => {
                 const photoBase64 = await fileToBase64(file);
                 const photoString = (photoBase64 as string).toString().replace(/^data:image\/[a-z]+;base64,/, "");   // remove the file type prefix
                 setAnimalDetails((prevState) => ({ ...prevState, [name]: photoString }));
+                setPreviewPicture(URL.createObjectURL(file));
                 return;
             }
             setAnimalDetails((prevState) => ({ ...prevState, [name]: value }));
@@ -99,17 +101,21 @@ const EditAnimal = () => {
         getAnimalDetails();
     }, []);
 
+    const [previewPicture, setPreviewPicture] = useState<string>("");
 
     return (
         <div>
             <TopNavigation/>
             
-            <a href={`/Users/${username}`}>Back to {username}'s Profile</a>
-            <br />
-            <a href={`/Users/${username}/animals/${animalId}`}>Back to Animal</a>
-            <p>Edit Animal</p>
-            <div id="editAnimalFields">
+            <button onClick={() =>   { window.location.href = `/Users/${username}/animals/${animalId}` }} className="left-indication">
+                <img src={BackButton} className="navigation-button"></img>
+                <p className="navigation-text">Back</p>         
+            </button>
+            <h2 className="add-edit-titles" style={{marginTop: 0, marginBottom: 5, fontSize:40}}>Edit Animal Details</h2>
+
+            <div className="edit-details-center" id="editAnimalFields">
                 <TextField
+                    style={{margin:15}}
                     name="name"
                     id="name"
                     label="Name"
@@ -118,6 +124,7 @@ const EditAnimal = () => {
                     onChange={handleChange}
                 />
                 <TextField
+                    style={{margin:15}}
                     name="species"
                     id="species"
                     label="Species"
@@ -126,6 +133,7 @@ const EditAnimal = () => {
                     onChange={handleChange}
                 />
                 <TextField
+                    style={{margin:15}}
                     name="breed"
                     id="breed"
                     label="Breed"
@@ -134,6 +142,7 @@ const EditAnimal = () => {
                     onChange={handleChange}
                 />
                 <TextField
+                    style={{margin:15}}
                     name="age"
                     id="age"
                     label="Age"
@@ -142,6 +151,7 @@ const EditAnimal = () => {
                     onChange={handleChange}
                 />
                 <TextField
+                    style={{margin:15}}
                     name="details"
                     id="details"
                     label="Details"
@@ -150,27 +160,11 @@ const EditAnimal = () => {
                     onChange={handleChange}
                 />
 
-                <input type="file" id="photo" name="photo" accept="image/*" onChange={handleChange} />
+                <br />
+                <input className="input-style" type="file" id="photo" name="photo" accept="image/*" onChange={handleChange} />
+                {previewPicture && <img src={previewPicture} alt="Profile Image" className="previewImage" style={{ maxWidth: "300px", maxHeight: "300px", marginTop:20, marginBottom:20 }} />}
 
-                <button onClick={updateAnimal}>Edit Animal</button>
-                <button onClick={() => setViewWeights(!viewWeights)}>View Weights</button>
-                {viewWeights && (
-                    <div>
-                        {animalDetails.weightData.map((weight) => (
-                            <div key={weight.id}>
-                                <p>Weight: {weight.weight}</p>
-                                <p>Date: {
-                                    new Date(weight.date).toLocaleDateString("en-NZ", {
-                                        timeZone: "Pacific/Auckland",
-                                        hour12: true,
-                                        hour: 'numeric',
-                                        minute: 'numeric',
-                                    })
-                                }</p>
-                            </div>
-                        ))}
-                    </div>
-                )}
+                <button className="edit-profile-button" onClick={updateAnimal}>Save</button>
 
             </div>
         </div>

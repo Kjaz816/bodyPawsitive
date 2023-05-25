@@ -40,3 +40,26 @@ export const getConversations = async (username: string) => {
     const data = await response.json();
     return data;
 }
+
+export const getUnreadChats = async (username: string) => {
+    const response = await fetch(url + "/api/conversations/getUnreadChats/" + username, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    const data = await response.json();
+    return data;
+}
+
+export const setRead = async (username: string, otherUser: string) => {
+    const response = await fetch(url + "/api/conversations/setRead/" + username + "/" + otherUser, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    const data = await response.json();
+    return data;
+}
+

@@ -315,3 +315,16 @@ export const getUploadedWeight: RequestHandler<unknown, unknown, unknown, unknow
         res.status(500).json({ message: "Something went wrong!" });
     }
 }
+
+export const getProfilePicture: RequestHandler<{ username: string }, unknown, unknown, unknown> = async (req, res) => {
+    const username = req.params.username;
+    try {
+        const User = await UserModel.findOne({ username }).select({ password: 0 }).exec();
+        if (!User) {
+            return res.status(400).json({ message: "User does not exist!" });
+        }
+        res.status(200).json(User.photo);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong!" });
+    }
+}

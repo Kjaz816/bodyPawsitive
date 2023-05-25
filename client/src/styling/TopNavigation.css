@@ -53,9 +53,10 @@
 .profile-picture-img {
   border-radius: 50%;
   height: 40px;
+  width: 40px;
   margin-left:3%; 
+  object-fit: cover;
 }
-
 
 .profile-bar {
   display: flex;

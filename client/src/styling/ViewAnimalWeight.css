@@ -120,7 +120,7 @@
   
   .weighing-scale-text-container {
     position:absolute; 
-    top:18vh;
+    top:15vh;
     width:90%; 
   }
   
@@ -139,7 +139,7 @@
   .scale-caption{
     font-family:'Nunito-Light';
     font-size: 15px; 
-    margin-top:4%; 
+    margin-top:0%; 
     padding-bottom:10px; 
     color: white;    
     position: relative;
@@ -174,13 +174,17 @@
     border-radius:20px; 
     width:150px; 
     height:40px;
-    margin-top:2%; 
+    margin-top:1%; 
     cursor:pointer;
   } 
 
   .scale-start-button-container{
     padding-bottom:4%; 
     position: relative;
+    display:flex; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
   }
   
   .scale-start-button-container::after {

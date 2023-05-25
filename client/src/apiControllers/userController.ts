@@ -173,3 +173,14 @@ export const getUploadedWeight = async() => {
     const data = await response.json();
     return data;
 }
+
+export const getProfilePicture = async (username: string) => {
+    const response = await fetch(url + "/api/users/getProfilePicture/" + username, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    const data = await response.json();
+    return data;
+}

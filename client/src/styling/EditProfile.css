@@ -1,0 +1,77 @@
+.edit-details-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top:1%; 
+    font-family: "Nunito-Regular";
+  }
+
+  .edit-profile-button{
+  font-family:'Nunito-Light';
+  font-size: 15px; 
+  color: white;  
+  background-color: #1D7AC4;
+  border-color: transparent;
+  border:0px; 
+  height: 40px;
+  width: 150px;
+  border-radius: 20px;
+  cursor:pointer;
+  margin-top: 1%;
+  transition: box-shadow 0.2s;
+  }
+
+  .edit-profile-button:hover {
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .input-style {
+    /* Add your desired CSS properties here */
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    color: #333;
+    /* Add more styles as needed */
+  }
+
+  
+  .input-style[type="file"]::-webkit-file-upload-button {
+    /* Styles for the "choose item" button */
+    background-color: #1D7AC4; /* Replace with your desired color */
+    color: #fff;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    padding: 3%;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin: 1%;
+    margin-right: 5%;
+    font-family: 'Nunito-Light';
+    /* Add more styles as needed */
+  }
+  
+  .add-animal-columns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0%;
+  }
+  
+  .add-animal-columns > div {
+    width: 25%; /* Adjust the width as needed */
+  }
+    
+  .add-edit-titles {
+    /* Styles for the "choose item" button */
+    font-family: "Nunito-Bold";
+    color: #1D7AC4;
+    display: flex;
+    font-size: 50px;
+    justify-content: center;
+    align-items: center;
+    }
+
