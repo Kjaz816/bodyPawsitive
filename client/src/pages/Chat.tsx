@@ -97,9 +97,9 @@ const Chat = () => {
                 <div>
                     {chatMessages?.messages?.map((message) => (
                         <div className={getClassName(message.sender)} key={message._id}>
-                            <p><b>Sent by:</b> {message.sender}</p>
+                            <p style={{fontSize: 14, fontFamily: "Nunito-Light"}}>Sent by: {message.sender}</p>
                             <p>{message.content}</p>
-                            <p>{new Date(message.date).toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' })}</p>
+                            <p style={{fontSize: 12, fontFamily: "Nunito-Light"}}>{new Date(message.date).toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland' })}</p>
                             <br />
                         </div>
                     ))}
