@@ -62,3 +62,4 @@ export const setRead = async (username: string, otherUser: string) => {
     const data = await response.json();
     return data;
 }
+
