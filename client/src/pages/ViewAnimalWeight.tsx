@@ -123,7 +123,7 @@ const ViewAnimalWeight = () => {
             }
             else if(response.status === 'sleep'){
                 setSleepState(true)
-                setDisplay("The Pico is Sleeping");
+                setDisplay("The scale is sleeping");
             }
             else if (response.status === 'stable') {
                 setDisplay(response.weight.toFixed(2) + " Kg")
@@ -268,13 +268,13 @@ const ViewAnimalWeight = () => {
                             {!sleepState && !fetchFinished && (
                             <p>
                                 To start weighing your pet, press the Begin button above. Then, press
-                                the button on the Pico before you place your pet on the scale.
+                                the button on the scale before you place your pet on the scale.
                             </p>
                             )}
 
                             {sleepState && (
                             <p>
-                                The Pico is currently sleeping. Tare to start weighing. 
+                                The scale is currently sleeping. Tare to start weighing. 
                             </p>
                             )}
 
