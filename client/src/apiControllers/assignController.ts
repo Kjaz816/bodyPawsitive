@@ -1,4 +1,4 @@
-const deployed = false;
+const deployed = true;
 
 const url = deployed ? "https://bodypositive.onrender.com" : "";
 
