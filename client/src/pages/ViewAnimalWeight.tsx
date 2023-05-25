@@ -210,7 +210,7 @@ const ViewAnimalWeight = () => {
                             <TextField
                                 size="small"
                                 select
-                                style={{cursor: 'pointer', marginBottom:0, width:140}}
+                                style={{cursor: 'pointer', marginBottom:5, width:140}}
                                 className="dropdown-box"
                                 name="location"
                                 type="string"
@@ -286,7 +286,7 @@ const ViewAnimalWeight = () => {
                                     {weightSucceeded && (
                                         <button onClick={AddWeight} className="scale-start-button" > Send Weight </button>
                                     )}
-                                    <button onClick={handleBeginWeighing} className="scale-start-button" > Weigh again </button>
+                                    <button onClick={handleBeginWeighing} style={{marginLeft:10}}className="scale-start-button" > Weigh again </button>
 
 
                                 </div>
