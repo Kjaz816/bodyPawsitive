@@ -13,6 +13,7 @@ const AddUser = () => {
         api.createUser(profileDetails, assignTo)
             .then((data) => {
                 console.log(data);
+                window.location.href = `/`;
             })
             .catch((error) => {
                 setAddUserError("Username already exists");
