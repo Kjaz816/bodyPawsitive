@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import * as api from "../apiControllers/conversationController";
+import * as userApi from "../apiControllers/userController";
 import { Conversation } from "../models/conversationModel";
 import "../styling/ChatList.css";
 import BackButton from "../lib/icons/LeftIndicator.svg";
